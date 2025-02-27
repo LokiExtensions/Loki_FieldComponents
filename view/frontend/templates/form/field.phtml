@@ -1,0 +1,43 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
+use Yireo\LokiComponents\Factory\ViewModelFactory;
+use Yireo\LokiComponents\Util\Block\BlockRenderer;
+use Yireo\LokiComponents\Util\Block\CssClass;
+use Yireo\LokiComponents\Util\Block\TemplateRenderer;
+
+/** @var Template $block */
+/** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var TemplateRenderer $templateRenderer */
+/** @var BlockRenderer $blockRenderer */
+/** @var FieldViewModel $viewModel */
+
+$templateRenderer = $viewModelFactory->create(TemplateRenderer::class);
+$blockRenderer = $viewModelFactory->create(BlockRenderer::class);
+?>
+<div class="<?= $css('field w-auto relative') ?> <?= $viewModel->isRequired(
+) ? 'required' : 'optional' ?> <?= $viewModel->getFieldName() ?>">
+    <?= $block->getChildHtml('before') ?>
+
+    <?php if ($viewModel->showFieldLabel()): ?>
+        <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::form/field/label.phtml', ['alias' => 'label']) ?>
+    <?php endif; ?>
+
+    <div class="<?= $css('relative space-y-2 flex', 'field') ?>">
+        <?= $templateRenderer->html($block, $viewModel->getFieldTemplate(), $viewModel->getFieldData()) ?>
+
+        <div class="<?= $css('field-loader hidden absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
+            <?= $blockRenderer->html($block, 'loki-field-components.utils.loader-small') ?>
+        </div>
+
+        <?php if ($block->getHelpText()): ?>
+            <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::utils/help.phtml', ['alias' => 'help']) ?>
+        <?php endif; ?>
+    </div>
+
+    <?= $blockRenderer->html($block, 'loki-components.utils.local-messages') ?>
+    <?= $block->getChildHtml('after') ?>
+</div>

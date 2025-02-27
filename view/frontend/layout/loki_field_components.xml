@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
+    <update handle="loki_components"/>
+
+    <body>
+        <referenceContainer name="loki-component-types">
+            <block
+                name="loki-field-components.script.component-type.field"
+                template="Yireo_LokiFieldComponents::script/component-type/field-component-type.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="loki-components">
+            <block
+                name="loki-field-components.script.components.field-component"
+                template="Yireo_LokiFieldComponents::script/component/field-component.phtml"/>
+
+            <block
+                name="loki-field-components.script.components.toggle"
+                template="Yireo_LokiFieldComponents::script/component/toggle.phtml"/>
+        </referenceContainer>
+
+        <block
+            name="loki-field-components.utils.loader"
+            template="Yireo_LokiFieldComponents::utils/loader.phtml"/>
+
+        <block
+            name="loki-field-components.utils.loader-small"
+            template="Yireo_LokiFieldComponents::utils/loader-small.phtml">
+            <arguments>
+                <argument name="size" xsi:type="number">20</argument>
+            </arguments>
+        </block>
+
+        <block
+            name="loki-field-components.utils.loader-overlay"
+            template="Yireo_LokiFieldComponents::utils/loader-overlay.phtml">
+            <arguments>
+                <argument name="size" xsi:type="number">50</argument>
+            </arguments>
+        </block>
+
+        <block
+            name="loki-field-components.utils.required"
+            template="Yireo_LokiFieldComponents::utils/required.phtml"/>
+
+        <block name="loki-field-components.defaults.form.field">
+            <arguments>
+                <argument name="css_classes" xsi:type="array">
+                    <item name="block" xsi:type="array">
+                        <item name="grid" xsi:type="string">col-span-12 md:col-span-6</item>
+                    </item>
+                </argument>
+            </arguments>
+        </block>
+    </body>
+</page>

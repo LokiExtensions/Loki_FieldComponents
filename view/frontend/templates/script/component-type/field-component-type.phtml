@@ -1,0 +1,27 @@
+<script>
+    const LokiFieldComponentType = {
+        ...LokiComponentType,
+        field_name: '', // @todo: Rename to fieldName
+        valid: true,
+        disabled: false,
+        validators: [],
+        validationActions: {},
+        beforeSubmit() {
+        },
+        async submit() {
+            for ([key, callback] of Object.entries(this.validationActions)) {
+                const result = await callback.bind(this).call();
+                if (result === false) {
+                    return false;
+                }
+            }
+
+            this.beforeSubmit(); // @todo: Deprecate this in favor of validationActions
+            this.post();
+            this.afterSubmit();
+        },
+        afterSubmit() {
+            document.dispatchEvent(new CustomEvent('loki-components.component.update', {detail: {component:this}}));
+        },
+    };
+</script>

@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Yireo\LokiComponents\Util\Block\CssClass;
+use Yireo\LokiComponents\Util\Block\BlockRenderer;
+
+/** @var Template $block */
+/** @var CssClass $css */
+/** @var BlockRenderer $blockRenderer */
+$size = (int)$block->getSize();
+if (empty($size)) {
+    $size = 20;
+}
+?>
+<?= $blockRenderer->html($block,'loki-field-components.utils.loader', ['size' => $size]) ?>
