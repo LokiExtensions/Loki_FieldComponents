@@ -1,0 +1,44 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
+use Yireo\LokiComponents\Util\Block\CssClass;
+use Yireo\LokiComponents\Component\ComponentViewModelInterface;
+
+/** @var Template $block */
+/** @var ComponentViewModelInterface $viewModel */
+/** @var CssClass $css */
+/** @var FieldViewModel $viewModel */
+
+$viewModel = $block->getViewModel();
+?>
+<div class="<?= $css('relative inline-block w-11 h-5') ?>"
+     aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+     data-type="field">
+
+    <input
+        type="checkbox"
+        id="<?= $viewModel->getElementId() ?>-field-input"
+        x-model="value"
+        @change="submit"
+        value="<?= $viewModel->getValue() ?>"
+        <?php if ($viewModel->getValue() === true): ?>
+            checked
+        <?php endif; ?>
+        <?php if ($viewModel->isDisabled()): ?>
+            disabled="disabled"
+        <?php endif ?>
+        class="<?= $css('peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-slate-800 cursor-pointer transition-colors duration-300', 'input') ?>"
+    />
+
+    <div
+        class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+    <label class="inline-flex items-center cursor-pointer">
+
+    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"><?= __(
+            $viewModel->getInputLabel()
+        ) ?></span>
+    </label>
+
+</div>

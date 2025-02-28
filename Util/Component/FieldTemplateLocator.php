@@ -45,6 +45,7 @@ class FieldTemplateLocator
             'radio' => 'Yireo_LokiFieldComponents::form/field/radio.phtml',
             'checkbox' => 'Yireo_LokiFieldComponents::form/field/checkbox.phtml',
             'select' => 'Yireo_LokiFieldComponents::form/field/select.phtml',
+            'switch' => 'Yireo_LokiFieldComponents::form/field/switch.phtml',
         ];
     }
 
