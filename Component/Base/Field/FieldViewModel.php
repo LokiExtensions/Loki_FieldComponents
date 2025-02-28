@@ -83,7 +83,7 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
 
     public function getInputLabel(): string
     {
-        return '';
+        return (string)$this->getBlock()->getInputLabel();
     }
 
     public function isRequired(): bool
