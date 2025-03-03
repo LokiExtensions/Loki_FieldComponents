@@ -1,0 +1,31 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
+use Yireo\LokiComponents\Util\Block\CssClass;
+
+/** @var Template $block */
+/** @var Template $fieldBlock */
+/** @var FieldViewModel $viewModel */
+/** @var CssClass $css */
+
+$fieldBlock = $block->getFieldBlock();
+$viewModel = $block->getViewModel();
+?>
+<input
+    aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+    data-type="field"
+    x-ref="field"
+    x-model.lazy="value"
+    @change="submit"
+    <?php if ($viewModel->isDisabled()): ?>
+        disabled="disabled"
+    <?php endif ?>
+    <?php if ($viewModel->hasAutocomplete()): ?>
+        autocomplete="<?= $viewModel->getAutocomplete() ?>"
+    <?php endif ?>
+    <?= $viewModel->isRequired() ? 'required' : '' ?>
+    type="file"
+    class="<?= $css('form-input w-full disabled:bg-zinc-100') ?>"
+>

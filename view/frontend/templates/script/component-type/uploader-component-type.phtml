@@ -1,0 +1,49 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Yireo\LokiComponents\Config\Config;
+use Yireo\LokiComponents\Factory\ViewModelFactory;
+use Yireo\LokiComponents\Util\ComponentUtil;
+
+/** @var Template $block */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var Config $config */
+/** @var ComponentUtil $componentUtil */
+
+$config = $viewModelFactory->create(Config::class);
+$componentUtil = $viewModelFactory->create(ComponentUtil::class);
+?>
+<script>
+    const LokiUploaderComponentType = {
+        ...LokiComponentType,
+        async submit() {
+            const url = new URL('<?= $componentUtil->getPostUrl(
+            ) ?>?form_key=' + LokiComponentFormKey + '&isAjax=true');
+            const formData = new FormData(form);
+
+            await fetch(url, {
+                method: 'post',
+                mode: 'same-origin',
+                headers: {
+                    'X-Alpine-Request': true,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                },
+                body: formData,
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text()
+                    }
+
+                    LokiComponentsLogger.error('Upload error', response);
+                    throw new Error(response.statusText);
+                })
+                .catch(error => {
+                    this.addGlobalMessage('error', error);
+                })
+            ;
+        }
+    };
+</script>
