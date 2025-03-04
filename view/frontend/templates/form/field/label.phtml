@@ -2,14 +2,14 @@
 declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
+use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
 use Yireo\LokiFieldComponents\Config\Config;
 use Yireo\LokiComponents\Util\Block\BlockRenderer;
 use Yireo\LokiComponents\Util\Block\CssClass;
-use Yireo\LokiComponents\Component\ComponentViewModel;
 use Yireo\LokiComponents\Factory\ViewModelFactory;
 
 /** @var Template $block */
-/** @var ComponentViewModel $viewModel */
+/** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
 /** @var ViewModelFactory $viewModelFactory */
@@ -17,13 +17,25 @@ use Yireo\LokiComponents\Factory\ViewModelFactory;
 
 $config = $viewModelFactory->create(Config::class);
 $viewModel = $block->getViewModel();
+$isLabel = false === in_array($viewModel->getFieldType(), ['radio']); // @todo: Move this to the ViewModel
 ?>
-<label
-    for="<?= $viewModel->getElementId() ?>-field"
-    class="<?= $css('inline-block mt-2 md:mt-0 mb-1.5') ?>">
-    <?= __($viewModel->getFieldLabel()) ?>
+<?php if ($isLabel): ?>
+    <label
+        for="<?= $viewModel->getElementId() ?>-field"
+        class="<?= $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        <?= __($viewModel->getFieldLabel()) ?>
 
-    <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
-        <?= $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
-    <?php endif; ?>
-</label>
+        <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
+            <?= $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
+        <?php endif; ?>
+    </label>
+<?php else: ?>
+    <span class="<?= $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        <?= __($viewModel->getFieldLabel()) ?>
+
+        <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
+            <?= $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
+        <?php endif; ?>
+    </span>
+
+<?php endif; ?>

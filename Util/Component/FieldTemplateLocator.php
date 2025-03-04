@@ -6,8 +6,28 @@ use Magento\Framework\View\Element\AbstractBlock;
 use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModelInterface;
 use Yireo\LokiFieldComponents\Util\OptionModelInterface;
 
+// @todo: Rename this to FieldType
 class FieldTemplateLocator
 {
+    public function getFieldTypeFromViewModel(FieldViewModelInterface $viewModel): string
+    {
+        $block = $viewModel->getBlock();
+        if (false === $block instanceof AbstractBlock) {
+            return 'text';
+        }
+
+        $fieldType = $block->getFieldType();
+        if ($fieldType === 'text_select') {
+            $fieldType = $this->getFieldTypeFromTextSelect($block);
+        }
+
+        if (array_key_exists($fieldType, $this->getFieldTemplateMapping())) {
+            return $fieldType;
+        }
+
+        return 'text';
+    }
+
     public function getFieldTemplateFromViewModel(FieldViewModelInterface $viewModel): string
     {
         $block = $viewModel->getBlock();
@@ -20,16 +40,8 @@ class FieldTemplateLocator
             return $fieldTemplate;
         }
 
-        $fieldType = $block->getFieldType();
-        if ($fieldType === 'text_select') {
-            $fieldType = $this->getFieldTemplateFromTextSelect($block);
-        }
-
-        if (array_key_exists($fieldType, $this->getFieldTemplateMapping())) {
-            return $this->getFieldTemplateByType($fieldType);
-        }
-
-        return $this->getFieldTemplateByType('text');
+        $fieldType = $this->getFieldTypeFromViewModel($viewModel);
+        return $this->getFieldTemplateByType($fieldType);
     }
 
     public function getFieldTemplateByType(string $type): string
@@ -54,7 +66,7 @@ class FieldTemplateLocator
      * @return string
      * @todo: Allow for multiple field template locators
      */
-    private function getFieldTemplateFromTextSelect(AbstractBlock $block): string
+    private function getFieldTypeFromTextSelect(AbstractBlock $block): string
     {
         $viewModel = $block->getViewModel();
         $optionModel = $block->getOptionModel();
