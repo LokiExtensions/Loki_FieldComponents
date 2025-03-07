@@ -83,6 +83,11 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
 
     public function getInputType(): string
     {
+        $inputType = (string)$this->getBlock()->getInputType();
+        if (!empty($inputType)) {
+            return $inputType;
+        }
+
         return 'text';
     }
 

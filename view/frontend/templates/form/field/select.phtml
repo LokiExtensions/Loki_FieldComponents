@@ -17,6 +17,11 @@ if (false === $optionModel instanceof OptionModelInterface) {
     return;
 }
 
+$ancestorBlock = $viewModel->getBlock();
+$multiple = (bool) $ancestorBlock->getMultiple();
+$size = (int) $ancestorBlock->getSize();
+$autocomplete = (bool) $ancestorBlock->getAutocomplete();
+
 // @todo: Check disabled state
 // @todo: Check aria-busy
 ?>
@@ -29,6 +34,15 @@ if (false === $optionModel instanceof OptionModelInterface) {
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"
     <?php endif ?>
+    <?php if ($multiple): ?>
+        multiple
+    <?php endif; ?>
+    <?php if ($size > 0): ?>
+        size="<?= $size ?>"
+    <?php endif; ?>
+    <?php if ($autocomplete): ?>
+        autocomplete="<?= $autocomplete ?>"
+    <?php endif; ?>
     <?= $viewModel->isRequired() ? 'required' : '' ?>
     class="<?= $css('form-select w-full disabled:bg-zinc-100') ?>"
 >
