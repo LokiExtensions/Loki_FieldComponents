@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
     <update handle="loki_components"/>
 
     <body>
@@ -52,5 +53,15 @@
                 </argument>
             </arguments>
         </block>
+
+        <!--
+        @todo: Fix error about Mask not being there yet
+        <referenceBlock name="script-alpine-js">
+            <block
+                name="loki-components.alpine-plugin-mask"
+                template="Yireo_LokiFieldComponents::script/alpine-mask.phtml"
+            />
+        </referenceBlock>
+        -->
     </body>
 </page>

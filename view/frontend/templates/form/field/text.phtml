@@ -10,8 +10,11 @@ use Yireo\LokiComponents\Util\Block\CssClass;
 /** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
 
-$fieldBlock = $block->getFieldBlock();
+// @todo: Rename this template to input.phtml
+
+$fieldBlock = $block->getFieldBlock(); // @todo $fieldBlock is empty?
 $viewModel = $block->getViewModel();
+$mask = $viewModel->getBlock()->getInputMask();
 ?>
 <input
     aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
@@ -22,6 +25,9 @@ $viewModel = $block->getViewModel();
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"
     <?php endif ?>
+    <?php if ($mask): ?>
+        x-mask="<?= $mask ?>"
+    <?php endif; ?>
     <?php if ($viewModel->hasAutocomplete()): ?>
         autocomplete="<?= $viewModel->getAutocomplete() ?>"
     <?php endif ?>

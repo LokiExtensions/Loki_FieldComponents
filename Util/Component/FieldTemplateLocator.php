@@ -58,6 +58,8 @@ class FieldTemplateLocator
             'checkbox' => 'Yireo_LokiFieldComponents::form/field/checkbox.phtml',
             'select' => 'Yireo_LokiFieldComponents::form/field/select.phtml',
             'switch' => 'Yireo_LokiFieldComponents::form/field/switch.phtml',
+            'range' => 'Yireo_LokiFieldComponents::form/field/range.phtml',
+            'password' => 'Yireo_LokiFieldComponents::form/field/password.phtml',
         ];
     }
 
