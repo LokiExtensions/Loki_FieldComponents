@@ -56,12 +56,13 @@
 
         <!--
         @todo: Fix error about Mask not being there yet
+                -->
+
         <referenceBlock name="script-alpine-js">
             <block
                 name="loki-components.alpine-plugin-mask"
                 template="Yireo_LokiFieldComponents::script/alpine-mask.phtml"
             />
         </referenceBlock>
-        -->
     </body>
 </page>
