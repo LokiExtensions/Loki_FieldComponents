@@ -12,39 +12,58 @@ use Yireo\LokiComponents\Util\Block\CssClass;
 
 $fieldBlock = $block->getFieldBlock(); // @todo $fieldBlock is empty?
 $viewModel = $block->getViewModel();
-$mask = $viewModel->getBlock()->getInputMask();
+$ancestorBlock = $viewModel->getBlock();
+$mask = $ancestorBlock->getInputMask(); // @todo: Move to Field class
+$inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
+
+// @todo: Move inputPrefix HTML to separate template
 ?>
-<input
-    aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
-    data-type="field"
-    x-ref="field"
-    x-model.lazy="value"
-    @change="submit"
-    <?php if ($viewModel->isDisabled()): ?>
-        disabled="disabled"
-    <?php endif ?>
-    <?php if ($mask): ?>
-        x-mask="<?= $mask ?>"
+<div class="w-full flex">
+    <?php if ($inputPrefix): ?>
+        <div class="<?= $css('', 'input_prefix') ?>">
+            <?php if (str_ends_with($inputPrefix, '.svg')): ?>
+            <img
+                src="<?= $block->getViewFileUrl($inputPrefix); ?>"
+                class="<?= $css('', 'input_prefix_icon') ?>"
+                alt=""
+            >
+            <?php else: ?>
+            <?= $inputPrefix ?>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
-    <?php if ($viewModel->hasAutocomplete()): ?>
-        autocomplete="<?= $viewModel->getAutocomplete() ?>"
-    <?php endif ?>
-    <?php if ($viewModel->hasMinLength()): ?>
-        minlength="<?= $viewModel->getMinLength() ?>"
-    <?php endif ?>
-    <?php if ($viewModel->hasMaxLength()): ?>
-        maxlength="<?= $viewModel->getMaxLength() ?>"
-    <?php endif ?>
-    <?php if ($viewModel->hasMin()): ?>
-        min="<?= $viewModel->getMin() ?>"
-    <?php endif ?>
-    <?php if ($viewModel->hasMax()): ?>
-        max="<?= $viewModel->getMax() ?>"
-    <?php endif ?>
-    <?php if ($viewModel->getPlaceholder()): ?>
-        placeholder="<?= __($viewModel->getPlaceholder()) ?>"
-    <?php endif ?>
-    <?= $viewModel->isRequired() ? 'required' : '' ?>
-    type="<?= $viewModel->getInputType() ?>"
-    class="<?= $css('form-input w-full disabled:bg-zinc-100') ?>"
->
+    <input
+        aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+        data-type="field"
+        x-ref="field"
+        x-model.lazy="value"
+        @change="submit"
+        <?php if ($viewModel->isDisabled()): ?>
+            disabled="disabled"
+        <?php endif ?>
+        <?php if ($mask): ?>
+            x-mask="<?= $mask ?>"
+        <?php endif; ?>
+        <?php if ($viewModel->hasAutocomplete()): ?>
+            autocomplete="<?= $viewModel->getAutocomplete() ?>"
+        <?php endif ?>
+        <?php if ($viewModel->hasMinLength()): ?>
+            minlength="<?= $viewModel->getMinLength() ?>"
+        <?php endif ?>
+        <?php if ($viewModel->hasMaxLength()): ?>
+            maxlength="<?= $viewModel->getMaxLength() ?>"
+        <?php endif ?>
+        <?php if ($viewModel->hasMin()): ?>
+            min="<?= $viewModel->getMin() ?>"
+        <?php endif ?>
+        <?php if ($viewModel->hasMax()): ?>
+            max="<?= $viewModel->getMax() ?>"
+        <?php endif ?>
+        <?php if ($viewModel->getPlaceholder()): ?>
+            placeholder="<?= __($viewModel->getPlaceholder()) ?>"
+        <?php endif ?>
+        <?= $viewModel->isRequired() ? 'required' : '' ?>
+        type="<?= $viewModel->getInputType() ?>"
+        class="<?= $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
+    >
+</div>
