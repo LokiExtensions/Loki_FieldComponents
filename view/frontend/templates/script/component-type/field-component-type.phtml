@@ -9,6 +9,7 @@
         beforeSubmit() {
         },
         async submit() {
+            console.log(this.validationActions);
             for ([key, callback] of Object.entries(this.validationActions)) {
                 const result = await callback.bind(this).call();
                 if (result === false) {
