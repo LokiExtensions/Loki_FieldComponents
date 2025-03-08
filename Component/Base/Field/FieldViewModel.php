@@ -48,7 +48,7 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
     {
         return [
             ...parent::getJsData(),
-            'field_name' => $this->getFieldName(),
+            'fieldName' => $this->getFieldName(),
         ];
     }
 
