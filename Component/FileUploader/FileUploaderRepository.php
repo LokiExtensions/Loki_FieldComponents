@@ -21,6 +21,7 @@ class FileUploaderRepository extends FieldRepository
 
     public function getValue(): mixed
     {
+        return false;
     }
 
     public function saveValue(mixed $value): void
