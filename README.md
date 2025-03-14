@@ -2,8 +2,6 @@
 
 **This is the package for Loki FieldComponents, as is being used by the Loki Checkout suite.**
 
-Current status: Stable
-
 ## Installation
 Install this package via composer (assuming you have setup the `composer.yireo.com` repository correctly already):
 ```bash
