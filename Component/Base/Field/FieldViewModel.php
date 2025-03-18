@@ -101,6 +101,11 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         return false;
     }
 
+    public function getHelpText(): string
+    {
+        return (string)$this->getBlock()->getHelpText();
+    }
+
     public function isDisabled(): bool
     {
         return (bool)$this->getBlock()->getDisabled();
