@@ -11,7 +11,7 @@ if (!$size) {
     $size = 20;
 }
 
-$text = $block->getAncestorBlock()->getHelpText();
+$text = $block->getHelpText();
 ?>
 <div class="<?= $css('relative') ?>" x-data="LokiToggle" x-cloak>
     <button type="button" @click="toggle">
@@ -23,6 +23,6 @@ $text = $block->getAncestorBlock()->getHelpText();
     </button>
 
     <div x-cloak x-show="show" class="<?= $css('absolute z-50 right-0 w-100 p-3 bg-zinc-400 text-white', 'popup') ?>">
-        <?= $text ?>
+        <?= __($text) ?>
     </div>
 </div>

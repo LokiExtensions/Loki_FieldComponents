@@ -34,7 +34,10 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         </div>
 
         <?php if ($viewModel->getHelpText()): ?>
-            <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::utils/help.phtml', ['alias' => 'help']) ?>
+            <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::utils/help.phtml', [
+                'alias' => 'help',
+                'help_text' => $viewModel->getHelpText()
+            ]) ?>
         <?php endif; ?>
     </div>
 
