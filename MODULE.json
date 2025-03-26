@@ -1,0 +1,11 @@
+{
+    "modules": [
+        "Magento_Backend",
+        "Magento_Customer",
+        "Yireo_LokiComponents"
+    ],
+    "components": [],
+    "config": {
+        "yireo_loki_field_components\/fields\/use_required_block": "Use required block"
+    }
+}
