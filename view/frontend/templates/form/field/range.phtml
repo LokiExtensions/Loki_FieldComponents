@@ -34,6 +34,7 @@ $viewModel = $block->getViewModel();
     <?php endif ?>
     <?= $viewModel->isRequired() ? 'required' : '' ?>
     type="range"
+    id="<?= $viewModel->getFieldId() ?>"
     class="<?= $css('disabled:bg-zinc-100') ?>"
 >
     <?php if ($viewModel->hasMax()): ?>

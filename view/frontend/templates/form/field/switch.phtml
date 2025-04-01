@@ -29,6 +29,7 @@ $viewModel = $block->getViewModel();
         <?php if ($viewModel->isDisabled()): ?>
             disabled="disabled"
         <?php endif ?>
+        id="<?= $viewModel->getFieldId() ?>"
         class="<?= $css('peer hidden', 'input') ?>"
     />
 

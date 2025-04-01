@@ -28,6 +28,7 @@ $viewModel = $block->getViewModel();
         <?php if ($viewModel->isDisabled()): ?>
             disabled="disabled"
         <?php endif ?>
+        id="<?= $viewModel->getFieldId() ?>"
         class="<?= $css('form-checkbox disabled:bg-zinc-100', 'input') ?>"
     />
     <label

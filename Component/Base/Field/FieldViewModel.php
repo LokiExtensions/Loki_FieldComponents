@@ -39,9 +39,14 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
     public function getFieldData(): array
     {
         return [
-            'alias' => 'field',
+            'alias' => 'field-container',
             'css_classes' => $this->getBlock()->getCssClasses(),
         ];
+    }
+
+    public function getFieldId(): string
+    {
+        return $this->getElementId().'-field';
     }
 
     public function getJsData(): array

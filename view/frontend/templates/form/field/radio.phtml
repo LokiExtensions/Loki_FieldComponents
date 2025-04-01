@@ -25,6 +25,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
         <div class="<?= $css('pb-4', 'option') ?>">
             <input
+                data-type="field"
                 type="radio"
                 id="<?= $viewModel->getElementId() ?>-field-<?= $i ?>"
                 x-model="value"
@@ -36,6 +37,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
                 <?php if ($viewModel->isDisabled()): ?>
                     disabled="disabled"
                 <?php endif ?>
+                id="<?= $viewModel->getFieldId() ?>"
             />
             <label
                 class="<?= $css('pl-2', 'label') ?>"

@@ -64,6 +64,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         <?php endif ?>
         <?= $viewModel->isRequired() ? 'required' : '' ?>
         type="<?= $viewModel->getInputType() ?>"
+        id="<?= $viewModel->getFieldId() ?>"
         class="<?= $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
     >
 </div>
