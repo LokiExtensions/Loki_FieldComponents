@@ -6,6 +6,14 @@
         disabled: false,
         validators: [],
         validationActions: {},
+        initActions: {
+            ...LokiComponentType.initActions,
+            watchDisabledState() {
+                this.$watch('loading', () => {
+                    this.disabled = this.loading;
+                });
+            }
+        },
         beforeSubmit() {
         },
         async submit() {
