@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
+use Yireo\LokiComponents\Util\Block\ChildRenderer;
+use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
 use Yireo\LokiFieldComponents\ViewModel\ImageOutput;
 use Yireo\LokiComponents\Factory\ViewModelFactory;
 use Yireo\LokiComponents\Util\Block\CssClass;
@@ -9,16 +11,19 @@ use Yireo\LokiFieldComponents\Util\ButtonInterface;
 
 /** @var Template $block */
 /** @var ViewModelFactory $viewModelFactory */
-/** @var ButtonInterface $viewModel */
+/** @var ButtonInterface|FieldViewModel $viewModel */
 /** @var CssClass $css */
 /** @var ImageOutput $imageOutput */
+/** @var ChildRenderer $childRenderer */
 
 ?>
 <div class="<?= $css('') ?>">
     <button class="<?= $css('btn btn-secondary m-2', 'button') ?>"
             type="button"
+            id="<?= $viewModel->getFieldId() ?>-button"
             :disabled="disabled"
             @click="submit">
+        <?= $childRenderer->html($block, 'icon'); ?>
         <?= __((string)$viewModel->getButtonLabel()) ?>
     </button>
 </div>
