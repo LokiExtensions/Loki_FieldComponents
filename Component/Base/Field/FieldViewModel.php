@@ -53,6 +53,7 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
     {
         return [
             ...parent::getJsData(),
+            'disabled' => $this->isDisabled(),
             'fieldName' => $this->getFieldName(),
         ];
     }

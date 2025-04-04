@@ -38,9 +38,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         x-ref="field"
         x-model.lazy="value"
         @change="submit"
-        <?php if ($viewModel->isDisabled()): ?>
-            disabled="disabled"
-        <?php endif ?>
+        :disabled="disabled"
         <?php if ($mask): ?>
             x-mask="<?= $mask ?>"
         <?php endif; ?>
