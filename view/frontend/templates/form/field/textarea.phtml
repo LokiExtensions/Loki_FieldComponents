@@ -42,5 +42,5 @@ $viewModel = $block->getViewModel();
     <?php endif ?>
     <?= $viewModel->isRequired() ? 'required' : '' ?>
     id="<?= $viewModel->getFieldId() ?>"
-    class="<?= $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
+    class="<?= $css('form-input w-full field-sizing-content disabled:bg-zinc-100', 'input') ?>"
 ><?= $viewModel->getValue() ?></textarea>
