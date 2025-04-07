@@ -26,7 +26,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::form/field/label.phtml', ['alias' => 'label']) ?>
     <?php endif; ?>
 
-    <div class="<?= $css('relative space-y-2 flex', 'container') ?>">
+    <div class="<?= $css('relative flex', 'container') ?>">
         <?= $templateRenderer->html($block, $viewModel->getFieldTemplate(), $viewModel->getFieldData()) ?>
 
         <div class="<?= $css('field-loader hidden absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">

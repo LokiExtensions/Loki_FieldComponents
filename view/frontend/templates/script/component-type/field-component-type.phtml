@@ -11,6 +11,13 @@
             watchDisabledState() {
                 this.$watch('loading', () => {
                     this.disabled = this.loading;
+                    if (this.$refs.field) {
+                        if (this.loading) {
+                            this.$refs.field.classList.add('loading');
+                        } else {
+                            this.$refs.field.classList.remove('loading');
+                        }
+                    }
                 });
             }
         },
