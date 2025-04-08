@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 08 April 2025
+### Fixed
+- Remove select-icon when loading select-field
+- Add textarea field-sizing-content
+- Mobile fixes
+
 ## [0.0.3] - 04 April 2025
 ### Fixed
 - Remove specific step button templates in favor of FieldComponents
