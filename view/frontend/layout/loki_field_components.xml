@@ -18,6 +18,14 @@
             <block
                 name="loki-field-components.script.components.toggle"
                 template="Yireo_LokiFieldComponents::script/component/toggle.phtml"/>
+
+            <block
+                name="loki-field-components.script.components.password"
+                template="Yireo_LokiFieldComponents::script/component/password.phtml"/>
+
+            <block
+                name="loki-field-components.script.components.password-repeat"
+                template="Yireo_LokiFieldComponents::script/component/password-repeat.phtml"/>
         </referenceContainer>
 
         <block
@@ -54,10 +62,7 @@
             </arguments>
         </block>
 
-        <!--
-        @todo: Fix error about Mask not being there yet
-                -->
-
+        <!-- @todo: Fix error about Mask not being there yet -->
         <referenceBlock name="script-alpine-js">
             <block
                 name="loki-components.alpine-plugin-mask"

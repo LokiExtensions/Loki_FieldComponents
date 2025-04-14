@@ -51,8 +51,11 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
 
     public function getJsData(): array
     {
+        $jsDataFromBlock = (array)$this->getBlock()->getJsData();
+
         return [
             ...parent::getJsData(),
+            ...$jsDataFromBlock,
             'disabled' => $this->isDisabled(),
             'fieldName' => $this->getFieldName(),
         ];

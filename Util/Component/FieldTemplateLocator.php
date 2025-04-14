@@ -60,6 +60,7 @@ class FieldTemplateLocator
             'switch' => 'Yireo_LokiFieldComponents::form/field/switch.phtml',
             'range' => 'Yireo_LokiFieldComponents::form/field/range.phtml',
             'password' => 'Yireo_LokiFieldComponents::form/field/password.phtml',
+            'password_repeat' => 'Yireo_LokiFieldComponents::form/field/password-repeat.phtml',
         ];
     }
 
