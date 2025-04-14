@@ -8,4 +8,13 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Yireo\LokiComponents\Validator\ValidatorRegistry">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="password_complexity" xsi:type="object">Yireo\LokiFieldComponents\Validator\PasswordComplexityValidator</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>
