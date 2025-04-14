@@ -5,7 +5,11 @@
         valid: true,
         disabled: false,
         validators: [],
-        validationActions: {},
+        validationActions: {
+            lokiComponentValidator() {
+                return LokiComponentValidator.validate(this);
+            }
+        },
         initActions: {
             ...LokiComponentType.initActions,
             watchDisabledState() {
