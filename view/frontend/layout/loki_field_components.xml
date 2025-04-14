@@ -8,6 +8,10 @@
             <block
                 name="loki-field-components.script.validator"
                 template="Yireo_LokiFieldComponents::script/validator.phtml"/>
+
+            <block
+                name="loki-checkout.script.validators.password_complexity"
+                template="Yireo_LokiFieldComponents::script/validator/password-complexity.phtml"/>
         </referenceContainer>
 
         <referenceContainer name="loki-component-types">
