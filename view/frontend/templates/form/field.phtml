@@ -30,7 +30,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     <div class="<?= $css('relative flex', 'container') ?>">
         <?= $templateRenderer->html($block, $viewModel->getFieldTemplate(), $viewModel->getFieldData()) ?>
 
-        <div class="<?= $css('field-loader hidden absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
+        <div x-cloak x-show="showLoader" class="<?= $css('field-loader flex absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
             <?= $blockRenderer->html($block, 'loki-field-components.utils.loader-small') ?>
         </div>
 
