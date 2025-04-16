@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.5] - 16 April 2025
+### Fixed
+- Add JS password complexity validation
+- Move scripts from "before.body.end" to new "loki-scripts" container
+- Add configurable password complexity
+- Enhance look&feel
+- Rename LokiCheckoutValidator to LokiComponentValidator
+- Password visibility, password repeat
+
 ## [0.0.4] - 08 April 2025
 ### Fixed
 - Remove select-icon when loading select-field
