@@ -23,7 +23,8 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     <?= $block->getChildHtml('before') ?>
 
     <?php if ($viewModel->showFieldLabel()): ?>
-        <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::form/field/label.phtml', ['alias' => 'label']) ?>
+        <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::form/field/label.phtml', ['alias' => 'label']
+        ) ?>
     <?php endif; ?>
 
     <div class="<?= $css('relative flex', 'container') ?>">
@@ -36,10 +37,14 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         <?php if ($viewModel->getHelpText()): ?>
             <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::utils/help.phtml', [
                 'alias' => 'help',
-                'help_text' => $viewModel->getHelpText()
+                'help_text' => $viewModel->getHelpText(),
             ]) ?>
         <?php endif; ?>
     </div>
+
+    <?php if ($viewModel->getComment()): ?>
+        <div class="<?= $css('text-sm', 'comment') ?>"><?= $viewModel->getComment() ?></div>
+    <?php endif; ?>
 
     <?= $blockRenderer->html($block, 'loki-components.utils.local-messages') ?>
     <?= $block->getChildHtml('after') ?>
