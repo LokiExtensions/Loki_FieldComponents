@@ -3,11 +3,12 @@
 namespace Yireo\LokiFieldComponents\Util\Component;
 
 use Magento\Framework\View\Element\AbstractBlock;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModelInterface;
 use Yireo\LokiFieldComponents\Util\OptionModelInterface;
 
 // @todo: Rename this to FieldType
-class FieldTemplateLocator
+class FieldTemplateLocator implements ArgumentInterface
 {
     public function getFieldTypeFromViewModel(FieldViewModelInterface $viewModel): string
     {

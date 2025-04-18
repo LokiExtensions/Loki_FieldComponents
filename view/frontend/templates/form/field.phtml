@@ -7,6 +7,7 @@ use Yireo\LokiComponents\Factory\ViewModelFactory;
 use Yireo\LokiComponents\Util\Block\BlockRenderer;
 use Yireo\LokiComponents\Util\Block\CssClass;
 use Yireo\LokiComponents\Util\Block\TemplateRenderer;
+use Yireo\LokiFieldComponents\Util\Component\FieldTemplateLocator;
 
 /** @var Template $block */
 /** @var CssClass $css */
@@ -14,7 +15,9 @@ use Yireo\LokiComponents\Util\Block\TemplateRenderer;
 /** @var TemplateRenderer $templateRenderer */
 /** @var BlockRenderer $blockRenderer */
 /** @var FieldViewModel $viewModel */
+/** @var FieldTemplateLocator $fieldTemplateLocator */
 
+$fieldTemplateLocator = $viewModelFactory->create(FieldTemplateLocator::class);
 $templateRenderer = $viewModelFactory->create(TemplateRenderer::class);
 $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ?>
@@ -28,7 +31,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     <?php endif; ?>
 
     <div class="<?= $css('relative flex', 'container') ?>">
-        <?= $templateRenderer->html($block, $viewModel->getFieldTemplate(), $viewModel->getFieldData()) ?>
+        <?= $templateRenderer->html($block, $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel), $viewModel->getFieldData()) ?>
 
         <div x-cloak x-show="showLoader" class="<?= $css('field-loader flex absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
             <?= $blockRenderer->html($block, 'loki-field-components.utils.loader-small') ?>

@@ -23,13 +23,6 @@ interface FieldViewModelInterface extends ComponentViewModelInterface
     public function getFieldLabel(): string;
 
     /**
-     * PHTML template to render this specific field
-     *
-     * @return string
-     */
-    public function getFieldTemplate(): string;
-
-    /**
      * In case the field is a text input, this represents the text type (aka `type="email"). By default, this is `text.
      *
      * @return string

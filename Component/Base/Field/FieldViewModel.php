@@ -61,16 +61,6 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         ];
     }
 
-    public function getFieldTemplate(): string
-    {
-        return $this->getContext()->getFieldTemplateLocator()->getFieldTemplateFromViewModel($this);
-    }
-
-    public function getFieldType(): string
-    {
-        return $this->getContext()->getFieldTemplateLocator()->getFieldTypeFromViewModel($this);
-    }
-
     public function getValue(): mixed
     {
         $value = parent::getValue();

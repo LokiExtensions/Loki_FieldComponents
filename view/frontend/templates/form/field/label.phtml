@@ -7,6 +7,7 @@ use Yireo\LokiFieldComponents\Config\Config;
 use Yireo\LokiComponents\Util\Block\BlockRenderer;
 use Yireo\LokiComponents\Util\Block\CssClass;
 use Yireo\LokiComponents\Factory\ViewModelFactory;
+use Yireo\LokiFieldComponents\Util\Component\FieldTemplateLocator;
 
 /** @var Template $block */
 /** @var FieldViewModel $viewModel */
@@ -14,10 +15,12 @@ use Yireo\LokiComponents\Factory\ViewModelFactory;
 /** @var BlockRenderer $blockRenderer */
 /** @var ViewModelFactory $viewModelFactory */
 /** @var Config $config */
+/** @var FieldTemplateLocator $fieldTemplateLocator */
 
+$fieldTemplateLocator = $viewModelFactory->create(FieldTemplateLocator::class);
 $config = $viewModelFactory->create(Config::class);
 $viewModel = $block->getViewModel();
-$isLabel = false === in_array($viewModel->getFieldType(), ['radio']); // @todo: Move this to the ViewModel
+$isLabel = false === in_array($fieldTemplateLocator->getFieldTypeFromViewModel($viewModel), ['radio']); // @todo: Move this to the ViewModel
 ?>
 <?php if ($isLabel): ?>
     <label
