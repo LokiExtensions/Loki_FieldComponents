@@ -62,17 +62,17 @@
 
                 this.fieldValue = this.$refs.field.value;
                 this.autofillListenerTimer = setInterval((function () {
-                    if (!this.field.value || this.field.value === this.fieldValue || this.field.value === this.value) {
+                    if (!this.$refs.field.value || this.$refs.field.value === this.fieldValue || this.$refs.field.value === this.value) {
                         return;
                     }
 
-                    if (document.activeElement && document.activeElement.id === this.field.id) {
+                    if (document.activeElement && document.activeElement.id === this.$refs.field.id) {
                         return;
                     }
 
-                    this.fieldValue = this.field.value;
-                    this.value = this.field.value;
-                    this.field.dispatchEvent(new Event('change')); // @todo: What should this do?
+                    this.fieldValue = this.$refs.field.value;
+                    this.value = this.$refs.field.value;
+                    this.$refs.field.dispatchEvent(new Event('change')); // @todo: What should this do?
                 }).bind(this), 2000);
             },
         },
