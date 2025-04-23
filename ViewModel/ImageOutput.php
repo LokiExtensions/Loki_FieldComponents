@@ -4,6 +4,7 @@ namespace Yireo\LokiFieldComponents\ViewModel;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
+use Magento\Framework\View\Asset\File as AssetFile;
 use Magento\Framework\View\Asset\Repository as AssetRepository;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
@@ -21,11 +22,12 @@ class ImageOutput implements ArgumentInterface
     public function get(string $imageId): string
     {
         $asset = $this->assetRepository->createAsset($imageId);
-        return $this->getIconOutput($asset->getSourceFile());
+        return $this->getIconOutput($asset);
     }
 
-    private function getIconOutput(false|string $iconPath): string
+    private function getIconOutput(AssetFile $asset): string
     {
+        $iconPath = $asset->getSourceFile();
         if (false === $iconPath) {
             return '';
         }
@@ -38,6 +40,6 @@ class ImageOutput implements ArgumentInterface
             return $this->fileDriver->readFile($iconPath);
         }
 
-        return '<img src="'.$iconPath.'" />';
+        return '<img src="'.$asset->getUrl().'" />';
     }
 }
