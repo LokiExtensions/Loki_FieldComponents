@@ -1,24 +1,26 @@
 {
-  "name": "yireo/magento2-loki-field-components",
-  "version": "0.0.5",
-  "description": "N/A",
-  "keywords": ["loki-components"],
-  "type": "magento2-module",
-  "require": {
-    "magento/framework": "^103.0",
-    "magento/module-customer": "^103.0",
-    "magento/module-backend": "^102.0",
-    "yireo/magento2-loki-components": "0.0.*"
-  },
-  "license": [
-    "Open Software License (OSL)"
-  ],
-  "autoload": {
-    "files": [
-      "registration.php"
+    "name": "yireo/magento2-loki-field-components",
+    "version": "0.0.5",
+    "description": "N/A",
+    "keywords": [
+        "loki-components"
     ],
-    "psr-4": {
-      "Yireo\\LokiFieldComponents\\": ""
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": "^103.0",
+        "magento/module-customer": "^103.0",
+        "magento/module-backend": "^102.0",
+        "yireo/magento2-loki-components": "~0.0 | ^1.0"
+    },
+    "license": [
+        "Open Software License (OSL)"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Yireo\\LokiFieldComponents\\": ""
+        }
     }
-  }
 }
