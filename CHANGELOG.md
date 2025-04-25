@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 25 April 2025
+### Fixed
+- Remove x-model because of CSP compliance
+- Allow for upgrade to LokiComponents 1.0
+- Draft of fast checkout option for PSPs
+- Fix `this.field` into `this.$refs.field`
+- Move all field behaviour to FieldComponentType
+- Remove gridClass, add colSpan and mdColSpan in grid layouts
+- Remove FieldTemplateLocator from context
+- Rewrite FieldTemplateLocator usage to be independent of context
+- Make loader icon in fields depend on Alpine and activate only after configurable timeout
+- Add comment option to fields
+- Fix Alpine overriding disabled state in select
+
 ## [0.0.5] - 16 April 2025
 ### Fixed
 - Add JS password complexity validation
