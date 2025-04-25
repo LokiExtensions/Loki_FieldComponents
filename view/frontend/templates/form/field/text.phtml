@@ -37,7 +37,8 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
         data-type="field"
         x-ref="field"
-        x-model.lazy="value"
+        :value="value"
+        @input="setValue"
         @change="submit"
         :disabled="disabled"
         <?php if ($mask): ?>

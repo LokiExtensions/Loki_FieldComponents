@@ -78,6 +78,17 @@
         },
         beforeSubmit() {
         },
+        isChecked() {
+            return this.$el.value === this.value;
+        },
+        submitValue(event) {
+            this.value = event.target.value;
+            this.submit();
+        },
+        submitChecked(event) {
+            this.value = event.target.checked;
+            this.submit();
+        },
         async submit() {
             for ([key, callback] of Object.entries(this.validationActions)) {
                 const result = await callback.bind(this).call();

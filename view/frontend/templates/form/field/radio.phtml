@@ -28,12 +28,9 @@ if (false === $optionModel instanceof OptionModelInterface) {
                 data-type="field"
                 type="radio"
                 id="<?= $viewModel->getElementId() ?>-field-<?= $i ?>"
-                x-model="value"
-                @change="submit"
+                :checked="isChecked"
+                @change="submitValue"
                 value="<?= $optionValue ?>"
-                <?php if ($viewModel->getValue() === $optionValue): ?>
-                    checked
-                <?php endif; ?>
                 <?php if ($viewModel->isDisabled()): ?>
                     disabled="disabled"
                 <?php endif ?>

@@ -21,7 +21,8 @@ $viewModel = $block->getViewModel();
     aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
     data-type="field"
     x-ref="field"
-    x-model.lazy="value"
+    :value="value"
+    @input="setValue"
     @change="submit"
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"

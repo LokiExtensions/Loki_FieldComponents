@@ -20,8 +20,8 @@ $viewModel = $block->getViewModel();
     <input
         type="checkbox"
         id="<?= $viewModel->getElementId() ?>-field-input"
-        x-model="value"
-        @change="submit"
+        :value="value"
+        @change="submitValue"
         value="<?= $viewModel->getValue() ?>"
         <?php if ($viewModel->getValue() === true): ?>
             checked

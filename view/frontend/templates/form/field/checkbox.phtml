@@ -19,8 +19,8 @@ $viewModel = $block->getViewModel();
     <input
         type="checkbox"
         id="<?= $viewModel->getElementId() ?>-field-input"
-        x-model="value"
-        @change="submit"
+        :checked="value"
+        @change="submitChecked"
         value="<?= $viewModel->getValue() ?>"
         <?php if ($viewModel->getValue() === true): ?>
             checked
