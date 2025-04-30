@@ -44,6 +44,9 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         <?php if ($mask): ?>
             x-mask="<?= $mask ?>"
         <?php endif; ?>
+        <?php if ($viewModel->isDisabled()): ?>
+            disabled="disabled"
+        <?php endif ?>
         <?php if ($viewModel->hasAutocomplete()): ?>
             autocomplete="<?= $viewModel->getAutocomplete() ?>"
         <?php endif ?>
