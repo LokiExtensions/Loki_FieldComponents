@@ -16,7 +16,10 @@
             watchFieldLoading() {
                 if (this.$refs.field) {
                     this.$refs.field.removeAttribute('aria-busy');
-                    this.$refs.field.removeAttribute('disabled');
+
+                    if (!this.disabled) {
+                        this.$refs.field.removeAttribute('disabled');
+                    }
                 }
 
                 this.$watch('loading', () => {
@@ -24,7 +27,6 @@
                         return;
                     }
 
-                    this.disabled = this.loading;
                     if (this.loading) {
                         this.$refs.field.classList.add('loading');
                         this.$refs.field.setAttribute('aria-busy', true);
@@ -32,7 +34,10 @@
                     } else {
                         this.$refs.field.classList.remove('loading');
                         this.$refs.field.removeAttribute('aria-busy');
-                        this.$refs.field.removeAttribute('disabled');
+
+                        if (!this.disabled) {
+                            this.$refs.field.removeAttribute('disabled');
+                        }
                     }
                 });
             },
