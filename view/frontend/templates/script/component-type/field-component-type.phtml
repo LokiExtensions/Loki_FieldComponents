@@ -11,75 +11,72 @@
                 return LokiComponentValidator.validate(this);
             }
         },
-        initActions: {
-            ...LokiComponentType.initActions,
-            watchFieldLoading() {
-                if (this.$refs.field) {
+        initWatchFieldLoading() {
+            if (this.$refs.field) {
+                this.$refs.field.removeAttribute('aria-busy');
+
+                if (!this.disabled) {
+                    this.$refs.field.removeAttribute('disabled');
+                }
+            }
+
+            this.$watch('loading', () => {
+                if (!this.$refs.field) {
+                    return;
+                }
+
+                if (this.loading) {
+                    this.$refs.field.classList.add('loading');
+                    this.$refs.field.setAttribute('aria-busy', true);
+                    this.$refs.field.setAttribute('disabled', true);
+                } else {
+                    this.$refs.field.classList.remove('loading');
                     this.$refs.field.removeAttribute('aria-busy');
 
                     if (!this.disabled) {
                         this.$refs.field.removeAttribute('disabled');
                     }
                 }
+            });
+        },
+        initValidation() {
+            if (!this.$refs.field) {
+                return;
+            }
 
-                this.$watch('loading', () => {
-                    if (!this.$refs.field) {
-                        return;
-                    }
+            if (true === this.valid) {
+                this.$refs.field.removeAttribute('aria-invalid');
+            } else {
+                this.$refs.field.setAttribute('aria-invalid', true);
+            }
 
-                    if (this.loading) {
-                        this.$refs.field.classList.add('loading');
-                        this.$refs.field.setAttribute('aria-busy', true);
-                        this.$refs.field.setAttribute('disabled', true);
-                    } else {
-                        this.$refs.field.classList.remove('loading');
-                        this.$refs.field.removeAttribute('aria-busy');
-
-                        if (!this.disabled) {
-                            this.$refs.field.removeAttribute('disabled');
-                        }
-                    }
-                });
-            },
-            setValidation() {
-                if (!this.$refs.field) {
-                    return;
-                }
-
+            this.$watch('valid', () => {
                 if (true === this.valid) {
                     this.$refs.field.removeAttribute('aria-invalid');
                 } else {
                     this.$refs.field.setAttribute('aria-invalid', true);
                 }
+            })
+        },
+        initListenToAutofillChanges() {
+            if (!this.$refs.field || this.$refs.field.disabled) {
+                return;
+            }
 
-                this.$watch('valid', () => {
-                    if (true === this.valid) {
-                        this.$refs.field.removeAttribute('aria-invalid');
-                    } else {
-                        this.$refs.field.setAttribute('aria-invalid', true);
-                    }
-                })
-            },
-            listenToAutofillChanges() {
-                if (!this.$refs.field || this.$refs.field.disabled) {
+            this.fieldValue = this.$refs.field.value;
+            this.autofillListenerTimer = setInterval((function () {
+                if (!this.$refs.field.value || this.$refs.field.value === this.fieldValue || this.$refs.field.value === this.value) {
+                    return;
+                }
+
+                if (document.activeElement && document.activeElement.id === this.$refs.field.id) {
                     return;
                 }
 
                 this.fieldValue = this.$refs.field.value;
-                this.autofillListenerTimer = setInterval((function () {
-                    if (!this.$refs.field.value || this.$refs.field.value === this.fieldValue || this.$refs.field.value === this.value) {
-                        return;
-                    }
-
-                    if (document.activeElement && document.activeElement.id === this.$refs.field.id) {
-                        return;
-                    }
-
-                    this.fieldValue = this.$refs.field.value;
-                    this.value = this.$refs.field.value;
-                    this.$refs.field.dispatchEvent(new Event('change')); // @todo: What should this do?
-                }).bind(this), 2000);
-            },
+                this.value = this.$refs.field.value;
+                this.$refs.field.dispatchEvent(new Event('change')); // @todo: What should this do?
+            }).bind(this), 2000);
         },
         beforeSubmit() {
         },
