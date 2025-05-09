@@ -15,7 +15,7 @@
         "ext-pcre": "*"
     },
     "license": [
-        "Open Software License (OSL)"
+        "OSL-3.0"
     ],
     "autoload": {
         "files": [
