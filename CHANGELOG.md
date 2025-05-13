@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 13 May 2025
+### Fixed
+- Update MODULE.json
+- Update license
+- Rewrite Alpine from initActions object to methods starting with init
+- Do not re-enable an initially disabled field after reload
+- Add PHTML attribute disabled again anyway
+- Allow PHP 8.4 in CI
+- Update composer and module deps
+
 ## [1.0.0] - 25 April 2025
 ### Fixed
 - Remove x-model because of CSP compliance
