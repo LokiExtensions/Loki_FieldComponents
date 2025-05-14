@@ -6,9 +6,13 @@
         "Yireo_LokiComponents"
     ],
     "components": [],
-    "config": {
-        "yireo_loki_field_components\/fields\/use_required_block": "Use required block"
-    },
+    "config": [
+        {
+            "path": "yireo_loki_field_components\/fields\/use_required_block",
+            "label": "Field settings > Use required block",
+            "description": "Each required field could be styled with an additional required block. In Luma, this is nice. In Hyv\u00e4, this is not needed because the styling is done via CSS. This settings adds the block <code>loki-field-components.utils.required<\/code> when a field is required"
+        }
+    ],
     "tests": {
         "unit": 1,
         "integration": 0,
