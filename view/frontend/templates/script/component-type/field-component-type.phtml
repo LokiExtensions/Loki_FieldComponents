@@ -78,6 +78,10 @@
                 this.$refs.field.dispatchEvent(new Event('change')); // @todo: What should this do?
             }).bind(this), 2000);
         },
+        setValid(valid) {
+            this.valid = valid;
+            document.dispatchEvent(new CustomEvent('loki-components.component.update'));
+        },
         beforeSubmit() {
         },
         isChecked() {
