@@ -1,6 +1,7 @@
 {
     "modules": [
         "Magento_Backend",
+        "Magento_Config",
         "Magento_Customer",
         "Magento_MediaStorage",
         "Yireo_LokiComponents"
