@@ -10,7 +10,7 @@
                 template="Yireo_LokiFieldComponents::script/validator.phtml"/>
 
             <block
-                name="loki-checkout.script.validators.password_complexity"
+                name="loki-field-components.script.validators.password_complexity"
                 template="Yireo_LokiFieldComponents::script/validator/password-complexity.phtml"/>
         </referenceContainer>
 
