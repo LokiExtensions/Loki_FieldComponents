@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 22 May 2025
+### Fixed
+- Make width of help configurable
+- Add setValid method to Alpine components
+- Update admin settings with tooltip and regenerate new MODULE.json
+
 ## [1.0.1] - 13 May 2025
 ### Fixed
 - Update MODULE.json
