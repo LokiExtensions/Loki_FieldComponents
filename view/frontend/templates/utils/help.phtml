@@ -7,22 +7,27 @@ use Yireo\LokiComponents\Util\Block\CssClass;
 /** @var Template $block */
 /** @var CssClass $css */
 $size = (int)$block->getSize();
-if (!$size) {
+if ($size < 1) {
     $size = 20;
+}
+
+$width = $block->getWidth();
+if (empty($width)) {
+    $width = 'w-100';
 }
 
 $text = $block->getHelpText();
 ?>
-<div class="<?= $css('relative') ?>" x-data="LokiToggle" x-cloak>
+<div class="<?= $css('inline relative') ?>" x-data="LokiToggle" x-cloak>
     <button type="button" @click="toggle">
         <img alt="<?= __('Show help') ?>"
              src="<?= $block->getViewFileUrl('Yireo_LokiFieldComponents::images/help.svg'); ?>"
-             class="<?= $css('help m-2', 'image') ?>"
+             class="<?= $css('help', 'image') ?>"
              width="<?= $size ?>"
              height="<?= $size ?>">
     </button>
 
-    <div x-cloak x-show="show" class="<?= $css('absolute z-50 right-0 w-100 p-3 bg-zinc-400 text-white', 'popup') ?>">
+    <div x-cloak x-show="show" class="<?= $width ?> <?= $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
         <?= __($text) ?>
     </div>
 </div>
