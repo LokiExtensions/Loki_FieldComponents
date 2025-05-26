@@ -25,6 +25,11 @@ class ImageOutput implements ArgumentInterface
         return $this->getIconOutput($asset);
     }
 
+    public function getByUrl(string $imageUrl): string
+    {
+        return '<img src="'.$imageUrl.'" />';
+    }
+
     private function getIconOutput(AssetFile $asset): string
     {
         $iconPath = $asset->getSourceFile();
@@ -40,6 +45,6 @@ class ImageOutput implements ArgumentInterface
             return $this->fileDriver->readFile($iconPath);
         }
 
-        return '<img src="'.$asset->getUrl().'" />';
+        return $this->getByUrl($asset->getUrl());
     }
 }
