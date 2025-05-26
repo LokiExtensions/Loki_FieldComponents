@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 26 May 2025
+### Fixed
+- Add new method to get image by URL
+
 ## [1.0.2] - 22 May 2025
 ### Fixed
 - Make width of help configurable
