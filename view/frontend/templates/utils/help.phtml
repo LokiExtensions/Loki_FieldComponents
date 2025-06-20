@@ -3,31 +3,41 @@ declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
 use Yireo\LokiComponents\Util\Block\CssClass;
+use Yireo\LokiFieldComponents\ViewModel\ImageOutput;
+use Yireo\LokiComponents\Factory\ViewModelFactory;
 
 /** @var Template $block */
 /** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var ImageOutput $imageOutput */
+
 $size = (int)$block->getSize();
 if ($size < 1) {
     $size = 20;
 }
 
+$icon = (string)$block->getIcon();
+if (strlen($icon) < 1) {
+    $icon = 'Yireo_LokiFieldComponents::images/help.svg';
+}
+
 $width = $block->getWidth();
 if (empty($width)) {
-    $width = 'w-100';
+    $width = 'w-auto';
 }
 
 $text = $block->getHelpText();
+$imageOutput = $viewModelFactory->create(ImageOutput::class);
 ?>
-<div class="<?= $css('inline relative') ?>" x-data="LokiToggle" x-cloak>
-    <button type="button" @click="toggle">
-        <img alt="<?= __('Show help') ?>"
-             src="<?= $block->getViewFileUrl('Yireo_LokiFieldComponents::images/help.svg'); ?>"
-             class="<?= $css('help', 'image') ?>"
-             width="<?= $size ?>"
-             height="<?= $size ?>">
+<div class="<?= $css('ml-1 flex relative') ?>" x-data="LokiToggle" x-cloak>
+    <button type="button" @click="toggle" class="<?= $css('help w-6', 'image') ?>">
+        <?= $imageOutput->get($icon) ?>
     </button>
 
     <div x-cloak x-show="show" class="<?= $width ?> <?= $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
+        <button type="button" @click="toggle" class="<?= $css('help float-right fill-white w-6', 'popup-image') ?>">
+            <?= $imageOutput->get($icon) ?>
+        </button>
         <?= __($text) ?>
     </div>
 </div>
