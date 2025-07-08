@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 08 July 2025
+### Fixed
+- Allow configuring of help icon via XML layout
+
 ## [1.0.3] - 26 May 2025
 ### Fixed
 - Add new method to get image by URL
