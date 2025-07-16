@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
+use Yireo\LokiComponents\Util\Block\BlockRenderer;
 use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
 use Yireo\LokiComponents\Util\Block\CssClass;
 
@@ -9,6 +10,7 @@ use Yireo\LokiComponents\Util\Block\CssClass;
 /** @var Template $fieldBlock */
 /** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
+/** @var BlockRenderer $blockRenderer */
 
 $fieldBlock = $block->getFieldBlock(); // @todo $fieldBlock is empty?
 $viewModel = $block->getViewModel();
@@ -70,4 +72,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         id="<?= $viewModel->getFieldId() ?>"
         class="<?= $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
     >
+    <div x-show="isCompleted" class="<?= $css('absolute right-0') ?>">
+        <?= $blockRenderer->html($block, 'loki-components.utils.field-completed') ?>
+    </div>
 </div>

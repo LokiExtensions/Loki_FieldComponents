@@ -87,6 +87,18 @@
         isChecked() {
             return this.$el.value === this.value;
         },
+        isCompleted() {
+            if (!this.value) {
+                return false;
+            }
+
+            if (!this.valid) {
+                return false;
+            }
+
+            console.log('complete', this.value, this.valid);
+            return true;
+        },
         submitValue(event) {
             this.value = event.target.value;
             this.submit();

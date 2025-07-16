@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.5] - 16 July 2025
+### Fixed
+- Add block `loki-components.utils.field-completed` for icons within input fields
+
 ## [1.0.4] - 08 July 2025
 ### Fixed
 - Allow configuring of help icon via XML layout
