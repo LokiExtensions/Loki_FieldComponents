@@ -117,7 +117,7 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
 
     public function getNameInLayout(): string
     {
-        return $this->getBlock()->getNameInLayout();
+        return (string)$this->getBlock()?->getNameInLayout();
     }
 
     public function getPlaceholder(): string
