@@ -10,7 +10,7 @@ use Yireo\LokiComponents\Component\Behaviour\LengthBehaviourInterface;
 /**
  * @method FieldContext getContext()
  */
-abstract class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface,LengthBehaviourInterface
+abstract class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface, LengthBehaviourInterface
 {
     public function getFieldName(): string
     {
