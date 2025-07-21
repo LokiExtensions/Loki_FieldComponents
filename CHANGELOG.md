@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 21 July 2025
+### Fixed
+- Make sure name in layout is always string
+- Rename PHP namespace from `Yireo_Loki*` to `Loki*`
+- Rename composer package from `yireo/magento2-loki*` to `loki/magento2*`
+
 ## [1.0.5] - 16 July 2025
 ### Fixed
 - Add block `loki-components.utils.field-completed` for icons within input fields

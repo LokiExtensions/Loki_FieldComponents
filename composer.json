@@ -1,6 +1,6 @@
 {
     "name": "loki/magento2-field-components",
-    "version": "1.0.5",
+    "version": "2.0.0",
     "description": "N/A",
     "keywords": [
         "loki-components"
@@ -12,7 +12,7 @@
         "magento/module-config": "^101.0",
         "magento/module-backend": "^102.0",
         "magento/module-media-storage": "^100.0",
-        "loki/magento2-components": "~0.0 | ^1.0",
+        "loki/magento2-components": "^2.0",
         "ext-pcre": "*"
     },
     "license": [
