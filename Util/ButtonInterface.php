@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Util;
+namespace Loki\Field\Util;
 
 interface ButtonInterface
 {

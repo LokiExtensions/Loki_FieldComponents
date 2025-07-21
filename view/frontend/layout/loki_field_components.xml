@@ -7,44 +7,44 @@
         <referenceContainer name="loki-scripts">
             <block
                 name="loki-field-components.script.validator"
-                template="Yireo_LokiFieldComponents::script/validator.phtml"/>
+                template="Loki_FieldComponents::script/validator.phtml"/>
 
             <block
                 name="loki-field-components.script.validators.password_complexity"
-                template="Yireo_LokiFieldComponents::script/validator/password-complexity.phtml"/>
+                template="Loki_FieldComponents::script/validator/password-complexity.phtml"/>
         </referenceContainer>
 
         <referenceContainer name="loki-component-types">
             <block
                 name="loki-field-components.script.component-type.field"
-                template="Yireo_LokiFieldComponents::script/component-type/field-component-type.phtml"/>
+                template="Loki_FieldComponents::script/component-type/field-component-type.phtml"/>
         </referenceContainer>
 
         <referenceContainer name="loki-components">
             <block
                 name="loki-field-components.script.components.field-component"
-                template="Yireo_LokiFieldComponents::script/component/field-component.phtml"/>
+                template="Loki_FieldComponents::script/component/field-component.phtml"/>
 
             <block
                 name="loki-field-components.script.components.toggle"
-                template="Yireo_LokiFieldComponents::script/component/toggle.phtml"/>
+                template="Loki_FieldComponents::script/component/toggle.phtml"/>
 
             <block
                 name="loki-field-components.script.components.password"
-                template="Yireo_LokiFieldComponents::script/component/password.phtml"/>
+                template="Loki_FieldComponents::script/component/password.phtml"/>
 
             <block
                 name="loki-field-components.script.components.password-repeat"
-                template="Yireo_LokiFieldComponents::script/component/password-repeat.phtml"/>
+                template="Loki_FieldComponents::script/component/password-repeat.phtml"/>
         </referenceContainer>
 
         <block
             name="loki-field-components.utils.loader"
-            template="Yireo_LokiFieldComponents::utils/loader.phtml"/>
+            template="Loki_FieldComponents::utils/loader.phtml"/>
 
         <block
             name="loki-field-components.utils.loader-small"
-            template="Yireo_LokiFieldComponents::utils/loader-small.phtml">
+            template="Loki_FieldComponents::utils/loader-small.phtml">
             <arguments>
                 <argument name="size" xsi:type="number">20</argument>
             </arguments>
@@ -52,7 +52,7 @@
 
         <block
             name="loki-field-components.utils.loader-overlay"
-            template="Yireo_LokiFieldComponents::utils/loader-overlay.phtml">
+            template="Loki_FieldComponents::utils/loader-overlay.phtml">
             <arguments>
                 <argument name="size" xsi:type="number">50</argument>
             </arguments>
@@ -60,7 +60,7 @@
 
         <block
             name="loki-field-components.utils.required"
-            template="Yireo_LokiFieldComponents::utils/required.phtml"/>
+            template="Loki_FieldComponents::utils/required.phtml"/>
 
         <block name="loki-field-components.defaults.form.field">
             <arguments>
@@ -76,7 +76,7 @@
         <referenceBlock name="script-alpine-js">
             <block
                 name="loki-components.alpine-plugin-mask"
-                template="Yireo_LokiFieldComponents::script/alpine-mask.phtml"
+                template="Loki_FieldComponents::script/alpine-mask.phtml"
             />
         </referenceBlock>
     </body>

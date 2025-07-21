@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Validator;
+namespace Loki\Field\Validator;
 
-use Yireo\LokiFieldComponents\ViewModel\PasswordComplexity;
-use Yireo\LokiComponents\Component\ComponentInterface;
-use Yireo\LokiComponents\Validator\ValidatorInterface;
+use Loki\Field\ViewModel\PasswordComplexity;
+use Loki\Components\Component\ComponentInterface;
+use Loki\Components\Validator\ValidatorInterface;
 
 class PasswordComplexityValidator implements ValidatorInterface
 {

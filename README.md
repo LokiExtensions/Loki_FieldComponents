@@ -1,14 +1,14 @@
-# Yireo_LokiFieldComponents
+# Loki_FieldComponents
 
 **This is the package for Loki FieldComponents, as is being used by the Loki Checkout suite.**
 
 ## Installation
 Install this package via composer (assuming you have setup the `composer.yireo.com` repository correctly already):
 ```bash
-composer require yireo/magento2-loki-field-components
+composer require loki/magento2-field-components
 ```
 
 Next, enable this module:
 ```bash
-bin/magento module:enable Yireo_LokiFieldComponents
+bin/magento module:enable Loki_FieldComponents
 ```

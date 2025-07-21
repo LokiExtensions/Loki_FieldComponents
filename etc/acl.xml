@@ -3,7 +3,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Yireo_LokiFieldComponents::configuration" title="Yireo LokiFieldComponents" sortOrder="1"/>
+                <resource id="Loki_FieldComponents::configuration" title="Loki Field Components" sortOrder="1"/>
             </resource>
         </resources>
     </acl>

@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Component\Base\Field;
+namespace Loki\Field\Component\Base\Field;
 
 use Magento\Framework\View\Element\AbstractBlock;
-use Yireo\LokiComponents\Component\ComponentViewModel;
-use Yireo\LokiFieldComponents\Util\OptionModelInterface;
-use Yireo\LokiComponents\Component\Behaviour\LengthBehaviourInterface;
+use Loki\Components\Component\ComponentViewModel;
+use Loki\Field\Util\OptionModelInterface;
+use Loki\Components\Component\Behaviour\LengthBehaviourInterface;
 
 /**
  * @method FieldContext getContext()

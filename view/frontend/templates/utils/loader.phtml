@@ -2,14 +2,14 @@
 declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
-use Yireo\LokiComponents\Util\Block\CssClass;
+use Loki\Components\Util\Block\CssClass;
 
 /** @var Template $block */
 /** @var CssClass $css */
 $size = (int)$block->getSize();
 ?>
 <img alt="<?= __('Loading') ?>"
-     src="<?= $block->getViewFileUrl('Yireo_LokiFieldComponents::images/loader.svg'); ?>"
+     src="<?= $block->getViewFileUrl('Loki_FieldComponents::images/loader.svg'); ?>"
      class="<?= $css('loader') ?>"
      width="<?= $size ?>"
      height="<?= $size ?>">

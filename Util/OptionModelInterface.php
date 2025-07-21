@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Util;
+namespace Loki\Field\Util;
 
-use Yireo\LokiComponents\Component\ComponentViewModelInterface;
+use Loki\Components\Component\ComponentViewModelInterface;
 
 interface OptionModelInterface
 {

@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
-use Yireo\LokiComponents\Util\Block\CssClass;
-use Yireo\LokiFieldComponents\ViewModel\ImageOutput;
-use Yireo\LokiComponents\Factory\ViewModelFactory;
+use Loki\Components\Util\Block\CssClass;
+use Loki\Field\ViewModel\ImageOutput;
+use Loki\Components\Factory\ViewModelFactory;
 
 /** @var Template $block */
 /** @var CssClass $css */
@@ -18,7 +18,7 @@ if ($size < 1) {
 
 $icon = (string)$block->getIcon();
 if (strlen($icon) < 1) {
-    $icon = 'Yireo_LokiFieldComponents::images/help.svg';
+    $icon = 'Loki_FieldComponents::images/help.svg';
 }
 
 $width = $block->getWidth();

@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 use Magento\Framework\View\Element\Template;
-use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModel;
-use Yireo\LokiComponents\Factory\ViewModelFactory;
-use Yireo\LokiComponents\Util\Block\BlockRenderer;
-use Yireo\LokiComponents\Util\Block\CssClass;
-use Yireo\LokiComponents\Util\Block\TemplateRenderer;
-use Yireo\LokiFieldComponents\Util\Component\FieldTemplateLocator;
+use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Components\Factory\ViewModelFactory;
+use Loki\Components\Util\Block\BlockRenderer;
+use Loki\Components\Util\Block\CssClass;
+use Loki\Components\Util\Block\TemplateRenderer;
+use Loki\Field\Util\Component\FieldTemplateLocator;
 
 /** @var Template $block */
 /** @var CssClass $css */
@@ -26,7 +26,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     <?= $block->getChildHtml('before') ?>
 
     <?php if ($viewModel->showFieldLabel()): ?>
-        <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::form/field/label.phtml', ['alias' => 'label']
+        <?= $templateRenderer->html($block, 'Loki_FieldComponents::form/field/label.phtml', ['alias' => 'label']
         ) ?>
     <?php endif; ?>
 
@@ -38,7 +38,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         </div>
 
         <?php if ($viewModel->getHelpText()): ?>
-            <?= $templateRenderer->html($block, 'Yireo_LokiFieldComponents::utils/help.phtml', [
+            <?= $templateRenderer->html($block, 'Loki_FieldComponents::utils/help.phtml', [
                 'alias' => 'help',
                 'help_text' => $viewModel->getHelpText(),
             ]) ?>

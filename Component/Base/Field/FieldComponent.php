@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Component\Base\Field;
+namespace Loki\Field\Component\Base\Field;
 
-use Yireo\LokiComponents\Component\Component;
+use Loki\Components\Component\Component;
 
 /**
  * @method FieldRepository getRepository()

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Yireo\LokiComponents\Validator\ValidatorRegistry">
+    <type name="Loki\Components\Validator\ValidatorRegistry">
         <arguments>
             <argument name="validators" xsi:type="array">
-                <item name="password_complexity" xsi:type="object">Yireo\LokiFieldComponents\Validator\PasswordComplexityValidator</item>
+                <item name="password_complexity" xsi:type="object">Loki\Field\Validator\PasswordComplexityValidator</item>
             </argument>
         </arguments>
     </type>

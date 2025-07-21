@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Component\FileUploader;
+namespace Loki\Field\Component\FileUploader;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
-use Yireo\LokiFieldComponents\Component\Base\Field\FieldRepository;
+use Loki\Field\Component\Base\Field\FieldRepository;
 use Magento\Framework\Filesystem;
 use Magento\MediaStorage\Model\File\UploaderFactory;
 

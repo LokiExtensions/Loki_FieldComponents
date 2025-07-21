@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Test\Unit\Validator\Component;
+namespace Loki\Field\Test\Unit\Validator\Component;
 
 use PHPUnit\Framework\TestCase;
-use Yireo\LokiFieldComponents\Validator\PasswordComplexityValidator;
-use Yireo\LokiFieldComponents\ViewModel\PasswordComplexity;
+use Loki\Field\Validator\PasswordComplexityValidator;
+use Loki\Field\ViewModel\PasswordComplexity;
 
 class PasswordComplexityValidatorTest extends TestCase
 {

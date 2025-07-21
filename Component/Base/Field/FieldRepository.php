@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Component\Base\Field;
+namespace Loki\Field\Component\Base\Field;
 
-use Yireo\LokiFieldComponents\Util\OptionModelInterface;
-use Yireo\LokiComponents\Component\ComponentRepository;
+use Loki\Field\Util\OptionModelInterface;
+use Loki\Components\Component\ComponentRepository;
 
 /**
  * @method FieldContext getContext()

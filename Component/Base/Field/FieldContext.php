@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Component\Base\Field;
+namespace Loki\Field\Component\Base\Field;
 
 use Magento\Customer\Model\Session as CustomerSession;
-use Yireo\LokiComponents\Component\ComponentContextInterface;
+use Loki\Components\Component\ComponentContextInterface;
 
 class FieldContext implements ComponentContextInterface
 {

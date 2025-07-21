@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\Util\Component;
+namespace Loki\Field\Util\Component;
 
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Yireo\LokiFieldComponents\Component\Base\Field\FieldViewModelInterface;
-use Yireo\LokiFieldComponents\Util\OptionModelInterface;
+use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Util\OptionModelInterface;
 
 // @todo: Rename this to FieldType
 class FieldTemplateLocator implements ArgumentInterface
@@ -53,15 +53,15 @@ class FieldTemplateLocator implements ArgumentInterface
     public function getFieldTemplateMapping(): array
     {
         return [
-            'text' => 'Yireo_LokiFieldComponents::form/field/text.phtml',
-            'textarea' => 'Yireo_LokiFieldComponents::form/field/textarea.phtml',
-            'radio' => 'Yireo_LokiFieldComponents::form/field/radio.phtml',
-            'checkbox' => 'Yireo_LokiFieldComponents::form/field/checkbox.phtml',
-            'select' => 'Yireo_LokiFieldComponents::form/field/select.phtml',
-            'switch' => 'Yireo_LokiFieldComponents::form/field/switch.phtml',
-            'range' => 'Yireo_LokiFieldComponents::form/field/range.phtml',
-            'password' => 'Yireo_LokiFieldComponents::form/field/password.phtml',
-            'password_repeat' => 'Yireo_LokiFieldComponents::form/field/password-repeat.phtml',
+            'text' => 'Loki_FieldComponents::form/field/text.phtml',
+            'textarea' => 'Loki_FieldComponents::form/field/textarea.phtml',
+            'radio' => 'Loki_FieldComponents::form/field/radio.phtml',
+            'checkbox' => 'Loki_FieldComponents::form/field/checkbox.phtml',
+            'select' => 'Loki_FieldComponents::form/field/select.phtml',
+            'switch' => 'Loki_FieldComponents::form/field/switch.phtml',
+            'range' => 'Loki_FieldComponents::form/field/range.phtml',
+            'password' => 'Loki_FieldComponents::form/field/password.phtml',
+            'password_repeat' => 'Loki_FieldComponents::form/field/password-repeat.phtml',
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Yireo\LokiFieldComponents\ViewModel;
+namespace Loki\Field\ViewModel;
 
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
