@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 22 July 2025
+### Fixed
+- If event value and component value, do not submit anything
+- Remove debugging output
+- Upgrade CI tests to Magento 2.4.8 and PHP 8.4
+
 ## [2.0.0] - 21 July 2025
 ### Fixed
 - Make sure name in layout is always string
