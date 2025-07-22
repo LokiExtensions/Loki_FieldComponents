@@ -95,6 +95,10 @@
             return this.valid;
         },
         submitValue(event) {
+            if (this.value === event.target.value) {
+                return;
+            }
+
             this.value = event.target.value;
             this.submit();
         },
