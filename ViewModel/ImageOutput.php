@@ -14,7 +14,8 @@ class ImageOutput implements ArgumentInterface
 
     public function __construct(
         Filesystem $filesystem,
-        private AssetRepository $assetRepository,
+        private readonly AssetRepository $assetRepository,
+        private readonly DirectoryList $directoryList,
     ) {
         $this->fileDriver = $filesystem->getDirectoryRead(DirectoryList::PUB);
     }
@@ -32,16 +33,17 @@ class ImageOutput implements ArgumentInterface
 
     private function getIconOutput(AssetFile $asset): string
     {
-        $iconPath = $asset->getSourceFile();
-        if (false === $iconPath) {
+        $sourceFile = $asset->getSourceFile();
+        if (false === $sourceFile) {
             return '';
         }
 
-        if (false === $this->fileDriver->isFile($iconPath)) {
+        if (false === $this->fileDriver->isFile($sourceFile)) {
             return '';
         }
 
-        if (str_ends_with($iconPath, '.svg')) {
+        if (str_ends_with($sourceFile, '.svg')) {
+            $iconPath = str_replace($this->directoryList->getRoot(), '', $sourceFile);
             return $this->fileDriver->readFile($iconPath);
         }
 
