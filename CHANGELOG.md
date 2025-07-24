@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 24 July 2025
+### Fixed
+- Fix issue with empty icon output
+
 ## [2.0.1] - 22 July 2025
 ### Fixed
 - If event value and component value, do not submit anything
