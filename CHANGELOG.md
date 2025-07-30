@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 30 July 2025
+### Fixed
+- Add ARIA labels
+
 ## [2.0.3] - 25 July 2025
 ### Fixed
 - Fix SVG image output bug with better debugging
