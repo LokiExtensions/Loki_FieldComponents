@@ -33,21 +33,20 @@ $viewModel = $block->getViewModel();
         class="<?= $css('peer hidden', 'input') ?>"
     />
 
-    <div class="relative inline-block w-10 h-6">
+    <div class="<?= $css('relative inline-block w-10 h-6', 'button') ?>">
         <div
             @click="value = !value; post()"
             :class="value ? 'bg-primary' : 'bg-gray-200'"
-            class="rounded-full absolute p-1 top-0 left-0 right-0 bottom-0 cursor-pointer ">
+            class="<?= $css('rounded-full absolute p-1 top-0 left-0 right-0 bottom-0 cursor-pointer', 'button-inner') ?>">
             <div
                 :class="value ? 'float-left' : 'float-right'"
-                class="cursor-pointer h-4 w-4 rounded-full bg-white"></div>
+                class="<?= $css('cursor-pointer h-4 w-4 rounded-full bg-white', 'button-active') ?>"></div>
         </div>
     </div>
 
-    <label class="inline-flex items-center cursor-pointer">
-    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"><?= __(
-            $viewModel->getInputLabel()
-        ) ?></span>
+    <label class="<?= $css('inline-flex items-center cursor-pointer', 'label') ?>">
+        <span class="<?= $css('ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"', 'label-inner') ?>">
+            <?= __($viewModel->getInputLabel()) ?>
+        </span>
     </label>
-
 </div>

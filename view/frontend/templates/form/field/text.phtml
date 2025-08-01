@@ -20,7 +20,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
 
 // @todo: Move inputPrefix HTML to separate template
 ?>
-<div class="w-full flex">
+<div class="<?= $css('w-full flex') ?>">
     <?php if ($inputPrefix): ?>
         <div class="<?= $css('', 'input_prefix') ?>">
             <?php if (str_ends_with($inputPrefix, '.svg')): ?>
@@ -30,7 +30,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
                 alt=""
             >
             <?php else: ?>
-            <?= $inputPrefix ?>
+                <?= $inputPrefix ?>
             <?php endif; ?>
         </div>
     <?php endif; ?>
@@ -72,7 +72,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         id="<?= $viewModel->getFieldId() ?>"
         class="<?= $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
     >
-    <div x-show="isCompleted" class="<?= $css('absolute right-0') ?>">
+    <div x-show="isCompleted" class="<?= $css('absolute right-0', 'required') ?>">
         <?= $blockRenderer->html($block, 'loki-components.utils.field-completed') ?>
     </div>
 </div>
