@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.5] - 01 August 2025
+### Fixed
+- Add missing `$css` wrapper
+- Prevent removed component from triggering warnings on missing $refs.field
+
 ## [2.0.4] - 30 July 2025
 ### Fixed
 - Add ARIA labels
