@@ -91,6 +91,9 @@
         isChecked() {
             return this.$el.value === this.value;
         },
+        isEmpty() {
+            return !this.value;
+        },
         isCompleted() {
             if (!this.value) {
                 return false;
