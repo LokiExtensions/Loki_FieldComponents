@@ -19,7 +19,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
 
 ?>
 <div class="<?= $css('w-full grid grid-cols-1 md:grid-cols-2 p-2') ?>"
-     aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+     :aria-invalid="isAriaInvalid"
      data-type="field">
     <?php $i = 0; ?>
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>

@@ -27,7 +27,7 @@ $autocomplete = (bool) $ancestorBlock->getAutocomplete();
     x-ref="field"
     :value="value"
     @change="submitValue"
-    aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+    :aria-invalid="isAriaInvalid"
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"
     <?php endif ?>

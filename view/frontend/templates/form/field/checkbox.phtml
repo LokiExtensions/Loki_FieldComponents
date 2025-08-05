@@ -14,7 +14,7 @@ use Loki\Components\Component\ComponentViewModelInterface;
 $viewModel = $block->getViewModel();
 ?>
 <div class="<?= $css('w-full p-2') ?>"
-     aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+     :aria-invalid="isAriaInvalid"
      data-type="field">
     <input
         type="checkbox"

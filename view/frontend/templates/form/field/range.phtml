@@ -18,7 +18,7 @@ $viewModel = $block->getViewModel();
     <span class="<?= $css('text-sm', 'min') ?>"><?= $viewModel->getMin() ?></span>
     <?php endif ?>
     <input
-    aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+        :aria-invalid="isAriaInvalid"
     data-type="field"
     x-ref="field"
     :value="value"

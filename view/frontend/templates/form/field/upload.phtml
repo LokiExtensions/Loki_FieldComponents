@@ -14,7 +14,7 @@ $fieldBlock = $block->getFieldBlock();
 $viewModel = $block->getViewModel();
 ?>
 <input
-    aria-invalid="<?= $viewModel->isValid() ? 'false' : 'true' ?>"
+    :aria-invalid="isAriaInvalid"
     data-type="field"
     x-ref="field"
     :value="value"
