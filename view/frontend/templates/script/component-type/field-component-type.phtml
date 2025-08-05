@@ -5,6 +5,7 @@
         fieldValue: null,
         valid: true,
         disabled: false,
+        submitted: false,
         validators: [],
         validationActions: {
             lokiComponentValidator() {
@@ -44,7 +45,7 @@
                 return;
             }
 
-            if (true === this.valid) {
+            if (true === this.valid || !this.isSubmitted()) {
                 this.$refs.field.removeAttribute('aria-invalid');
             } else {
                 this.$refs.field.setAttribute('aria-invalid', true);
@@ -86,6 +87,9 @@
             this.valid = valid;
             document.dispatchEvent(new CustomEvent('loki-components.component.update'));
         },
+        isSubmitted() {
+            return this.submitted;
+        },
         beforeSubmit() {
         },
         isChecked() {
@@ -114,6 +118,7 @@
             this.submit();
         },
         async submit() {
+            this.submitted = true;
             for ([key, callback] of Object.entries(this.validationActions)) {
                 const result = await callback.bind(this).call();
                 if (result === false) {
