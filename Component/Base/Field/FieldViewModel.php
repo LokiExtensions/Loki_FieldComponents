@@ -100,6 +100,20 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         return false;
     }
 
+    public function isEmpty(): bool
+    {
+        return empty($this->getValue());
+    }
+
+    public function isValid(): bool
+    {
+        if ($this->isRequired() && $this->isEmpty()) {
+            return false;
+        }
+
+        return parent::isValid();
+    }
+
     public function getHelpText(): string
     {
         return (string)$this->getBlock()->getHelpText();
