@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 06 August 2025
+### Fixed
+- Move initMethods and destroyMethods into component partials
+- Implement aria-errormessage
+- Fix empty fields when component value is null
+- Render valid=false if required and empty
+- Rewrite aria-invalid params from PHP to Alpine
+- Add submitted flag to all components
+- Lower PHP requirement to PHP 8.2+
+
 ## [2.0.5] - 01 August 2025
 ### Fixed
 - Add missing `$css` wrapper
