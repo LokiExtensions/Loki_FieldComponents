@@ -3,27 +3,29 @@
         validators: {
             required: (component) => {
                 isValid = true;
-                if (component.value === '' || component.value === undefined) {
+                if (component.value === '' || component.value === null || component.value === undefined) {
                     component.messages.push({type:'error', text: '<?= __('Value is required') ?>'});
                     isValid = false;
                 }
+                console.log('required', component.value, component.id, isValid);
 
                 return isValid;
             }
         },
         validate: function (component) {
-            isValid = true;
             component.messages = [];
 
             if (!component.validators) {
                 return true;
             }
 
-            component.validators.every(validator => {
-                if (this.validators[validator] === undefined) {
+            const isValid = component.validators.every(validator => {
+                if (!this.validators[validator]) {
+                    //LokiComponentsLogger.warning('Undefined validator', validator);
                     return true;
                 }
 
+                let isValid = true;
                 const result = this.validators[validator](component);
                 if (Boolean(result && typeof result.then === 'function')) {
                     result.then(value => {
