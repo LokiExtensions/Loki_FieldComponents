@@ -28,6 +28,7 @@ $autocomplete = (bool) $ancestorBlock->getAutocomplete();
     :value="value"
     @change="submitValue"
     :aria-invalid="isAriaInvalid"
+    aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"
     <?php endif ?>

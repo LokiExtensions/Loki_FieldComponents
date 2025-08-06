@@ -31,9 +31,14 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     <?php endif; ?>
 
     <div class="<?= $css('relative flex', 'container') ?>">
-        <?= $templateRenderer->html($block, $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel), $viewModel->getFieldData()) ?>
+        <?= $templateRenderer->html(
+            $block,
+            $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel),
+            $viewModel->getFieldData()
+        ) ?>
 
-        <div x-cloak x-show="showLoader" class="<?= $css('field-loader flex absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
+        <div x-cloak x-show="showLoader"
+             class="<?= $css('field-loader flex absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
             <?= $blockRenderer->html($block, 'loki-field-components.utils.loader-small') ?>
         </div>
 
@@ -49,6 +54,14 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         <div class="<?= $css('text-sm', 'comment') ?>"><?= $viewModel->getComment() ?></div>
     <?php endif; ?>
 
-    <?= $blockRenderer->html($block, 'loki-components.utils.local-messages') ?>
+
+    <?= $blockRenderer->html(
+        $block,
+        'loki-components.utils.local-messages',
+        [
+            'dom_id' => $viewModel->getElementId().'-messages',
+        ]
+    ) ?>
+
     <?= $block->getChildHtml('after') ?>
 </div>

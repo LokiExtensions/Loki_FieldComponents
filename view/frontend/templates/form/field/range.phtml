@@ -15,29 +15,30 @@ $viewModel = $block->getViewModel();
 ?>
 <div class="<?= $css('relative') ?>">
     <?php if ($viewModel->hasMin()): ?>
-    <span class="<?= $css('text-sm', 'min') ?>"><?= $viewModel->getMin() ?></span>
+        <span class="<?= $css('text-sm', 'min') ?>"><?= $viewModel->getMin() ?></span>
     <?php endif ?>
     <input
         :aria-invalid="isAriaInvalid"
-    data-type="field"
-    x-ref="field"
-    :value="value"
-    @input="setValue"
-    @change="submit"
-    <?php if ($viewModel->isDisabled()): ?>
-        disabled="disabled"
-    <?php endif ?>
-    <?php if ($viewModel->hasMin()): ?>
-        min="<?= $viewModel->getMin() ?>"
-    <?php endif ?>
-    <?php if ($viewModel->hasMax()): ?>
-        max="<?= $viewModel->getMax() ?>"
-    <?php endif ?>
-    <?= $viewModel->isRequired() ? 'required' : '' ?>
-    type="range"
-    id="<?= $viewModel->getFieldId() ?>"
-    class="<?= $css('disabled:bg-zinc-100') ?>"
->
+        aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
+        data-type="field"
+        x-ref="field"
+        :value="value"
+        @input="setValue"
+        @change="submit"
+        <?php if ($viewModel->isDisabled()): ?>
+            disabled="disabled"
+        <?php endif ?>
+        <?php if ($viewModel->hasMin()): ?>
+            min="<?= $viewModel->getMin() ?>"
+        <?php endif ?>
+        <?php if ($viewModel->hasMax()): ?>
+            max="<?= $viewModel->getMax() ?>"
+        <?php endif ?>
+        <?= $viewModel->isRequired() ? 'required' : '' ?>
+        type="range"
+        id="<?= $viewModel->getFieldId() ?>"
+        class="<?= $css('disabled:bg-zinc-100') ?>"
+    >
     <?php if ($viewModel->hasMax()): ?>
         <span class="<?= $css('text-sm', 'max') ?>"><?= $viewModel->getMax() ?></span>
     <?php endif ?>

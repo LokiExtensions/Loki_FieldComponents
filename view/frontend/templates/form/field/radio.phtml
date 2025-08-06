@@ -25,6 +25,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
         <div class="<?= $css('pb-4', 'option') ?>">
             <input
+                aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
                 data-type="field"
                 type="radio"
                 id="<?= $viewModel->getElementId() ?>-field-<?= $i ?>"

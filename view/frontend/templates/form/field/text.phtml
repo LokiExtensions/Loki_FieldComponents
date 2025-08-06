@@ -37,6 +37,7 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
 
     <input
         :aria-invalid="isAriaInvalid"
+        aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
         data-type="field"
         x-ref="field"
         :value="value"

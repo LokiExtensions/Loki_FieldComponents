@@ -15,6 +15,7 @@ $viewModel = $block->getViewModel();
 ?>
 <textarea
     :aria-invalid="isAriaInvalid"
+    aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
     data-type="field"
     x-ref="field"
     x-text="value"
