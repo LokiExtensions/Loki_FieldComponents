@@ -30,23 +30,27 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         ) ?>
     <?php endif; ?>
 
-    <div class="<?= $css('relative flex', 'container') ?>">
-        <?= $templateRenderer->html(
-            $block,
-            $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel),
-            $viewModel->getFieldData()
-        ) ?>
+    <div class="<?= $css('flex', 'container') ?>">
+        <div class="<?= $css('relative grow', 'field') ?>">
+            <?= $templateRenderer->html(
+                $block,
+                $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel),
+                $viewModel->getFieldData()
+            ) ?>
 
-        <div x-cloak x-show="showLoader"
-             class="<?= $css('field-loader flex absolute inset-y-0 right-0 pt-1 pr-2', 'loader') ?>">
-            <?= $blockRenderer->html($block, 'loki-field-components.utils.loader-small') ?>
+            <div x-cloak x-show="showLoader"
+                 class="<?= $css('field-loader flex absolute inset-y-0 right-0 p-3', 'loader') ?>">
+                <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+            </div>
         </div>
 
         <?php if ($viewModel->getHelpText()): ?>
-            <?= $templateRenderer->html($block, 'Loki_FieldComponents::utils/help.phtml', [
-                'alias' => 'help',
-                'help_text' => $viewModel->getHelpText(),
-            ]) ?>
+            <div class="<?= $css('relative grow-0 flex content-center', 'field') ?>">
+                <?= $templateRenderer->html($block, 'Loki_FieldComponents::utils/help.phtml', [
+                    'alias' => 'help',
+                    'help_text' => $viewModel->getHelpText(),
+                ]) ?>
+            </div>
         <?php endif; ?>
     </div>
 
