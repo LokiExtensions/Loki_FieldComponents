@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.7] - 10 August 2025
+### Fixed
+- Add escaping to templates
+- Allow toggling loader overlay via showLoader property
+- Rewrite loader CSS to allow displaying either inline SVG or imager
+- Make sure help-icon and loader do not overlap
+- Configure loader via XML layout to be either inline SVG or image
+
 ## [2.0.6] - 06 August 2025
 ### Fixed
 - Move initMethods and destroyMethods into component partials
