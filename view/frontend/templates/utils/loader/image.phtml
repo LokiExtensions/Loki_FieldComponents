@@ -1,0 +1,18 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Loki\Components\Util\Block\CssClass;
+
+/** @var Template $block */
+/** @var CssClass $css */
+$size = (int)$block->getSize();
+if (!$size > 0) {
+    $size = 20;
+}
+?>
+<img alt="<?= __('Loading') ?>"
+     src="<?= $block->getViewFileUrl('Loki_FieldComponents::images/loader.svg'); ?>"
+     class="<?= $css('loader') ?>"
+     width="<?= $size ?>"
+     height="<?= $size ?>">

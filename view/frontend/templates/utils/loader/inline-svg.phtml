@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Factory\ViewModelFactory;
+use Loki\Field\ViewModel\ImageOutput;
+use Magento\Framework\View\Element\Template;
+use Loki\Components\Util\Block\CssClass;
+
+/** @var Template $block */
+/** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var ImageOutput $imageOutput */
+
+$size = (int)$block->getSize();
+$imageOutput = $viewModelFactory->create(ImageOutput::class);
+echo $imageOutput->get('Loki_FieldComponents::images/loader.svg');

@@ -1,15 +1,19 @@
 <?php
 declare(strict_types=1);
 
+use Loki\Components\Util\Block\TemplateRenderer;
 use Magento\Framework\View\Element\Template;
 use Loki\Components\Util\Block\CssClass;
 
 /** @var Template $block */
 /** @var CssClass $css */
-$size = (int)$block->getSize();
-?>
-<img alt="<?= __('Loading') ?>"
-     src="<?= $block->getViewFileUrl('Loki_FieldComponents::images/loader.svg'); ?>"
-     class="<?= $css('loader') ?>"
-     width="<?= $size ?>"
-     height="<?= $size ?>">
+/** @var TemplateRenderer $templateRenderer */
+
+$imageType = (string)$block->getImageType();
+//$imageType = 'inline-svg';
+if ($imageType === 'inline-svg') {
+    echo $templateRenderer->html($block, 'Loki_FieldComponents::utils/loader/inline-svg.phtml');
+    return;
+}
+
+echo $templateRenderer->html($block, 'Loki_FieldComponents::utils/loader/image.phtml');
