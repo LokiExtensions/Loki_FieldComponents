@@ -9,6 +9,6 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
 ?>
-<div class="<?= $css('w-6 h-6', 'inner') ?>">
-    <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+<div class="<?= /* @noEscape */ $css('w-6 h-6', 'inner') ?>">
+    <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
 </div>

@@ -18,7 +18,7 @@ $componentUtil = $viewModelFactory->create(ComponentUtil::class);
     const LokiUploaderComponentType = {
         ...LokiComponentType,
         async submit() {
-            const url = new URL('<?= $componentUtil->getPostUrl(
+            const url = new URL('<?= /* @noEscape */ $componentUtil->getPostUrl(
             ) ?>?form_key=' + LokiComponentFormKey + '&isAjax=true');
             const formData = new FormData(form);
 

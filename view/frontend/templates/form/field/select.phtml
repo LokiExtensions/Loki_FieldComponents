@@ -1,19 +1,21 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
 use Loki\Components\Util\Block\CssClass;
 use Loki\Field\Util\OptionModelInterface;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var FieldViewModelInterface $viewModel */
 /** @var CssClass $css */
 
 $viewModel = $block->getViewModel();
 $optionModel = $viewModel->getOptionModel();
 if (false === $optionModel instanceof OptionModelInterface) {
-    echo __('No options found');
+    echo $escaper->escapeHtml(__('No options found'));
     return;
 }
 
@@ -28,7 +30,7 @@ $autocomplete = (bool) $ancestorBlock->getAutocomplete();
     :value="value"
     @change="submitValue"
     :aria-invalid="isAriaInvalid"
-    aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
+    aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"
     <?php endif ?>
@@ -37,16 +39,16 @@ $autocomplete = (bool) $ancestorBlock->getAutocomplete();
         multiple
     <?php endif; ?>
     <?php if ($size > 0): ?>
-        size="<?= $size ?>"
+        size="<?= $escaper->escapeHtml($size) ?>"
     <?php endif; ?>
     <?php if ($autocomplete): ?>
-        autocomplete="<?= $autocomplete ?>"
+        autocomplete="<?= $escaper->escapeHtml($autocomplete) ?>"
     <?php endif; ?>
     <?= $viewModel->isRequired() ? 'required' : '' ?>
-    id="<?= $viewModel->getFieldId() ?>"
-    class="<?= $css('form-select w-full disabled:bg-zinc-100') ?>"
+    id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
+    class="<?= /* @noEscape */ $css('form-select w-full disabled:bg-zinc-100') ?>"
 >
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
-        <option value="<?= $optionValue ?>"><?= $optionLabel ?></option>
+        <option value="<?= $escaper->escapeHtml($optionValue) ?>"><?= $escaper->escapeHtml($optionLabel) ?></option>
     <?php endforeach; ?>
 </select>

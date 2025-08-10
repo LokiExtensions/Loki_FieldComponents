@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Components\Util\Block\CssClass;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var Template $fieldBlock */
 /** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
@@ -23,10 +25,10 @@ $viewModel = $block->getViewModel();
         disabled="disabled"
     <?php endif ?>
     <?php if ($viewModel->hasAutocomplete()): ?>
-        autocomplete="<?= $viewModel->getAutocomplete() ?>"
+        autocomplete="<?= $escaper->escapeHtml($viewModel->getAutocomplete()) ?>"
     <?php endif ?>
     <?= $viewModel->isRequired() ? 'required' : '' ?>
     type="file"
-    id="<?= $viewModel->getFieldId() ?>"
-    class="<?= $css('form-input w-full disabled:bg-zinc-100') ?>"
+    id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
+    class="<?= /* @noEscape */ $css('form-input w-full disabled:bg-zinc-100') ?>"
 >

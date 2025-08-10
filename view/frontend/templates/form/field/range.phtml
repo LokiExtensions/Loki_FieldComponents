@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Components\Util\Block\CssClass;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var Template $fieldBlock */
 /** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
@@ -13,13 +15,13 @@ use Loki\Components\Util\Block\CssClass;
 $fieldBlock = $block->getFieldBlock();
 $viewModel = $block->getViewModel();
 ?>
-<div class="<?= $css('relative') ?>">
+<div class="<?= /* @noEscape */ $css('relative') ?>">
     <?php if ($viewModel->hasMin()): ?>
-        <span class="<?= $css('text-sm', 'min') ?>"><?= $viewModel->getMin() ?></span>
+        <span class="<?= /* @noEscape */ $css('text-sm', 'min') ?>"><?= $escaper->escapeHtml($viewModel->getMin()) ?></span>
     <?php endif ?>
     <input
         :aria-invalid="isAriaInvalid"
-        aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
+        aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
         data-type="field"
         x-ref="field"
         :value="value"
@@ -29,19 +31,19 @@ $viewModel = $block->getViewModel();
             disabled="disabled"
         <?php endif ?>
         <?php if ($viewModel->hasMin()): ?>
-            min="<?= $viewModel->getMin() ?>"
+            min="<?= $escaper->escapeHtml($viewModel->getMin()) ?>"
         <?php endif ?>
         <?php if ($viewModel->hasMax()): ?>
-            max="<?= $viewModel->getMax() ?>"
+            max="<?= $escaper->escapeHtml($viewModel->getMax()) ?>"
         <?php endif ?>
         <?= $viewModel->isRequired() ? 'required' : '' ?>
         type="range"
-        id="<?= $viewModel->getFieldId() ?>"
-        class="<?= $css('disabled:bg-zinc-100') ?>"
+        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
+        class="<?= /* @noEscape */ $css('disabled:bg-zinc-100') ?>"
     >
     <?php if ($viewModel->hasMax()): ?>
-        <span class="<?= $css('text-sm', 'max') ?>"><?= $viewModel->getMax() ?></span>
+        <span class="<?= /* @noEscape */ $css('text-sm', 'max') ?>"><?= $escaper->escapeHtml($viewModel->getMax()) ?></span>
     <?php endif ?>
 
-    <span class="<?= $css('block text-sm w-full text-center', 'bubble') ?>" x-html="value"></span>
+    <span class="<?= /* @noEscape */ $css('block text-sm w-full text-center', 'bubble') ?>" x-html="value"></span>
 </div>

@@ -1,10 +1,19 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+?>
 <script>
     LokiComponentValidator = {
         validators: {
             required: (component) => {
                 isValid = true;
                 if (component.value === '' || component.value === null || component.value === undefined) {
-                    component.messages.push({type:'error', text: '<?= __('Value is required') ?>'});
+                    component.messages.push({type:'error', text: '<?= $escaper->escapeJs(__('Value is required')) ?>'});
                     isValid = false;
                 }
 

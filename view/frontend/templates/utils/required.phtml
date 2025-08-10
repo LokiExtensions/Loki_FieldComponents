@@ -7,4 +7,4 @@ use Loki\Components\Util\Block\CssClass;
 /** @var Template $block */
 /** @var CssClass $css */
 ?>
-<sub class="<?= $css('required text-red-600 text-xl leading-[0]') ?>">*</sub>
+<sub class="<?= /* @noEscape */ $css('required text-red-600 text-xl leading-[0]') ?>">*</sub>

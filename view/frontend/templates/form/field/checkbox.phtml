@@ -1,42 +1,44 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Components\Util\Block\CssClass;
 use Loki\Components\Component\ComponentViewModelInterface;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var ComponentViewModelInterface $viewModel */
 /** @var CssClass $css */
 /** @var FieldViewModel $viewModel */
 
 $viewModel = $block->getViewModel();
 ?>
-<div class="<?= $css('w-full p-2') ?>"
+<div class="<?= /* @noEscape */ $css('w-full p-2') ?>"
      :aria-invalid="isAriaInvalid"
      data-type="field">
     <input
         type="checkbox"
-        id="<?= $viewModel->getElementId() ?>-field-input"
+        id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
         :checked="value"
         @change="submitChecked"
-        value="<?= $viewModel->getValue() ?>"
+        value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
         <?php if ($viewModel->getValue() === true): ?>
             checked
         <?php endif; ?>
         <?php if ($viewModel->isDisabled()): ?>
             disabled="disabled"
         <?php endif ?>
-        id="<?= $viewModel->getFieldId() ?>"
-        class="<?= $css('form-checkbox disabled:bg-zinc-100', 'input') ?>"
+        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
+        class="<?= /* @noEscape */ $css('form-checkbox disabled:bg-zinc-100', 'input') ?>"
     />
     <label
-        class="<?= $css('pl-2 data-[disabled]:text-zinc-600', 'label') ?>"
+        class="<?= /* @noEscape */ $css('pl-2 data-[disabled]:text-zinc-600', 'label') ?>"
         <?php if ($viewModel->isDisabled()): ?>
             data-disabled="disabled"
         <?php endif ?>
-        for="<?= $viewModel->getElementId() ?>-field-input">
-        <?= __($viewModel->getInputLabel()) ?>
+        for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input">
+        <?= $escaper->escapeHtml(__($viewModel->getInputLabel())) ?>
     </label>
 </div>

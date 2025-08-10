@@ -13,8 +13,8 @@ use Loki\Components\Util\Block\BlockRenderer;
     x-show="showLoader"
     :aria-busy="showLoader"
     aria-live="polite"
-    class="<?= $css('z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
-    <div class="<?= $css('w-8', 'inner') ?>">
-        <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+    class="<?= /* @noEscape */ $css('z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
+    <div class="<?= /* @noEscape */ $css('w-8', 'inner') ?>">
+        <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
     </div>
 </div>

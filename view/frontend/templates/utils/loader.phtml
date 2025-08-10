@@ -12,8 +12,8 @@ use Loki\Components\Util\Block\CssClass;
 $imageType = (string)$block->getImageType();
 $imageType = 'inline-svg';
 if ($imageType === 'inline-svg') {
-    echo $templateRenderer->html($block, 'Loki_FieldComponents::utils/loader/inline-svg.phtml');
+    echo /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::utils/loader/inline-svg.phtml');
     return;
 }
 
-echo $templateRenderer->html($block, 'Loki_FieldComponents::utils/loader/image.phtml');
+echo /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::utils/loader/image.phtml');

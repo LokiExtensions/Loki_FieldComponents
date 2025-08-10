@@ -1,46 +1,48 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Components\Util\Block\CssClass;
 use Loki\Field\Util\OptionModelInterface;
 use Loki\Components\Component\ComponentViewModelInterface;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var ComponentViewModelInterface $viewModel */
 /** @var CssClass $css */
 
 $viewModel = $block->getViewModel();
 $optionModel = $block->getAncestorBlock()->getOptionModel();
 if (false === $optionModel instanceof OptionModelInterface) {
-    echo __('No options found');
+    echo $escaper->escapeHtml(__('No options found'));
     return;
 }
 
 ?>
-<div class="<?= $css('w-full grid grid-cols-1 md:grid-cols-2 p-2') ?>"
+<div class="<?= /* @noEscape */ $css('w-full grid grid-cols-1 md:grid-cols-2 p-2') ?>"
      :aria-invalid="isAriaInvalid"
      data-type="field">
     <?php $i = 0; ?>
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
-        <div class="<?= $css('pb-4', 'option') ?>">
+        <div class="<?= /* @noEscape */ $css('pb-4', 'option') ?>">
             <input
-                aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
+                aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
                 data-type="field"
                 type="radio"
-                id="<?= $viewModel->getElementId() ?>-field-<?= $i ?>"
+                id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>"
                 :checked="isChecked"
                 @change="submitValue"
-                value="<?= $optionValue ?>"
+                value="<?= $escaper->escapeHtml($optionValue) ?>"
                 <?php if ($viewModel->isDisabled()): ?>
                     disabled="disabled"
                 <?php endif ?>
-                id="<?= $viewModel->getFieldId() ?>"
+                id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
             />
             <label
-                class="<?= $css('pl-2', 'label') ?>"
-                for="<?= $viewModel->getElementId() ?>-field-<?= $i ?>">
-                <?= __($optionLabel) ?>
+                class="<?= /* @noEscape */ $css('pl-2', 'label') ?>"
+                for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>">
+                <?= $escaper->escapeHtml(__($optionLabel)) ?>
             </label>
         </div>
         <?php $i++; ?>

@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Components\Util\Block\BlockRenderer;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Components\Util\Block\CssClass;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var Template $fieldBlock */
 /** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
@@ -20,24 +22,24 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
 
 // @todo: Move inputPrefix HTML to separate template
 ?>
-<div class="<?= $css('w-full flex') ?>">
+<div class="<?= /* @noEscape */ $css('w-full flex') ?>">
     <?php if ($inputPrefix): ?>
-        <div class="<?= $css('', 'input_prefix') ?>">
+        <div class="<?= /* @noEscape */ $css('', 'input_prefix') ?>">
             <?php if (str_ends_with($inputPrefix, '.svg')): ?>
             <img
-                src="<?= $block->getViewFileUrl($inputPrefix); ?>"
-                class="<?= $css('', 'input_prefix_icon') ?>"
+                src="<?= /* @noEscape */ $block->getViewFileUrl($inputPrefix); ?>"
+                class="<?= /* @noEscape */ $css('', 'input_prefix_icon') ?>"
                 alt=""
             >
             <?php else: ?>
-                <?= $inputPrefix ?>
+                <?= /* @noEscape */ $inputPrefix ?>
             <?php endif; ?>
         </div>
     <?php endif; ?>
 
     <input
         :aria-invalid="isAriaInvalid"
-        aria-errormessage="<?= $viewModel->getElementId() ?>-messages"
+        aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
         data-type="field"
         x-ref="field"
         :value="value"
@@ -45,35 +47,35 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         @change="submit"
         :disabled="disabled"
         <?php if ($mask): ?>
-            x-mask="<?= $mask ?>"
+            x-mask="<?= $escaper->escapeHtml($mask) ?>"
         <?php endif; ?>
         <?php if ($viewModel->isDisabled()): ?>
             disabled="disabled"
         <?php endif ?>
         <?php if ($viewModel->hasAutocomplete()): ?>
-            autocomplete="<?= $viewModel->getAutocomplete() ?>"
+            autocomplete="<?= $escaper->escapeHtml($viewModel->getAutocomplete()) ?>"
         <?php endif ?>
         <?php if ($viewModel->hasMinLength()): ?>
-            minlength="<?= $viewModel->getMinLength() ?>"
+            minlength="<?= $escaper->escapeHtml($viewModel->getMinLength()) ?>"
         <?php endif ?>
         <?php if ($viewModel->hasMaxLength()): ?>
-            maxlength="<?= $viewModel->getMaxLength() ?>"
+            maxlength="<?= $escaper->escapeHtml($viewModel->getMaxLength()) ?>"
         <?php endif ?>
         <?php if ($viewModel->hasMin()): ?>
-            min="<?= $viewModel->getMin() ?>"
+            min="<?= $escaper->escapeHtml($viewModel->getMin()) ?>"
         <?php endif ?>
         <?php if ($viewModel->hasMax()): ?>
-            max="<?= $viewModel->getMax() ?>"
+            max="<?= $escaper->escapeHtml($viewModel->getMax()) ?>"
         <?php endif ?>
         <?php if ($viewModel->getPlaceholder()): ?>
-            placeholder="<?= __($viewModel->getPlaceholder()) ?>"
+            placeholder="<?= $escaper->escapeHtml(__($viewModel->getPlaceholder())) ?>"
         <?php endif ?>
         <?= $viewModel->isRequired() ? 'required' : '' ?>
-        type="<?= $viewModel->getInputType() ?>"
-        id="<?= $viewModel->getFieldId() ?>"
-        class="<?= $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
+        type="<?= $escaper->escapeHtml($viewModel->getInputType()) ?>"
+        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
+        class="<?= /* @noEscape */ $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
     >
-    <div x-show="isCompleted" class="<?= $css('absolute right-0', 'required') ?>">
-        <?= $blockRenderer->html($block, 'loki-components.utils.field-completed') ?>
+    <div x-show="isCompleted" class="<?= /* @noEscape */ $css('absolute right-0', 'required') ?>">
+        <?= /* @noEscape */ $blockRenderer->html($block, 'loki-components.utils.field-completed') ?>
     </div>
 </div>

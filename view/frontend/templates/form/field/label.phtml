@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Field\Config\Config;
@@ -10,6 +11,7 @@ use Loki\Components\Factory\ViewModelFactory;
 use Loki\Field\Util\Component\FieldTemplateLocator;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
@@ -24,20 +26,20 @@ $isLabel = false === in_array($fieldTemplateLocator->getFieldTypeFromViewModel($
 ?>
 <?php if ($isLabel): ?>
     <label
-        for="<?= $viewModel->getElementId() ?>-field"
-        class="<?= $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
-        <?= __($viewModel->getFieldLabel()) ?>
+        for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field"
+        class="<?= /* @noEscape */ $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
-            <?= $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
+            <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
         <?php endif; ?>
     </label>
 <?php else: ?>
-    <span class="<?= $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
-        <?= __($viewModel->getFieldLabel()) ?>
+    <span class="<?= /* @noEscape */ $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
-            <?= $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
+            <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.required'); ?>
         <?php endif; ?>
     </span>
 

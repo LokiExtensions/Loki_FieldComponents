@@ -14,6 +14,6 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var ViewModelFactory $viewModelFactory */
 /** @var BlockRenderer $blockRenderer */
 ?>
-<fieldset class="<?= $css('field w-auto relative') ?>">
-    <?= $block->getChildHtml() ?>
+<fieldset class="<?= /* @noEscape */ $css('field w-auto relative') ?>">
+    <?= /* @noEscape */ $block->getChildHtml() ?>
 </fieldset>

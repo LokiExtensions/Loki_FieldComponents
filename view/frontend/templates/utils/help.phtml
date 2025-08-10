@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Components\Util\Block\CssClass;
 use Loki\Field\ViewModel\ImageOutput;
 use Loki\Components\Factory\ViewModelFactory;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var CssClass $css */
 /** @var ViewModelFactory $viewModelFactory */
 /** @var ImageOutput $imageOutput */
@@ -29,15 +31,15 @@ if (empty($width)) {
 $text = $block->getHelpText();
 $imageOutput = $viewModelFactory->create(ImageOutput::class);
 ?>
-<div class="<?= $css('ml-2 flex relative') ?>" x-data="LokiToggle" x-cloak>
-    <button type="button" @click="toggle" class="<?= $css('help w-6', 'image') ?>">
-        <?= $imageOutput->get($icon) ?>
+<div class="<?= /* @noEscape */ $css('ml-2 flex relative') ?>" x-data="LokiToggle" x-cloak>
+    <button type="button" @click="toggle" class="<?= /* @noEscape */ $css('help w-6', 'image') ?>">
+        <?= /* @noEscape */ $imageOutput->get($icon) ?>
     </button>
 
-    <div x-cloak x-show="show" class="<?= $width ?> <?= $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
-        <button type="button" @click="toggle" class="<?= $css('help float-right fill-white w-6', 'popup-image') ?>">
-            <?= $imageOutput->get($icon) ?>
+    <div x-cloak x-show="show" class="<?= $escaper->escapeHtml($width) ?> <?= /* @noEscape */ $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
+        <button type="button" @click="toggle" class="<?= /* @noEscape */ $css('help float-right fill-white w-6', 'popup-image') ?>">
+            <?= /* @noEscape */ $imageOutput->get($icon) ?>
         </button>
-        <?= __($text) ?>
+        <?= $escaper->escapeHtml(__($text)) ?>
     </div>
 </div>

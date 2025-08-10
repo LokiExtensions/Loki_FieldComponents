@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Components\Factory\ViewModelFactory;
@@ -10,6 +11,7 @@ use Loki\Components\Util\Block\TemplateRenderer;
 use Loki\Field\Util\Component\FieldTemplateLocator;
 
 /** @var Template $block */
+/** @var Escaper $escaper */
 /** @var CssClass $css */
 /** @var ViewModelFactory $viewModelFactory */
 /** @var TemplateRenderer $templateRenderer */
@@ -21,32 +23,32 @@ $fieldTemplateLocator = $viewModelFactory->create(FieldTemplateLocator::class);
 $templateRenderer = $viewModelFactory->create(TemplateRenderer::class);
 $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ?>
-<div class="<?= $css('field w-auto relative') ?> <?= $viewModel->isRequired(
-) ? 'required' : 'optional' ?> <?= $viewModel->getFieldName() ?>">
-    <?= $block->getChildHtml('before') ?>
+<div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired(
+) ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>">
+    <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?php if ($viewModel->showFieldLabel()): ?>
-        <?= $templateRenderer->html($block, 'Loki_FieldComponents::form/field/label.phtml', ['alias' => 'label']
+        <?= /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::form/field/label.phtml', ['alias' => 'label']
         ) ?>
     <?php endif; ?>
 
-    <div class="<?= $css('flex', 'container') ?>">
-        <div class="<?= $css('relative grow', 'field') ?>">
-            <?= $templateRenderer->html(
+    <div class="<?= /* @noEscape */ $css('flex', 'container') ?>">
+        <div class="<?= /* @noEscape */ $css('relative grow', 'field') ?>">
+            <?= /* @noEscape */ $templateRenderer->html(
                 $block,
                 $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel),
                 $viewModel->getFieldData()
             ) ?>
 
             <div x-cloak x-show="showLoader"
-                 class="<?= $css('field-loader flex absolute inset-y-0 right-0 p-3', 'loader') ?>">
-                <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+                 class="<?= /* @noEscape */ $css('field-loader flex absolute inset-y-0 right-0 p-3', 'loader') ?>">
+                <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
             </div>
         </div>
 
         <?php if ($viewModel->getHelpText()): ?>
-            <div class="<?= $css('relative grow-0 flex content-center', 'field') ?>">
-                <?= $templateRenderer->html($block, 'Loki_FieldComponents::utils/help.phtml', [
+            <div class="<?= /* @noEscape */ $css('relative grow-0 flex content-center', 'field') ?>">
+                <?= /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::utils/help.phtml', [
                     'alias' => 'help',
                     'help_text' => $viewModel->getHelpText(),
                 ]) ?>
@@ -55,11 +57,11 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     </div>
 
     <?php if ($viewModel->getComment()): ?>
-        <div class="<?= $css('text-sm', 'comment') ?>"><?= $viewModel->getComment() ?></div>
+        <div class="<?= /* @noEscape */ $css('text-sm', 'comment') ?>"><?= $escaper->escapeHtml($viewModel->getComment()) ?></div>
     <?php endif; ?>
 
 
-    <?= $blockRenderer->html(
+    <?= /* @noEscape */ $blockRenderer->html(
         $block,
         'loki-components.utils.local-messages',
         [
@@ -67,5 +69,5 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         ]
     ) ?>
 
-    <?= $block->getChildHtml('after') ?>
+    <?= /* @noEscape */ $block->getChildHtml('after') ?>
 </div>
