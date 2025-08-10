@@ -29,7 +29,7 @@ if (empty($width)) {
 $text = $block->getHelpText();
 $imageOutput = $viewModelFactory->create(ImageOutput::class);
 ?>
-<div class="<?= $css('ml-1 flex relative') ?>" x-data="LokiToggle" x-cloak>
+<div class="<?= $css('ml-2 flex relative') ?>" x-data="LokiToggle" x-cloak>
     <button type="button" @click="toggle" class="<?= $css('help w-6', 'image') ?>">
         <?= $imageOutput->get($icon) ?>
     </button>

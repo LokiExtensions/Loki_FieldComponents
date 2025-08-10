@@ -8,13 +8,11 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var Template $block */
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
-$size = (int)$block->getSize();
-if (empty($size)) {
-    $size = 50;
-}
 ?>
 <div
     aria-live="polite"
-    class="<?= $css('loader-overlay hidden z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 justify-center items-center') ?>">
-    <?= $blockRenderer->html($block,'loki-field-components.utils.loader', ['size' => $size]) ?>
+    class="<?= $css('loader-overlay hidden z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
+    <div class="<?= $css('w-8', 'inner') ?>">
+        <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+    </div>
 </div>

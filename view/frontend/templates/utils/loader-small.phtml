@@ -8,9 +8,7 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var Template $block */
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
-$size = (int)$block->getSize();
-if (empty($size)) {
-    $size = 20;
-}
 ?>
-<?= $blockRenderer->html($block,'loki-field-components.utils.loader', ['size' => $size]) ?>
+<div class="<?= $css('w-6 h-6', 'inner') ?>">
+    <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+</div>
