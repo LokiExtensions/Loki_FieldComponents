@@ -10,8 +10,10 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var BlockRenderer $blockRenderer */
 ?>
 <div
+    x-show="showLoader"
+    :aria-busy="showLoader"
     aria-live="polite"
-    class="<?= $css('loader-overlay hidden z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
+    class="<?= $css('z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
     <div class="<?= $css('w-8', 'inner') ?>">
         <?= $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
     </div>
