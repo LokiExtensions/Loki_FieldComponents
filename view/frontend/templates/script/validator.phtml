@@ -76,21 +76,27 @@ use Magento\Framework\View\Element\Template;
             component.valid = true;
             if (component.$root) {
                 Array.from(component.$root.getElementsByTagName('input')).forEach(element => {
-                    if (typeof element.setCustomValidity === 'function') {
+                    if (component.submitted && typeof element.setCustomValidity === 'function') {
                         element.setCustomValidity('');
                     }
 
                     document.dispatchEvent(new CustomEvent('loki-components.dom-update', {target: {element}}));
-                    element.setAttribute('aria-invalid', false);
+                    element.removeAttribute('aria-invalid');
                 });
             }
 
             document.dispatchEvent(new CustomEvent('loki-components.component.update', {detail: {component}}));
         },
         findFirstInvalidElement: function() {
-            return Object.values(document.querySelectorAll('[aria-invalid="true"]'))
+            return Object.values(document.querySelectorAll('[aria-invalid]'))
                 .filter(htmlElement => !htmlElement.disabled)
                 .shift();
         }
     }
 </script>
+
+<style>
+    [data-type="field"][data-valid] {
+        border: 2px green solid;
+    }
+</style>

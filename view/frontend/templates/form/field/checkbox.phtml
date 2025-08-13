@@ -17,10 +17,13 @@ $viewModel = $block->getViewModel();
 ?>
 <div class="<?= /* @noEscape */ $css('w-full p-2') ?>"
      :aria-invalid="isAriaInvalid"
+     :data-valid="isValid"
      data-type="field">
     <input
         type="checkbox"
         id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
+        :aria-invalid="isAriaInvalid"
+        :data-valid="isValid"
         :checked="value"
         @change="submitChecked"
         value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"

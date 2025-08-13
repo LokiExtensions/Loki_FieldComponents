@@ -21,6 +21,7 @@ $viewModel = $block->getViewModel();
     <?php endif ?>
     <input
         :aria-invalid="isAriaInvalid"
+        :data-valid="isValid"
         aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
         data-type="field"
         x-ref="field"

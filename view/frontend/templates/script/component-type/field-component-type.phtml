@@ -83,23 +83,18 @@
                 this.$refs.field.dispatchEvent(new Event('change')); // @todo: What should this do?
             }).bind(this), 2000);
         },
-        initSubmittedAfterPost() {
-            document.addEventListener('loki-components.component.update', () => {
-                this.submitted = true;
-            });
-        },
         setValid(valid) {
             this.valid = valid;
             document.dispatchEvent(new CustomEvent('loki-components.component.update'));
         },
         isValid() {
-            return this.valid && this.submitted;
+            return this.valid && this.isSubmitted();
         },
         isAriaInvalid() {
             return !this.valid && this.submitted;
         },
         isSubmitted() {
-            return this.submitted;
+            return this.submitted || this.ajax;
         },
         beforeSubmit() {
         },

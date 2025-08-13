@@ -30,6 +30,7 @@ $autocomplete = (bool) $ancestorBlock->getAutocomplete();
     :value="value"
     @change="submitValue"
     :aria-invalid="isAriaInvalid"
+    :data-valid="isValid"
     aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
     <?php if ($viewModel->isDisabled()): ?>
         disabled="disabled"

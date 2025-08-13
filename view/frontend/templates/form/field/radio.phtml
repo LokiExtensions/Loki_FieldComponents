@@ -22,6 +22,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
 ?>
 <div class="<?= /* @noEscape */ $css('w-full grid grid-cols-1 md:grid-cols-2 p-2') ?>"
      :aria-invalid="isAriaInvalid"
+     :data-valid="isValid"
      data-type="field">
     <?php $i = 0; ?>
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
