@@ -7,6 +7,8 @@ use Loki\Components\Util\Block\CssClass;
 /** @var Template $block */
 /** @var CssClass $css */
 ?>
-<div class="<?= /* @noEscape */ $css('mb-8 md:float-right md:flex') ?>">
-    <?= /* @noEscape */ $block->getChildHtml() ?>
+<div class="<?= /* @noEscape */ $css('') ?>">
+    <div class="<?= /* @noEscape */ $css('md:float-right md:flex', 'inner') ?>">
+        <?= /* @noEscape */ $block->getChildHtml() ?>
+    </div>
 </div>
