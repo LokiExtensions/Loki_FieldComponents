@@ -97,6 +97,11 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
 
     public function isRequired(): bool
     {
+        $required = $this->getBlock()->getRequired();
+        if (is_bool($required)) {
+            return $required;
+        }
+
         return false;
     }
 
