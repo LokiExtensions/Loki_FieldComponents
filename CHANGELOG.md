@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.8] - 13 August 2025
+### Fixed
+- Stretch div of buttons in full width
+- Add `data-valid` attribute to fields
+- Add `isValid` method
+- Always set `submitted=true` after component update
+- Allow property `required` to be properly set from XML layout
+
 ## [2.0.7] - 10 August 2025
 ### Fixed
 - Add escaping to templates
