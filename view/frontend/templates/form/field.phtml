@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Loki\Components\Util\Block\CssStyle;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
@@ -13,6 +14,7 @@ use Loki\Field\Util\Component\FieldTemplateLocator;
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var CssClass $css */
+/** @var CssStyle $style */
 /** @var ViewModelFactory $viewModelFactory */
 /** @var TemplateRenderer $templateRenderer */
 /** @var BlockRenderer $blockRenderer */
@@ -24,7 +26,7 @@ $templateRenderer = $viewModelFactory->create(TemplateRenderer::class);
 $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ?>
 <div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired(
-) ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>">
+) ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>" style="<?= $style() ?>">
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?php if ($viewModel->showFieldLabel()): ?>
