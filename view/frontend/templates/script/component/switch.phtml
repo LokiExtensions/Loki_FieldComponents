@@ -1,0 +1,16 @@
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('LokiSwitch', () => ({
+            buttonClass() {
+                return this.value ? 'bg-primary' : 'bg-gray-400';
+            },
+            floatClass() {
+                return this.value ? 'float-left' : 'float-right';
+            },
+            toggleSwitch() {
+                this.value = !this.value;
+                this.post();
+            }
+        }));
+    });
+</script>
