@@ -88,6 +88,10 @@
             document.dispatchEvent(new CustomEvent('loki-components.component.update'));
         },
         isValid() {
+            if (this.valid && this.value.length > 0) {
+                return true;
+            }
+
             return this.valid && this.isSubmitted();
         },
         isAriaInvalid() {
