@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.9] - 15 August 2025
+### Fixed
+- Add inline styling (for CSS properties) via `$style()`
+- Move config from Yireo tab to Loki tab
+
 ## [2.0.8] - 13 August 2025
 ### Fixed
 - Stretch div of buttons in full width
