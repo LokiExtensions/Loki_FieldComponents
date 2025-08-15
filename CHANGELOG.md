@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.11] - 15 August 2025
+### Fixed
+- Mark input field with [data-valid] also on page load when it is valid and not-empty
+
 ## [2.0.10] - 15 August 2025
 ### Fixed
 - Do not show loader-overlay on load by adding x-cloak
