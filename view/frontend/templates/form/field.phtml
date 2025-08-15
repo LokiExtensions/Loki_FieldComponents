@@ -30,8 +30,13 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?php if ($viewModel->showFieldLabel()): ?>
-        <?= /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::form/field/label.phtml', ['alias' => 'label']
+        <div class="<?= $css('', 'label') ?>">
+            <?= /* @noEscape */ $templateRenderer->html(
+                $block,
+                'Loki_FieldComponents::form/field/label.phtml',
+                ['alias' => 'label']
         ) ?>
+        </div>
     <?php endif; ?>
 
     <div class="<?= /* @noEscape */ $css('flex', 'container') ?>">
@@ -62,13 +67,10 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         <div class="<?= /* @noEscape */ $css('text-sm', 'comment') ?>"><?= $escaper->escapeHtml($viewModel->getComment()) ?></div>
     <?php endif; ?>
 
-
     <?= /* @noEscape */ $blockRenderer->html(
         $block,
         'loki-components.utils.local-messages',
-        [
-            'dom_id' => $viewModel->getElementId().'-messages',
-        ]
+        ['dom_id' => $viewModel->getElementId().'-messages',]
     ) ?>
 
     <?= /* @noEscape */ $block->getChildHtml('after') ?>
