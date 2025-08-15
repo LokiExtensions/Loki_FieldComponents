@@ -30,6 +30,10 @@
                 template="Loki_FieldComponents::script/component/toggle.phtml"/>
 
             <block
+                name="loki-field-components.script.components.switch"
+                template="Loki_FieldComponents::script/component/switch.phtml"/>
+
+            <block
                 name="loki-field-components.script.components.password"
                 template="Loki_FieldComponents::script/component/password.phtml"/>
 

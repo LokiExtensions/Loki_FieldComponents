@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.12] - 15 August 2025
+### Fixed
+- Fix JS warning on value.length if null
+
+## [2.0.11] - 15 August 2025
+### Fixed
+- Mark input field with [data-valid] also on page load when it is valid and not-empty
+
+## [2.0.10] - 15 August 2025
+### Fixed
+- Do not show loader-overlay on load by adding x-cloak
+
+## [2.0.9] - 15 August 2025
+### Fixed
+- Add inline styling (for CSS properties) via `$style()`
+- Move config from Yireo tab to Loki tab
+
 ## [2.0.8] - 13 August 2025
 ### Fixed
 - Stretch div of buttons in full width
