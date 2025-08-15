@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.10] - 15 August 2025
+### Fixed
+- Do not show loader-overlay on load by adding x-cloak
+
 ## [2.0.9] - 15 August 2025
 ### Fixed
 - Add inline styling (for CSS properties) via `$style()`
