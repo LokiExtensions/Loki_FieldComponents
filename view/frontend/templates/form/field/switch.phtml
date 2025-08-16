@@ -15,48 +15,26 @@ use Loki\Components\Component\ComponentViewModelInterface;
 
 $viewModel = $block->getViewModel();
 ?>
-<div class="<?= /* @noEscape */ $css('relative inline-block') ?>"
-     x-data="LokiSwitch"
-     :aria-invalid="isAriaInvalid"
-     :data-valid="isValid"
-     data-type="field">
-
-    <div class="<?= /* @noEscape */ $css('relative inline-block') ?>">
-        <input
-            type="checkbox"
-            role="switch"
-            id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-input"
-            :value="value"
-            @change="toggleSwitch"
-            value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
-            <?php if ($viewModel->getValue() === true): ?>
-                checked
-            <?php endif; ?>
-            <?php if ($viewModel->isDisabled()): ?>
-                disabled="disabled"
-            <?php endif ?>
-            id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
-            class="<?= /* @noEscape */ $css(
-                'peer appearance-none w-11 h-[28px] checked:bg-none bg-slate-500 disabled:bg-slate-100 rounded-full checked:bg-primary cursor-pointer transition-colors duration-300 border-0"',
-                'input'
-            ) ?>"
-        />
-
-        <label
-            for="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-input"
-            @click="toggleSwitch"
-            :class="labelClass"
-            class="<?= /* @noEscape */ $css(
-    'absolute top-[2px] w-[20px] h-[20px] m-[2px] bg-white rounded-full shadow-sm transition-transform duration-300 cursor-pointer') ?>">
-        </label>
-    </div>
-
-    <label
-        class="<?= /* @noEscape */ $css('pl-2 data-[disabled]:text-zinc-600', 'label') ?>"
-        <?php if ($viewModel->isDisabled()): ?>
-            data-disabled="disabled"
-        <?php endif ?>
-        for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input">
+<label
+    data-type="field"
+    class="<?= /* @noEscape */ $css('flex items-center gap-3') ?>"
+    :aria-invalid="isAriaInvalid"
+    :data-valid="isValid"
+>
+    <input
+        role="switch"
+        type="checkbox"
+        id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
+        class="<?= /* @noEscape */ $css('form-switch', 'input') ?>"
+        value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
+        <?php if ($viewModel->getValue() === true): ?>checked<?php endif; ?>
+        :checked="value"
+        <?php if ($viewModel->isDisabled()): ?>disabled<?php endif ?>
+        :aria-invalid="isAriaInvalid"
+        :data-valid="isValid"
+        @change="submitChecked"
+    >
+    <span class="<?= /* @noEscape */ $css('', 'label') ?>">
         <?= $escaper->escapeHtml(__($viewModel->getInputLabel())) ?>
-    </label>
-</div>
+    </span>
+</label>
