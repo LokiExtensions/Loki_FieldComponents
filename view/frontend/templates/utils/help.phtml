@@ -36,7 +36,7 @@ $imageOutput = $viewModelFactory->create(ImageOutput::class);
         <?= /* @noEscape */ $imageOutput->get($icon) ?>
     </button>
 
-    <div x-cloak x-show="show" class="<?= $escaper->escapeHtml($width) ?> <?= /* @noEscape */ $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
+    <div x-cloak x-show="shown" class="<?= $escaper->escapeHtml($width) ?> <?= /* @noEscape */ $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
         <button type="button" @click="toggle" class="<?= /* @noEscape */ $css('help float-right fill-white w-6', 'popup-image') ?>">
             <?= /* @noEscape */ $imageOutput->get($icon) ?>
         </button>
