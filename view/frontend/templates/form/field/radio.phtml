@@ -28,10 +28,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
 >
     <?php $i = 0; ?>
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
-        <label
-            class="<?= /* @noEscape */ $css('flex items-center gap-3', 'option') ?>"
-            for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>"
-        >
+        <label class="<?= /* @noEscape */ $css('flex items-center gap-3', 'option') ?>">
             <input
                 type="radio"
                 id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>"

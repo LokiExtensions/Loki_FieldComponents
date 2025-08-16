@@ -16,11 +16,10 @@ use Loki\Components\Component\ComponentViewModelInterface;
 $viewModel = $block->getViewModel();
 ?>
 <label
+    data-type="field"
     class="<?= /* @noEscape */ $css('flex items-center gap-3') ?>"
     :aria-invalid="isAriaInvalid"
     :data-valid="isValid"
-    data-type="field"
-    for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
 >
     <input
         type="checkbox"
