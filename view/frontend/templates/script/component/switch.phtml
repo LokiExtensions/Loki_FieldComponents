@@ -1,11 +1,8 @@
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('LokiSwitch', () => ({
-            buttonClass() {
-                return this.value ? 'bg-primary' : 'bg-gray-400';
-            },
-            floatClass() {
-                return this.value ? 'float-left' : 'float-right';
+            labelClass() {
+                return this.value ? 'right-[2px]' : 'left-[2px]';
             },
             toggleSwitch() {
                 this.value = !this.value;

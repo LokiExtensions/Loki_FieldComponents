@@ -15,7 +15,7 @@ use Loki\Components\Component\ComponentViewModelInterface;
 
 $viewModel = $block->getViewModel();
 ?>
-<div class="<?= /* @noEscape */ $css('') ?>"
+<div class="<?= /* @noEscape */ $css('relative inline-block') ?>"
      x-data="LokiSwitch"
      :aria-invalid="isAriaInvalid"
      :data-valid="isValid"
@@ -23,9 +23,10 @@ $viewModel = $block->getViewModel();
 
     <input
         type="checkbox"
-        id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
+        role="switch"
+        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-input"
         :value="value"
-        @change="submitValue"
+        @change="toggleSwitch"
         value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
         <?php if ($viewModel->getValue() === true): ?>
             checked
@@ -34,26 +35,12 @@ $viewModel = $block->getViewModel();
             disabled="disabled"
         <?php endif ?>
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
-        class="<?= /* @noEscape */ $css('peer hidden', 'input') ?>"
+        class="<?= /* @noEscape */ $css('peer appearance-none w-11 h-[28px] checked:bg-none bg-slate-500 disabled:bg-slate-100 rounded-full checked:bg-primary cursor-pointer transition-colors duration-300 border-0"', 'input') ?>"
     />
 
-    <div class="<?= /* @noEscape */ $css('relative inline-block w-10 h-6', 'button') ?>">
-        <div
-            @click="toggleSwitch"
-            :class="buttonClass"
-            class="<?= /* @noEscape */ $css('rounded-full absolute p-1 top-0 left-0 right-0 bottom-0 cursor-pointer', 'button-inner') ?>">
-            <div
-                :class="floatClass"
-                class="<?= /* @noEscape */ $css('cursor-pointer h-4 w-4 rounded-full bg-white', 'button-active') ?>"></div>
-        </div>
-    </div>
-
     <label
-        class="<?= /* @noEscape */ $css('inline-flex items-center cursor-pointer leading-6', 'label') ?>"
-        for="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
-        @click="toggleSwitch">
-        <span class="<?= /* @noEscape */ $css('', 'label-inner') ?>">
-            <?= $escaper->escapeHtml(__($viewModel->getInputLabel())) ?>
-        </span>
-    </label>
+        for="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-input"
+        @click="toggleSwitch"
+        :class="labelClass"
+        class="absolute top-[2px] w-[20px] h-[20px] m-[2px] bg-white rounded-full shadow-sm transition-transform duration-300 cursor-pointer"></label>
 </div>
