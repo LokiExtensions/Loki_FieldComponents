@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.13] - 18 August 2025
+### Fixed
+- Lower requirements to PHP 8.1
+- Fix newlines after comments
+- Add aria-hidden to asterisk
+- Replace `autocomplete=1` with `autocomplete=on`
+- Fix non-CSP-compliant `x-show` statement
+- Remove duplicate LokiToggle component
+- Add label to switch
+- Finalize improved switch field with only input and label element
+- Fixes for radio buttons
+- Make switch field-type CSP compliant and visual improvements
+- Rename tab in Store Config from "Yireo" to "Loki"
+
 ## [2.0.12] - 15 August 2025
 ### Fixed
 - Fix JS warning on value.length if null
