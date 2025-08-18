@@ -27,7 +27,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ?>
 <div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml(
     $viewModel->getFieldName()
-) ?>" style="<?= $style() ?>">
+) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?php if ($viewModel->showFieldLabel()): ?>

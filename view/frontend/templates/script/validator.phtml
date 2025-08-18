@@ -13,7 +13,7 @@ use Magento\Framework\View\Element\Template;
             required: (component) => {
                 isValid = true;
                 if (component.value === '' || component.value === null || component.value === undefined) {
-                    component.messages.push({type:'error', text: '<?= $escaper->escapeJs(__('Value is required')) ?>'});
+                    component.messages.push({type:'error', text: '<?= $escaper->escapeHtml(__('Value is required')) ?>'});
                     isValid = false;
                 }
 
