@@ -22,7 +22,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
 $ancestorBlock = $viewModel->getBlock();
 $multiple = (bool) $ancestorBlock->getMultiple();
 $size = (int) $ancestorBlock->getSize();
-$autocomplete = (bool) $ancestorBlock->getAutocomplete();
+$autocomplete = (bool) $ancestorBlock->getAutocomplete() ? 'on' : 'off';
 ?>
 <select
     data-type="field"
