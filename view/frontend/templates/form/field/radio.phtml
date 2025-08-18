@@ -20,32 +20,30 @@ if (false === $optionModel instanceof OptionModelInterface) {
 }
 
 ?>
-<div class="<?= /* @noEscape */ $css('w-full grid grid-cols-1 md:grid-cols-2 p-2') ?>"
-     :aria-invalid="isAriaInvalid"
-     :data-valid="isValid"
-     data-type="field">
+<div
+    class="<?= /* @noEscape */ $css('grid grid-cols-1 md:grid-cols-2') ?>"
+    :aria-invalid="isAriaInvalid"
+    :data-valid="isValid"
+    data-type="field"
+>
     <?php $i = 0; ?>
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
-        <div class="<?= /* @noEscape */ $css('pb-4', 'option') ?>">
+        <label class="<?= /* @noEscape */ $css('flex items-center gap-3', 'option') ?>">
             <input
-                aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
-                data-type="field"
                 type="radio"
                 id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>"
+                class="<?= /* @noEscape */ $css('form-radio', 'input') ?>"
+                value="<?= $escaper->escapeHtml($optionValue) ?>"
+                <?php if ($viewModel->isDisabled()): ?>disabled<?php endif ?>
+                aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
+                data-type="field"
                 :checked="isChecked"
                 @change="submitValue"
-                value="<?= $escaper->escapeHtml($optionValue) ?>"
-                <?php if ($viewModel->isDisabled()): ?>
-                    disabled="disabled"
-                <?php endif ?>
-                id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
-            />
-            <label
-                class="<?= /* @noEscape */ $css('pl-2', 'label') ?>"
-                for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>">
+            >
+            <span class="<?= /* @noEscape */ $css('', 'label') ?>">
                 <?= $escaper->escapeHtml(__($optionLabel)) ?>
-            </label>
-        </div>
+            </span>
+        </label>
         <?php $i++; ?>
     <?php endforeach; ?>
 </div>

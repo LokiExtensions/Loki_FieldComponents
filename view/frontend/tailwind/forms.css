@@ -1,0 +1,8 @@
+label:has(input:is([type="radio"], [type="checkbox"]):disabled) {
+    @apply text-gray-600 cursor-not-allowed;
+
+    & input[type="checkbox"][role="switch"],
+    & .form-switch {
+        @apply bg-gray-300;
+    }
+}
