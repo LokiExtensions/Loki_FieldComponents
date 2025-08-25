@@ -77,6 +77,10 @@ use Magento\Framework\View\Element\Template;
                     return;
                 }
 
+                if (this.$refs.field.type === 'checkbox') {
+                    return;
+                }
+
                 if (!this.$refs.field.value || this.$refs.field.value === this.fieldValue || this.$refs.field.value === this.value) {
                     return;
                 }
