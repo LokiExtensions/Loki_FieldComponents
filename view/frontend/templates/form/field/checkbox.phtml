@@ -25,7 +25,7 @@ $viewModel = $block->getViewModel();
 >
     <input
         type="checkbox"
-        id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
+        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
         class="<?= /* @noEscape */ $css('form-checkbox', 'input') ?>"
         value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
         <?php if ($viewModel->getValue() === true): ?>checked<?php endif; ?>
@@ -35,7 +35,7 @@ $viewModel = $block->getViewModel();
         :data-valid="isValid"
         @change="submitChecked"
     >
-    <span class="<?= /* @noEscape */ $css('', 'label') ?>">
-        <?= $escaper->escapeHtml(__($viewModel->getInputLabel())) ?>
+    <span class="<?= /* @noEscape */ $css('cursor-pointer', 'label') ?>">
+        <?= /* @noEscape */ __($viewModel->getInputLabel()) ?>
     </span>
 </label>
