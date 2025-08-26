@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.15] - 26 August 2025
+### Fixed
+- Allow field label to come from XML layout
+- Add support for Alpine Mask config via XML layout
+- Fix Alpine Mask plugin not being loaded under Hyva
+- Rename Alpine CSP template; Load Alpine Mask under Luma properly
+- Disable autocomplete for checkboxes
+
 ## [2.0.14] - 21 August 2025
 ### Fixed
 - Add CSS class `cursor-pointer` to entire label of radio field
