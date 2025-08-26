@@ -12,6 +12,7 @@
         "magento/module-config": "^101.0",
         "magento/module-backend": "^102.0",
         "magento/module-media-storage": "^100.0",
+        "loki/magento2-css-utils": "^1.0",
         "loki/magento2-components": "^2.0",
         "ext-pcre": "*"
     },
