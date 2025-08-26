@@ -144,6 +144,11 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         return (string)$this->getBlock()->getPlaceholder();
     }
 
+    public function getAlpineMask(): string
+    {
+        return (string)$this->getBlock()->getAlpineMask();
+    }
+
     public function hasAutocomplete(): bool
     {
         return !empty($this->getAutocomplete());

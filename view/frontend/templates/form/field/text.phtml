@@ -73,6 +73,9 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         <?php if ($viewModel->getPlaceholder()): ?>
             placeholder="<?= $escaper->escapeHtml(__($viewModel->getPlaceholder())) ?>"
         <?php endif ?>
+        <?php if ($viewModel->getAlpineMask()): ?>
+            x-mask="<?= $escaper->escapeHtml(__($viewModel->getAlpineMask())) ?>"
+        <?php endif ?>
         <?= $viewModel->isRequired() ? 'required' : '' ?>
         type="<?= $escaper->escapeHtml($viewModel->getInputType()) ?>"
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
