@@ -24,7 +24,10 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         return 'LokiFieldComponent';
     }
 
-    abstract public function getFieldLabel(): string;
+    public function getFieldLabel(): string
+    {
+        return (string)$this->getBlock()->getFieldLabel();
+    }
 
     public function showFieldLabel(): bool
     {
