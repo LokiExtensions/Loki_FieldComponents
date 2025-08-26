@@ -68,34 +68,6 @@ use Magento\Framework\View\Element\Template;
                 }
             })
         },
-        initListenToAutofillChanges() {
-            if (!this.$refs.field || this.$refs.field.disabled) {
-                return;
-            }
-
-            this.fieldValue = this.$refs.field.value;
-            this.autofillListenerTimer = setInterval((function () {
-                if (!this.$refs.field) {
-                    return;
-                }
-
-                if (this.$refs.field.type === 'checkbox') {
-                    return;
-                }
-
-                if (!this.$refs.field.value || this.$refs.field.value === this.fieldValue || this.$refs.field.value === this.value) {
-                    return;
-                }
-
-                if (document.activeElement && document.activeElement.id === this.$refs.field.id) {
-                    return;
-                }
-
-                this.fieldValue = this.$refs.field.value;
-                this.value = this.$refs.field.value;
-                this.$refs.field.dispatchEvent(new Event('change')); // @todo: What should this do?
-            }).bind(this), 2000);
-        },
         setValid(valid) {
             this.valid = valid;
             document.dispatchEvent(new CustomEvent('loki-components.component.update'));
