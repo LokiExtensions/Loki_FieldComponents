@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="script-alpine-js">
+            <block
+                name="loki-components.alpine-plugin-mask"
+                template="Loki_FieldComponents::script/alpine-mask.phtml"
+            />
+        </referenceBlock>
+    </body>
+</page>

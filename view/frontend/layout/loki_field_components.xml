@@ -68,14 +68,6 @@
             </arguments>
         </block>
 
-        <!-- @todo: Fix error about Mask not being there yet -->
-        <referenceBlock name="script-alpine-js">
-            <block
-                name="loki-components.alpine-plugin-mask"
-                template="Loki_FieldComponents::script/alpine-mask.phtml"
-            />
-        </referenceBlock>
-
         <referenceBlock name="loki-components.alpinejs">
             <block
                 name="loki-components.alpine-plugin-mask"
