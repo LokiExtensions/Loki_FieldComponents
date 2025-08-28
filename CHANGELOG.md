@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.16] - 28 August 2025
+### Fixed
+- Add CI files
+- Replace yireo/opensearch with yireo/opensearch-dummy in Gitlab CI
+- Remove obsolete autofill hack
+
 ## [2.0.15] - 26 August 2025
 ### Fixed
 - Allow field label to come from XML layout
