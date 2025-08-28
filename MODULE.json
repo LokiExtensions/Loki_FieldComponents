@@ -4,6 +4,7 @@
         "Magento_Config",
         "Magento_Customer",
         "Magento_MediaStorage",
+        "Loki_CssUtils",
         "Loki_Components"
     ],
     "components": [],
