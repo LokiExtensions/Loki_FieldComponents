@@ -21,6 +21,7 @@ $viewModel = $block->getViewModel();
 $ancestorBlock = $viewModel->getBlock();
 $mask = $ancestorBlock->getInputMask(); // @todo: Move to Field class
 $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
+$fieldAttributes = (array)$viewModel->getBlock()->getFieldAttributes();
 
 // @todo: Move inputPrefix HTML to separate template
 ?>
@@ -73,15 +74,15 @@ $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
         <?php if ($viewModel->getPlaceholder()): ?>
             placeholder="<?= $escaper->escapeHtml(__($viewModel->getPlaceholder())) ?>"
         <?php endif ?>
-        <?php if ($viewModel->getInputType() === 'date'): ?>
-            x-date-format="DD-MM-YYYY"
-        <?php endif ?>
         <?php if ($viewModel->getAlpineMask()): ?>
             x-mask="<?= $escaper->escapeHtml(__($viewModel->getAlpineMask())) ?>"
         <?php endif ?>
         <?= $viewModel->isRequired() ? 'required' : '' ?>
         type="<?= $escaper->escapeHtml($viewModel->getInputType()) ?>"
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
+        <?php foreach ($fieldAttributes as $fieldAttributeName => $fieldAttributeValue): ?>
+            <?= $escaper->escapeHtml($fieldAttributeName) ?>="<?= $escaper->escapeHtml($fieldAttributeValue) ?>"
+        <?php endforeach; ?>
         class="<?= /* @noEscape */ $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
     >
     <div x-show="isCompleted" class="<?= /* @noEscape */ $css('absolute right-0', 'required') ?>">
