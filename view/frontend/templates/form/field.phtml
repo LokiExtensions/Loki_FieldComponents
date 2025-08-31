@@ -32,13 +32,11 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
-    <?php if ($viewModel->showFieldLabel()): ?>
-        <?= /* @noEscape */ $templateRenderer->html(
-            $block,
-            'Loki_FieldComponents::form/field/label.phtml',
-            ['alias' => 'label']
-        ) ?>
-    <?php endif; ?>
+    <?= /* @noEscape */ $templateRenderer->html(
+        $block,
+        'Loki_FieldComponents::form/field/label.phtml',
+        ['alias' => 'label']
+    ) ?>
 
     <div class="<?= /* @noEscape */ $css('flex', 'container') ?>">
         <div class="<?= /* @noEscape */ $css('relative grow', 'field') ?>">

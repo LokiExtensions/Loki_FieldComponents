@@ -50,6 +50,7 @@ $fieldAttributes = (array)$viewModel->getBlock()->getFieldAttributes();
         @input="setValue"
         @change="submit"
         :disabled="disabled"
+        aria-label="<?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>"
         <?php if ($mask): ?>
             x-mask="<?= $escaper->escapeHtml($mask) ?>"
         <?php endif; ?>
