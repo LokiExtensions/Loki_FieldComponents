@@ -5,12 +5,11 @@ namespace Loki\Field\Component\Base\Field;
 use Magento\Framework\View\Element\AbstractBlock;
 use Loki\Components\Component\ComponentViewModel;
 use Loki\Field\Util\OptionModelInterface;
-use Loki\Components\Component\Behaviour\LengthBehaviourInterface;
 
 /**
  * @method FieldContext getContext()
  */
-abstract class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface, LengthBehaviourInterface
+abstract class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {
     public function getFieldName(): string
     {
