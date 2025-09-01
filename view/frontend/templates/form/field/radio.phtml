@@ -32,15 +32,13 @@ if (false === $optionModel instanceof OptionModelInterface) {
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
         <label class="<?= /* @noEscape */ $css('flex items-center gap-3 cursor-pointer', 'option') ?>">
             <input
-                type="radio"
-                id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-<?= $escaper->escapeHtml($i) ?>"
                 class="<?= /* @noEscape */ $css('form-radio', 'input') ?>"
-                value="<?= $escaper->escapeHtml($optionValue) ?>"
-                <?php if ($viewModel->isDisabled()): ?>disabled<?php endif ?>
-                aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
-                data-type="field"
-                :checked="isChecked"
-                @change="submitValue"
+                <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+                    'type' => 'radio',
+                    'value' => $optionValue,
+                    ':checked' => 'isChecked',
+                    '@change' => 'submitValue',
+                ]) ?>
             >
             <span class="<?= /* @noEscape */ $css('', 'label') ?>">
                 <?= $escaper->escapeHtml(__($optionLabel)) ?>

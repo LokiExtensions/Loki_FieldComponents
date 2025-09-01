@@ -52,6 +52,54 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         return $this->getElementId().'-field';
     }
 
+    public function getFieldAttributes(array $customAttributes = []): array
+    {
+        $fieldAttributes = [
+            'id' => $this->getFieldId(),
+            'aria-label' => $this->getFieldLabel(),
+            'aria-errormessage' => $this->getElementId() . '-messages',
+            'data-type' => 'field',
+            'x-ref' => 'field',
+            ':disabled' => 'disabled',
+            ':aria-invalid' => 'isAriaInvalid',
+            ':data-valid' => 'isValid'
+        ];
+
+        $fieldAttributes['required'] = $this->isRequired();
+        $fieldAttributes['disabled'] = $this->isDisabled();
+
+        if ($this->hasAutocomplete()) {
+            $fieldAttributes['autocomplete'] = $this->getAutocomplete();
+        }
+
+        if ($this->getPlaceholder()) {
+            $fieldAttributes['placeholder'] = $this->getPlaceholder();
+        }
+
+        $fieldAttributesFromBlock = (array)$this->getBlock()->getFieldAttributes();
+
+        return array_merge($fieldAttributes, $fieldAttributesFromBlock, $customAttributes);
+    }
+
+    public function getFieldAttributesAsString(array $customAttributes = []): string
+    {
+        $fieldAttributesAsString = '';
+        foreach ($this->getFieldAttributes($customAttributes) as $fieldAttributeName => $fieldAttributeValue) {
+            if ($fieldAttributeValue === false) {
+                continue;
+            }
+
+            if ($fieldAttributeValue === null || $fieldAttributeValue === true) {
+                $fieldAttributesAsString .= ' ' .$fieldAttributeName;
+                continue;
+            }
+
+            $fieldAttributesAsString .= ' '.$fieldAttributeName . '="' . $fieldAttributeValue . '"';
+        }
+
+        return trim($fieldAttributesAsString);
+    }
+
     public function getJsData(): array
     {
         $jsDataFromBlock = (array)$this->getBlock()->getJsData();
@@ -147,11 +195,6 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
         return (string)$this->getBlock()->getPlaceholder();
     }
 
-    public function getAlpineMask(): string
-    {
-        return (string)$this->getBlock()->getAlpineMask();
-    }
-
     public function hasAutocomplete(): bool
     {
         return !empty($this->getAutocomplete());
@@ -160,46 +203,6 @@ abstract class FieldViewModel extends ComponentViewModel implements FieldViewMod
     public function getAutocomplete(): string
     {
         return (string)$this->getBlock()->getAutocomplete();
-    }
-
-    public function hasMinLength(): bool
-    {
-        return $this->getMinLength() > 0;
-    }
-
-    public function getMinLength(): int
-    {
-        return (int)$this->getBlock()->getMinLength();
-    }
-
-    public function hasMaxLength(): bool
-    {
-        return $this->getMaxLength() > 0;
-    }
-
-    public function getMaxLength(): int
-    {
-        return (int)$this->getBlock()->getMaxLength();
-    }
-
-    public function hasMin(): bool
-    {
-        return $this->getMin() > 0;
-    }
-
-    public function getMin(): string
-    {
-        return (string)$this->getBlock()->getMin();
-    }
-
-    public function hasMax(): bool
-    {
-        return $this->getMax() > 0;
-    }
-
-    public function getMax(): string
-    {
-        return (string)$this->getBlock()->getMax();
     }
 
     public function getOptionModel(): ?OptionModelInterface

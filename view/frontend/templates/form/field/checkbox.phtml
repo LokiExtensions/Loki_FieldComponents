@@ -24,16 +24,14 @@ $viewModel = $block->getViewModel();
     :data-valid="isValid"
 >
     <input
-        type="checkbox"
-        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
         class="<?= /* @noEscape */ $css('form-checkbox', 'input') ?>"
-        value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
-        <?php if ($viewModel->getValue() === true): ?>checked<?php endif; ?>
-        :checked="value"
-        <?php if ($viewModel->isDisabled()): ?>disabled<?php endif ?>
-        :aria-invalid="isAriaInvalid"
-        :data-valid="isValid"
-        @change="submitChecked"
+        <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            'type' => 'checkbox',
+            'value' => $viewModel->getValue(),
+            'checked' => $viewModel->getValue() === true,
+            ':checked' => 'value',
+            '@change' => 'submitChecked'
+        ]) ?>
     >
     <span class="<?= /* @noEscape */ $css('cursor-pointer', 'label') ?>">
         <?= /* @noEscape */ __($viewModel->getInputLabel()) ?>

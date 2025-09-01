@@ -19,7 +19,7 @@ class FieldComponent extends Component
             $validators[] = 'required';
         }
 
-        if ($viewModel->hasMinLength() || $viewModel->hasMaxLength()) {
+        if ((int)$viewModel->getBlock()->getMinlength() > 0 || (int)$viewModel->getBlock()->getMaxlength() > 0) {
             $validators[] = 'length';
         }
 

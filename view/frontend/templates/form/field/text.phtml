@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
 
-/** @version 2.0.16 */
-
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Components\Util\Block\BlockRenderer;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\CssUtils\Util\CssClass;
 
+/** @version 2.0.16 */
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var Template $fieldBlock */
@@ -19,9 +18,8 @@ use Loki\CssUtils\Util\CssClass;
 $fieldBlock = $block->getFieldBlock(); // @todo $fieldBlock is empty?
 $viewModel = $block->getViewModel();
 $ancestorBlock = $viewModel->getBlock();
-$mask = $ancestorBlock->getInputMask(); // @todo: Move to Field class
 $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
-$fieldAttributes = (array)$viewModel->getBlock()->getFieldAttributes();
+$fieldAttributes = $viewModel->getFieldAttributes();
 
 // @todo: Move inputPrefix HTML to separate template
 ?>
@@ -41,50 +39,13 @@ $fieldAttributes = (array)$viewModel->getBlock()->getFieldAttributes();
     <?php endif; ?>
 
     <input
-        :aria-invalid="isAriaInvalid"
-        :data-valid="isValid"
-        aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
-        data-type="field"
-        x-ref="field"
-        :value="value"
-        @input="setValue"
-        @change="submit"
-        :disabled="disabled"
-        aria-label="<?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>"
-        <?php if ($mask): ?>
-            x-mask="<?= $escaper->escapeHtml($mask) ?>"
-        <?php endif; ?>
-        <?php if ($viewModel->isDisabled()): ?>
-            disabled="disabled"
-        <?php endif ?>
-        <?php if ($viewModel->hasAutocomplete()): ?>
-            autocomplete="<?= $escaper->escapeHtml($viewModel->getAutocomplete()) ?>"
-        <?php endif ?>
-        <?php if ($viewModel->hasMinLength()): ?>
-            minlength="<?= $escaper->escapeHtml($viewModel->getMinLength()) ?>"
-        <?php endif ?>
-        <?php if ($viewModel->hasMaxLength()): ?>
-            maxlength="<?= $escaper->escapeHtml($viewModel->getMaxLength()) ?>"
-        <?php endif ?>
-        <?php if ($viewModel->hasMin()): ?>
-            min="<?= $escaper->escapeHtml($viewModel->getMin()) ?>"
-        <?php endif ?>
-        <?php if ($viewModel->hasMax()): ?>
-            max="<?= $escaper->escapeHtml($viewModel->getMax()) ?>"
-        <?php endif ?>
-        <?php if ($viewModel->getPlaceholder()): ?>
-            placeholder="<?= $escaper->escapeHtml(__($viewModel->getPlaceholder())) ?>"
-        <?php endif ?>
-        <?php if ($viewModel->getAlpineMask()): ?>
-            x-mask="<?= $escaper->escapeHtml(__($viewModel->getAlpineMask())) ?>"
-        <?php endif ?>
-        <?= $viewModel->isRequired() ? 'required' : '' ?>
-        type="<?= $escaper->escapeHtml($viewModel->getInputType()) ?>"
-        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
-        <?php foreach ($fieldAttributes as $fieldAttributeName => $fieldAttributeValue): ?>
-            <?= $escaper->escapeHtml($fieldAttributeName) ?>="<?= $escaper->escapeHtml($fieldAttributeValue) ?>"
-        <?php endforeach; ?>
         class="<?= /* @noEscape */ $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
+        <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            'type' => $viewModel->getInputType(),
+            ':value' => 'value',
+            '@input' => 'setValue',
+            '@change' => 'submit',
+        ]) ?>
     >
     <div x-show="isCompleted" class="<?= /* @noEscape */ $css('absolute right-0', 'required') ?>">
         <?= /* @noEscape */ $blockRenderer->html($block, 'loki-components.utils.field-completed') ?>

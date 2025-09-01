@@ -24,17 +24,15 @@ $viewModel = $block->getViewModel();
     :data-valid="isValid"
 >
     <input
-        role="switch"
-        type="checkbox"
-        id="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field-input"
         class="<?= /* @noEscape */ $css('form-switch', 'input') ?>"
-        value="<?= $escaper->escapeHtml($viewModel->getValue()) ?>"
-        <?php if ($viewModel->getValue() === true): ?>checked<?php endif; ?>
-        :checked="value"
-        <?php if ($viewModel->isDisabled()): ?>disabled<?php endif ?>
-        :aria-invalid="isAriaInvalid"
-        :data-valid="isValid"
-        @change="submitChecked"
+        <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            'role' => 'switch',
+            'type' => 'checkbox',
+            'value' => $viewModel->getValue(),
+            'checked' => $viewModel->getValue() === true,
+            ':checked' => 'value',
+            '@change' => 'submitChecked',
+        ]) ?>
     >
     <span class="<?= /* @noEscape */ $css('', 'label') ?>">
         <?= $escaper->escapeHtml(__($viewModel->getInputLabel())) ?>

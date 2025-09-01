@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
 
-/** @version 2.0.16 */
-
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Field\Util\OptionModelInterface;
 
+/** @version 2.0.16 */
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var FieldViewModelInterface $viewModel */
@@ -20,36 +19,13 @@ if (false === $optionModel instanceof OptionModelInterface) {
     echo $escaper->escapeHtml(__('No options found'));
     return;
 }
-
-$ancestorBlock = $viewModel->getBlock();
-$multiple = (bool) $ancestorBlock->getMultiple();
-$size = (int) $ancestorBlock->getSize();
-$autocomplete = (bool) $ancestorBlock->getAutocomplete() ? 'on' : 'off';
 ?>
 <select
-    data-type="field"
-    x-ref="field"
-    :value="value"
-    @change="submitValue"
-    :aria-invalid="isAriaInvalid"
-    :data-valid="isValid"
-    aria-errormessage="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-messages"
-    <?php if ($viewModel->isDisabled()): ?>
-        disabled="disabled"
-    <?php endif ?>
-    :disabled="disabled"
-    <?php if ($multiple): ?>
-        multiple
-    <?php endif; ?>
-    <?php if ($size > 0): ?>
-        size="<?= $escaper->escapeHtml($size) ?>"
-    <?php endif; ?>
-    <?php if ($autocomplete): ?>
-        autocomplete="<?= $escaper->escapeHtml($autocomplete) ?>"
-    <?php endif; ?>
-    <?= $viewModel->isRequired() ? 'required' : '' ?>
-    id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
     class="<?= /* @noEscape */ $css('form-select w-full disabled:bg-zinc-100') ?>"
+    <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+        ':value' => 'value',
+        '@change' => 'submitValue',
+    ]) ?>
 >
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
         <option value="<?= $escaper->escapeHtml($optionValue) ?>"><?= $escaper->escapeHtml($optionLabel) ?></option>

@@ -18,20 +18,10 @@ $fieldBlock = $block->getFieldBlock();
 $viewModel = $block->getViewModel();
 ?>
 <input
-    :aria-invalid="isAriaInvalid"
-    :data-valid="isValid"
-    data-type="field"
-    x-ref="field"
-    :value="value"
-    @change="submitValue"
-    <?php if ($viewModel->isDisabled()): ?>
-        disabled="disabled"
-    <?php endif ?>
-    <?php if ($viewModel->hasAutocomplete()): ?>
-        autocomplete="<?= $escaper->escapeHtml($viewModel->getAutocomplete()) ?>"
-    <?php endif ?>
-    <?= $viewModel->isRequired() ? 'required' : '' ?>
-    type="file"
-    id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>"
     class="<?= /* @noEscape */ $css('form-input w-full disabled:bg-zinc-100') ?>"
+    <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+        'type' => 'file',
+        ':value' => 'value',
+        '@change' => 'submitValue',
+    ]) ?>
 >
