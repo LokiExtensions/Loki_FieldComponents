@@ -24,7 +24,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
     class="<?= /* @noEscape */ $css('form-select w-full disabled:bg-zinc-100') ?>"
     <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
         ':value' => 'value',
-        '@change' => 'submitValue',
+        '@change' => 'submitSelectedOptions',
     ]) ?>
 >
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>

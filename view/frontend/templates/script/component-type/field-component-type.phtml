@@ -100,6 +100,19 @@ use Magento\Framework\View\Element\Template;
 
             return this.valid;
         },
+        submitSelectedOptions(event) {
+            if (!event.target.selectedOptions) {
+                return;
+            }
+
+            const selectedOptions = [];
+            Array.from(event.target.selectedOptions).forEach(selectedOption => {
+                selectedOptions.push(selectedOption.value);
+            });
+
+            this.value = selectedOptions;
+            this.submit();
+        },
         submitValue(event) {
             if (this.value === event.target.value) {
                 return;
