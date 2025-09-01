@@ -16,10 +16,12 @@ use Loki\CssUtils\Util\CssClass;
 
 $fieldBlock = $block->getFieldBlock();
 $viewModel = $block->getViewModel();
+$min = (int)$viewModel->getBlock()->getMin();
+$max = (int)$viewModel->getBlock()->getMax();
 ?>
 <div class="<?= /* @noEscape */ $css('relative') ?>">
-    <?php if ($viewModel->hasMin()): ?>
-        <span class="<?= /* @noEscape */ $css('text-sm', 'min') ?>"><?= $escaper->escapeHtml($viewModel->getMin()) ?></span>
+    <?php if ($min > 0): ?>
+        <span class="<?= /* @noEscape */ $css('text-sm', 'min') ?>"><?= $min ?></span>
     <?php endif ?>
     <input
         class="<?= /* @noEscape */ $css('disabled:bg-zinc-100') ?>"
@@ -30,8 +32,8 @@ $viewModel = $block->getViewModel();
             '@change' => 'submit',
         ]) ?>
     >
-    <?php if ((int)$viewModel->getBlock()->getMax() > 0): ?>
-        <span class="<?= /* @noEscape */ $css('text-sm', 'max') ?>"><?= (int)$viewModel->getBlock()->getMax() ?></span>
+    <?php if ($max > 0): ?>
+        <span class="<?= /* @noEscape */ $css('text-sm', 'max') ?>"><?= $max ?></span>
     <?php endif ?>
 
     <span class="<?= /* @noEscape */ $css('block text-sm w-full text-center', 'bubble') ?>" x-html="value"></span>
