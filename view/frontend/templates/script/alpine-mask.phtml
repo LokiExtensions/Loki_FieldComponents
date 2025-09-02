@@ -1,13 +1,1 @@
-<?php
-declare(strict_types=1);
-
-/** @version 2.1.1 */
-
-/** @var Template $block */
-/** @var Escaper $escaper */
-
-use Magento\Framework\Escaper;
-use Magento\Framework\View\Element\Template;
-
-?>
-<script defer src="<?= /* @noEscape */ $escaper->escapeUrl($block->getViewFileUrl("Loki_FieldComponents::js/alpine-mask.min.js")) ?>"></script>
+<?php declare(strict_types=1); /** @version 2.1.1 */ /** @var Template $block */ /** @var Escaper $escaper */ use Magento\Framework\Escaper; use Magento\Framework\View\Element\Template; ?> <script defer src="<?= /* @noEscape */ $escaper->escapeUrl($block->getViewFileUrl("Loki_FieldComponents::js/alpine-mask.min.js")) ?>"></script>

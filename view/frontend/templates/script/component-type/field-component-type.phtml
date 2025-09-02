@@ -1,13 +1,4 @@
-<?php
-declare(strict_types=1);
-
-/** @version 2.1.1 */
-
-use Magento\Framework\View\Element\Template;
-
-/** @var Template $block */
-?>
-<script>
+<?php declare(strict_types=1); /** @version 2.1.1 */ use Magento\Framework\View\Element\Template; /** @var Template $block */ ?> <script>
     const LokiFieldComponentType = {
         ...LokiComponentType,
         fieldName: '',
@@ -146,5 +137,4 @@ use Magento\Framework\View\Element\Template;
         afterSubmit() {
             document.dispatchEvent(new CustomEvent('loki-components.component.update', {detail: {component: this}}));
         },
-    };
-</script>
+    };</script>

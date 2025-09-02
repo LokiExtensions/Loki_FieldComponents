@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.2] - 02 September 2025
+### Fixed
+- Fix CI
+
 ## [2.1.1] - 02 September 2025
 ### Fixed
 - Fix PHP 8.1 issue in unit test

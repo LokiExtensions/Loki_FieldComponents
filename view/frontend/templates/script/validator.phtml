@@ -1,15 +1,4 @@
-<?php
-declare(strict_types=1);
-
-/** @version 2.1.1 */
-
-use Magento\Framework\Escaper;
-use Magento\Framework\View\Element\Template;
-
-/** @var Template $block */
-/** @var Escaper $escaper */
-?>
-<script>
+<?php declare(strict_types=1); /** @version 2.1.1 */ use Magento\Framework\Escaper; use Magento\Framework\View\Element\Template; /** @var Template $block */ /** @var Escaper $escaper */ ?> <script>
     LokiComponentValidator = {
         validators: {
             required: (component) => {
@@ -31,7 +20,7 @@ use Magento\Framework\View\Element\Template;
 
             const isValid = component.validators.every(validator => {
                 if (!this.validators[validator]) {
-                    //LokiComponentsLogger.warning('Undefined validator', validator);
+                    
                     return true;
                 }
 
@@ -94,5 +83,4 @@ use Magento\Framework\View\Element\Template;
                 .filter(htmlElement => !htmlElement.disabled)
                 .shift();
         }
-    }
-</script>
+    }</script>
