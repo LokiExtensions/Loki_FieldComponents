@@ -101,6 +101,11 @@ use Magento\Framework\View\Element\Template;
             return this.valid;
         },
         submitSelectedOptions(event) {
+            if (!event.target.multiple) {
+                this.submitValue(event);
+                return;
+            }
+
             if (!event.target.selectedOptions) {
                 return;
             }
