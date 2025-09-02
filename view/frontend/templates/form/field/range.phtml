@@ -21,7 +21,7 @@ $max = (int)$viewModel->getBlock()->getMax();
 ?>
 <div class="<?= /* @noEscape */ $css('relative') ?>">
     <?php if ($min > 0): ?>
-        <span class="<?= /* @noEscape */ $css('text-sm', 'min') ?>"><?= $min ?></span>
+        <span class="<?= /* @noEscape */ $css('text-sm', 'min') ?>"><?= (int)$min ?></span>
     <?php endif ?>
     <input
         class="<?= /* @noEscape */ $css('disabled:bg-zinc-100') ?>"
@@ -33,7 +33,7 @@ $max = (int)$viewModel->getBlock()->getMax();
         ]) ?>
     >
     <?php if ($max > 0): ?>
-        <span class="<?= /* @noEscape */ $css('text-sm', 'max') ?>"><?= $max ?></span>
+        <span class="<?= /* @noEscape */ $css('text-sm', 'max') ?>"><?= (int)$max ?></span>
     <?php endif ?>
 
     <span class="<?= /* @noEscape */ $css('block text-sm w-full text-center', 'bubble') ?>" x-html="value"></span>
