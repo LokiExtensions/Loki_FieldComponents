@@ -12,7 +12,7 @@ class PasswordComplexityValidatorTest extends TestCase
      * @return void
      * @dataProvider getTestValues
      */
-    public function testValidate(string $password, true|string $expectedResult)
+    public function testValidate(string $password, bool|string $expectedResult)
     {
         $passwordComplexity = new PasswordComplexity();
         $validator = new PasswordComplexityValidator($passwordComplexity);
