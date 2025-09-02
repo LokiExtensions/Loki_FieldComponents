@@ -1,4 +1,4 @@
-<?php declare(strict_types=1); /** @version 2.1.1 */ use Magento\Framework\View\Element\Template; use Loki\Components\Config\Config; use Loki\Components\Factory\ViewModelFactory; use Loki\Components\Util\ComponentUtil; /** @var Template $block */ /** @var ViewModelFactory $viewModelFactory */ /** @var Config $config */ /** @var ComponentUtil $componentUtil */ $config = $viewModelFactory->create(Config::class); $componentUtil = $viewModelFactory->create(ComponentUtil::class); ?> <script>
+<?php declare(strict_types=1); /** @version 2.1.2 */ use Magento\Framework\View\Element\Template; use Loki\Components\Config\Config; use Loki\Components\Factory\ViewModelFactory; use Loki\Components\Util\ComponentUtil; /** @var Template $block */ /** @var ViewModelFactory $viewModelFactory */ /** @var Config $config */ /** @var ComponentUtil $componentUtil */ $config = $viewModelFactory->create(Config::class); $componentUtil = $viewModelFactory->create(ComponentUtil::class); ?> <script>
     const LokiUploaderComponentType = {
         ...LokiComponentType,
         async submit() {
