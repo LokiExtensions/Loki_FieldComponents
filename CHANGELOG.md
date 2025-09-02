@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 02 September 2025
+### Added
+- Add accessibility value to hidden labels
+- Add labels to buttons
+- Allow adding field attributes via XML layout
+- Refactor hard-coded field attributes to FieldViewModel::getFieldAttributes()
+
+### Fixed
+- Remove LengthBehaviourInterface
+- Remove hasMin / hasMax / getMin / getMax methods
+
 ## [2.0.16] - 28 August 2025
 ### Fixed
 - Add CI files
