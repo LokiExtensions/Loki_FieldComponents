@@ -10,6 +10,11 @@ use Loki\Field\Util\OptionModelInterface;
 // @todo: Rename this to FieldType
 class FieldTemplateLocator implements ArgumentInterface
 {
+    public function __construct(
+        private array $fieldTypes = []
+    ) {
+    }
+
     public function getFieldTypeFromViewModel(FieldViewModelInterface $viewModel): string
     {
         $block = $viewModel->getBlock();
@@ -52,17 +57,7 @@ class FieldTemplateLocator implements ArgumentInterface
 
     public function getFieldTemplateMapping(): array
     {
-        return [
-            'text' => 'Loki_FieldComponents::form/field/text.phtml',
-            'textarea' => 'Loki_FieldComponents::form/field/textarea.phtml',
-            'radio' => 'Loki_FieldComponents::form/field/radio.phtml',
-            'checkbox' => 'Loki_FieldComponents::form/field/checkbox.phtml',
-            'select' => 'Loki_FieldComponents::form/field/select.phtml',
-            'switch' => 'Loki_FieldComponents::form/field/switch.phtml',
-            'range' => 'Loki_FieldComponents::form/field/range.phtml',
-            'password' => 'Loki_FieldComponents::form/field/password.phtml',
-            'password_repeat' => 'Loki_FieldComponents::form/field/password-repeat.phtml',
-        ];
+        return $this->fieldTypes;
     }
 
     /**
