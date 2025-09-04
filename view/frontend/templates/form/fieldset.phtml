@@ -1,1 +1,21 @@
-<?php declare(strict_types=1); /** @version 2.1.3 */ use Magento\Framework\View\Element\Template; use Loki\Components\Component\ComponentViewModelInterface; use Loki\Components\Factory\ViewModelFactory; use Loki\CssUtils\Util\CssClass; use Loki\Components\Util\Block\BlockRenderer; /** @var Template $block */ /** @var ComponentViewModelInterface $viewModel */ /** @var CssClass $css */ /** @var ViewModelFactory $viewModelFactory */ /** @var BlockRenderer $blockRenderer */ ?> <fieldset class="<?= /* @noEscape */ $css('field w-auto relative') ?>"><?= /* @noEscape */ $block->getChildHtml() ?></fieldset>
+<?php
+declare(strict_types=1);
+
+/** @version 2.1.1 */
+
+use Magento\Framework\View\Element\Template;
+
+use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\Components\Factory\ViewModelFactory;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Components\Util\Block\BlockRenderer;
+
+/** @var Template $block */
+/** @var ComponentViewModelInterface $viewModel */
+/** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var BlockRenderer $blockRenderer */
+?>
+<fieldset class="<?= /* @noEscape */ $css('field w-auto relative') ?>">
+    <?= /* @noEscape */ $block->getChildHtml() ?>
+</fieldset>
