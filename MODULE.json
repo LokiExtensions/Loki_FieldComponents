@@ -4,7 +4,6 @@
         "Loki_CssUtils",
         "Magento_Backend",
         "Magento_Config",
-        "Magento_Customer",
         "Magento_MediaStorage"
     ],
     "modules": [
@@ -15,7 +14,6 @@
         "Magento_Config",
         "Magento_Customer",
         "Magento_Directory",
-        "Magento_Eav",
         "Magento_MediaStorage",
         "Magento_Store",
         "Magento_Theme",
