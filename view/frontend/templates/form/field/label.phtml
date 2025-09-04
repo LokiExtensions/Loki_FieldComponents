@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/** @version 2.1.1 */
-
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
@@ -10,8 +8,9 @@ use Loki\Field\Config\Config;
 use Loki\Components\Util\Block\BlockRenderer;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Components\Factory\ViewModelFactory;
-use Loki\Field\Util\Component\FieldTemplateLocator;
+use Loki\Field\Field\FieldTypeManager;
 
+/** @version 2.1.1 */
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var FieldViewModel $viewModel */
@@ -19,13 +18,13 @@ use Loki\Field\Util\Component\FieldTemplateLocator;
 /** @var BlockRenderer $blockRenderer */
 /** @var ViewModelFactory $viewModelFactory */
 /** @var Config $config */
-/** @var FieldTemplateLocator $fieldTemplateLocator */
+/** @var FieldTypeManager $fieldTypeManager */
 /** @var FieldViewModel $viewModel */
 
-$fieldTemplateLocator = $viewModelFactory->create(FieldTemplateLocator::class);
+$fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 $config = $viewModelFactory->create(Config::class);
 $viewModel = $block->getViewModel();
-$isLabel = false === in_array($fieldTemplateLocator->getFieldTypeFromViewModel($viewModel), ['radio']); // @todo: Move this to the ViewModel
+$isLabel = false === in_array($fieldTypeManager->getFieldTypeFromViewModel($viewModel), ['radio']); // @todo: Move this to the ViewModel
 $showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
 ?>
 <?php if ($isLabel): ?>

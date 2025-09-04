@@ -9,7 +9,7 @@
         </arguments>
     </type>
 
-    <type name="Loki\Field\Util\Component\FieldTemplateLocator">
+    <type name="Loki\Field\Field\FieldTypeManager">
         <arguments>
             <argument name="fieldTypes" xsi:type="array">
                 <item name="checkbox" xsi:type="string">Loki_FieldComponents::form/field/checkbox.phtml</item>

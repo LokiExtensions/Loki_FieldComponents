@@ -11,7 +11,7 @@ use Loki\Components\Factory\ViewModelFactory;
 use Loki\Components\Util\Block\BlockRenderer;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Components\Util\Block\TemplateRenderer;
-use Loki\Field\Util\Component\FieldTemplateLocator;
+use Loki\Field\Field\FieldTypeManager;
 
 /** @var Template $block */
 /** @var Escaper $escaper */
@@ -21,9 +21,9 @@ use Loki\Field\Util\Component\FieldTemplateLocator;
 /** @var TemplateRenderer $templateRenderer */
 /** @var BlockRenderer $blockRenderer */
 /** @var FieldViewModel $viewModel */
-/** @var FieldTemplateLocator $fieldTemplateLocator */
+/** @var FieldTypeManager $fieldTypeManager */
 
-$fieldTemplateLocator = $viewModelFactory->create(FieldTemplateLocator::class);
+$fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 $templateRenderer = $viewModelFactory->create(TemplateRenderer::class);
 $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ?>
@@ -42,7 +42,7 @@ $blockRenderer = $viewModelFactory->create(BlockRenderer::class);
         <div class="<?= /* @noEscape */ $css('relative grow', 'field') ?>">
             <?= /* @noEscape */ $templateRenderer->html(
                 $block,
-                $fieldTemplateLocator->getFieldTemplateFromViewModel($viewModel),
+                $fieldTypeManager->getFieldTemplateFromViewModel($viewModel),
                 $viewModel->getFieldData()
             ) ?>
 

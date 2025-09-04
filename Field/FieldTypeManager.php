@@ -1,14 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Loki\Field\Util\Component;
+namespace Loki\Field\Field;
 
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
 use Loki\Field\Util\OptionModelInterface;
 
-// @todo: Rename this to FieldType
-class FieldTemplateLocator implements ArgumentInterface
+class FieldTypeManager implements ArgumentInterface
 {
     public function __construct(
         private array $fieldTypes = []
@@ -19,7 +18,7 @@ class FieldTemplateLocator implements ArgumentInterface
     {
         $block = $viewModel->getBlock();
         if (false === $block instanceof AbstractBlock) {
-            return 'text';
+            return 'input';
         }
 
         $fieldType = $block->getFieldType();
@@ -31,14 +30,14 @@ class FieldTemplateLocator implements ArgumentInterface
             return $fieldType;
         }
 
-        return 'text';
+        return 'input';
     }
 
     public function getFieldTemplateFromViewModel(FieldViewModelInterface $viewModel): string
     {
         $block = $viewModel->getBlock();
         if (false === $block instanceof AbstractBlock) {
-            return $this->getFieldTemplateByType('text');
+            return $this->getFieldTemplateByType('input');
         }
 
         $fieldTemplate = $block->getFieldTemplate();
