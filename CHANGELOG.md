@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.4] - 04 September 2025
+### Fixed
+- Rename FieldTemplateLocator to FieldTypeManager
+- Allow configuring fieldTypes via DI XML
+- Rename form/field/text.phtml to form/field/input.phtml
+- Remove obsolete FieldContext
+- Make FieldViewModel no longer abstract
+
 ## [2.1.3] - 03 September 2025
 ### Fixed
 - Move LokiFieldViewModelImageOutput to LokiComponentsUtilImageOutput to remove circular dependency
