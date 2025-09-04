@@ -9,7 +9,7 @@ use Loki\Field\Util\OptionModelInterface;
 /**
  * @method FieldContext getContext()
  */
-abstract class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
+class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {
     public function getFieldName(): string
     {
