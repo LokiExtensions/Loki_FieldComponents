@@ -2,12 +2,13 @@
 
 namespace Loki\Field\Component\Base\Field;
 
+use Loki\Components\Component\ComponentContext;
 use Magento\Framework\View\Element\AbstractBlock;
 use Loki\Components\Component\ComponentViewModel;
 use Loki\Field\Util\OptionModelInterface;
 
 /**
- * @method FieldContext getContext()
+ * @method ComponentContext getContext()
  */
 class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {

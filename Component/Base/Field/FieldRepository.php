@@ -2,11 +2,12 @@
 
 namespace Loki\Field\Component\Base\Field;
 
+use Loki\Components\Component\ComponentContext;
 use Loki\Field\Util\OptionModelInterface;
 use Loki\Components\Component\ComponentRepository;
 
 /**
- * @method FieldContext getContext()
+ * @method ComponentContext getContext()
  */
 abstract class FieldRepository extends ComponentRepository
 {
