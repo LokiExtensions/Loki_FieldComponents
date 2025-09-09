@@ -24,10 +24,10 @@ use Loki\Field\Field\FieldTypeManager;
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 $config = $viewModelFactory->create(Config::class);
 $viewModel = $block->getViewModel();
-$isLabel = false === in_array($fieldTypeManager->getFieldTypeFromViewModel($viewModel), ['radio']); // @todo: Move this to the ViewModel
+$useLabelTag = $viewModel->useLabelTagForLabel($block);
 $showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
 ?>
-<?php if ($isLabel): ?>
+<?php if ($useLabelTag): ?>
     <label
         for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field"
         class="<?= /* @noEscape */ $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?> <?= /* @noEscape */ $showLabelClass ?>">

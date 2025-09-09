@@ -3,6 +3,8 @@
 namespace Loki\Field\Component\Base\Field;
 
 use Loki\Components\Component\ComponentContext;
+use Loki\Field\Field\FieldTypeManager;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\View\Element\AbstractBlock;
 use Loki\Components\Component\ComponentViewModel;
 use Loki\Field\Util\OptionModelInterface;
@@ -220,5 +222,19 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         }
 
         return null;
+    }
+
+    public function useLabelTagForLabel(AbstractBlock $block): bool
+    {
+        $fieldTypeManager = ObjectManager::getInstance()->get(FieldTypeManager::class);
+        if (in_array($fieldTypeManager->getFieldTypeFromViewModel($this), ['radio'])) {
+            return false;
+        }
+
+        if (false === $block->getUseLabelTag()) {
+            return false;
+        }
+
+        return true;
     }
 }
