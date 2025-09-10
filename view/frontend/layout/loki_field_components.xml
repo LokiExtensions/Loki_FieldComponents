@@ -68,9 +68,9 @@
             </arguments>
         </block>
 
-        <referenceBlock name="loki-components.alpinejs">
+        <referenceBlock name="loki.alpinejs">
             <block
-                name="loki-components.alpine-plugin-mask"
+                name="loki.alpine-plugin-mask"
                 template="Loki_FieldComponents::script/alpine-mask.phtml"
             />
         </referenceBlock>
