@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.5] - 16 September 2025
+### Fixed
+- Rename loki-components.alpinejs to loki.alpinejs
+- Manual merging of LokiCheckout_PostcodeNl MR #11
+
 ## [2.1.4] - 04 September 2025
 ### Fixed
 - Rename FieldTemplateLocator to FieldTypeManager
