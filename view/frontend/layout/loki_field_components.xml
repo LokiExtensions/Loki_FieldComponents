@@ -4,7 +4,7 @@
     <update handle="loki_components"/>
 
     <body>
-        <referenceContainer name="loki-scripts">
+        <referenceContainer name="loki.script">
             <block
                 name="loki-field-components.script.validator"
                 template="Loki_FieldComponents::script/validator.phtml"/>
