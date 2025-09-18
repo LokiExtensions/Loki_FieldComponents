@@ -14,7 +14,7 @@
                 template="Loki_FieldComponents::script/validator/password-complexity.phtml"/>
         </referenceContainer>
 
-        <referenceContainer name="loki-component-types">
+        <referenceContainer name="loki.script.component-type">
             <block
                 name="loki-field-components.script.component-type.field"
                 template="Loki_FieldComponents::script/component-type/field-component-type.phtml"/>
