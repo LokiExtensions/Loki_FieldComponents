@@ -20,7 +20,7 @@
                 template="Loki_FieldComponents::script/component-type/field-component-type.phtml"/>
         </referenceContainer>
 
-        <referenceContainer name="loki-components">
+        <referenceContainer name="loki.components">
             <block
                 name="loki-field-components.script.components.field-component"
                 template="Loki_FieldComponents::script/component/field-component.phtml"/>
