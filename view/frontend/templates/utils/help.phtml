@@ -22,7 +22,7 @@ if ($size < 1) {
 
 $icon = (string)$block->getIcon();
 if (strlen($icon) < 1) {
-    $icon = 'Loki_FieldComponents::images/help.svg';
+    $icon = 'help';
 }
 
 $width = $block->getWidth();
@@ -38,8 +38,8 @@ $imageOutput = $viewModelFactory->create(ImageOutput::class);
         type="button"
         aria-label="<?= $escaper->escapeHtml('Help') ?>"
         @click.prevent="toggle"
-        class="<?= /* @noEscape */ $css('help w-6', 'image') ?>">
-        <?= /* @noEscape */ $imageOutput->get($icon) ?>
+        class="<?= /* @noEscape */ $css('help', 'image') ?>">
+        <?= /* @noEscape */ $imageOutput->icon($icon, $block) ?>
     </button>
 
     <div
@@ -50,8 +50,8 @@ $imageOutput = $viewModelFactory->create(ImageOutput::class);
             type="button"
             @click.prevent="toggle"
             aria-label="<?= $escaper->escapeHtml('Close help') ?>"
-            class="<?= /* @noEscape */ $css('help float-right fill-white w-6', 'popup-image') ?>">
-            <?= /* @noEscape */ $imageOutput->get($icon) ?>
+            class="<?= /* @noEscape */ $css('help float-right fill-white', 'popup-image') ?>">
+            <?= /* @noEscape */ $imageOutput->icon($icon, $block) ?>
         </button>
         <?= $escaper->escapeHtml(__($text)) ?>
     </div>

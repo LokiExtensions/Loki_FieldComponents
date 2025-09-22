@@ -16,4 +16,4 @@ use Loki\CssUtils\Util\CssClass;
 $size = (int)$block->getSize();
 $imageOutput = $viewModelFactory->create(ImageOutput::class);
 
-echo /** @noEscape */ $imageOutput->get('Loki_FieldComponents::images/loader.svg');
+echo /** @noEscape */ $imageOutput->icon('loader', $block);
