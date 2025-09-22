@@ -20,7 +20,7 @@ use Loki\Field\Util\ButtonInterface;
 /** @var ChildRenderer $childRenderer */
 
 ?>
-<button class="<?= /* @noEscape */ $css('btn btn-secondary') ?>"
+<button class="<?= /* @noEscape */ $css('btn btn-secondary align-middle') ?>"
         type="button"
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button"
         :disabled="disabled"
