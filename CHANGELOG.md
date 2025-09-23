@@ -6,10 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 23 September 2025
+### Fixed
+- Remove redundant CSS classes from icon containers
+- Wrong HTML ID for radioboxes
+- Implement new imageRenderer
+- Add vertical align to button
+- Better CSS classes in button and buttons
+
 ## [2.1.5] - 16 September 2025
 ### Fixed
 - Rename loki-components.alpinejs to loki.alpinejs
-- Manual merging of LokiCheckout_PostcodeNl MR #11
+- Manual merging of `LokiCheckout_PostcodeNl` MR #11
 
 ## [2.1.4] - 04 September 2025
 ### Fixed
