@@ -48,6 +48,6 @@ $fieldAttributes = $viewModel->getFieldAttributes();
         ]) ?>
     >
     <div x-show="isCompleted" class="<?= /* @noEscape */ $css('absolute right-0', 'required') ?>">
-        <?= /* @noEscape */ $childRenderer->html( $block, 'loki-components.utils.field-completed') ?>
+        <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-components.utils.field-completed') ?>
     </div>
 </div>
