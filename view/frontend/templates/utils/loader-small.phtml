@@ -1,16 +1,15 @@
 <?php
 declare(strict_types=1);
 
-/** @version 2.1.5 */
-
 use Magento\Framework\View\Element\Template;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Components\Util\Block\BlockRenderer;
 
+/** @version 2.1.5 */
 /** @var Template $block */
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
 ?>
-<div class="<?= /* @noEscape */ $css('w-6 h-6', 'inner') ?>">
+<div class="<?= /* @noEscape */ $css('', 'inner') ?>">
     <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-field-components.utils.loader') ?>
 </div>

@@ -1,13 +1,12 @@
 <?php
 declare(strict_types=1);
 
-/** @version 2.1.5 */
-
 use Loki\Components\Factory\ViewModelFactory;
 use Loki\Components\Util\Block\ImageRenderer;
 use Magento\Framework\View\Element\Template;
 use Loki\CssUtils\Util\CssClass;
 
+/** @version 2.1.5 */
 /** @var Template $block */
 /** @var CssClass $css */
 /** @var ViewModelFactory $viewModelFactory */
@@ -15,5 +14,4 @@ use Loki\CssUtils\Util\CssClass;
 
 $size = (int)$block->getSize();
 
-
-echo /** @noEscape */ $imageRenderer->icon('loader');
+echo /** @noEscape */ $imageRenderer->icon($block, 'loader');

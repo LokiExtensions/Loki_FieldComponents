@@ -1,15 +1,14 @@
 <?php
 declare(strict_types=1);
 
-/** @version 2.1.5 */
-
+use Loki\Components\Util\Block\ImageRenderer;
 use Magento\Framework\View\Element\Template;
 use Loki\CssUtils\Util\CssClass;
-use Loki\Components\Util\Block\BlockRenderer;
 
+/** @version 2.1.5 */
 /** @var Template $block */
 /** @var CssClass $css */
-/** @var BlockRenderer $blockRenderer */
+/** @var ImageRenderer $imageRenderer */
 ?>
 <div
     x-cloak
@@ -17,7 +16,7 @@ use Loki\Components\Util\Block\BlockRenderer;
     :aria-busy="showLoader"
     aria-live="polite"
     class="<?= /* @noEscape */ $css('z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
-    <div class="<?= /* @noEscape */ $css('m-auto w-8', 'inner') ?>">
-        <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-field-components.utils.loader') ?>
+    <div class="<?= /* @noEscape */ $css('m-auto', 'inner') ?>">
+        <?= /* @noEscape */ $imageRenderer->icon($block, 'loader') ?>
     </div>
 </div>

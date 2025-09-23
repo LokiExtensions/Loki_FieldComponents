@@ -50,7 +50,11 @@
             name="loki-field-components.utils.loader-overlay"
             template="Loki_FieldComponents::utils/loader-overlay.phtml">
             <arguments>
-                <argument name="size" xsi:type="number">50</argument>
+                <argument name="icons" xsi:type="array">
+                    <item name="loader" xsi:type="array">
+                        <item name="size" xsi:type="number">50</item>
+                    </item>
+                </argument>
             </arguments>
         </block>
 
