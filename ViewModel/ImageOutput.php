@@ -2,11 +2,11 @@
 
 namespace Loki\Field\ViewModel;
 
-use Loki\Components\Util\ImageOutput as OriginalImageOutput;
+use Loki\Components\Util\Block\ImageRenderer;
 
 /**
- * @deprecated Use Loki\Components\Util\ImageOutput instead
+ * @deprecated Use Loki\Components\Util\Block\ImageRenderer instead
  */
-class ImageOutput extends OriginalImageOutput
+class ImageOutput extends ImageRenderer
 {
 }

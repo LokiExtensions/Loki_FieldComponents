@@ -4,16 +4,16 @@ declare(strict_types=1);
 /** @version 2.1.5 */
 
 use Loki\Components\Factory\ViewModelFactory;
-use Loki\Components\Util\ImageOutput;
+use Loki\Components\Util\Block\ImageRenderer;
 use Magento\Framework\View\Element\Template;
 use Loki\CssUtils\Util\CssClass;
 
 /** @var Template $block */
 /** @var CssClass $css */
 /** @var ViewModelFactory $viewModelFactory */
-/** @var ImageOutput $imageOutput */
+/** @var ImageRenderer $imageRenderer */
 
 $size = (int)$block->getSize();
-$imageOutput = $viewModelFactory->create(ImageOutput::class);
 
-echo /** @noEscape */ $imageOutput->icon('loader', $block);
+
+echo /** @noEscape */ $imageRenderer->icon('loader');

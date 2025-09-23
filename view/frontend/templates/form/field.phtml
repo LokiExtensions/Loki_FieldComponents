@@ -24,8 +24,6 @@ use Loki\Field\Field\FieldTypeManager;
 /** @var FieldTypeManager $fieldTypeManager */
 
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
-$templateRenderer = $viewModelFactory->create(TemplateRenderer::class);
-$blockRenderer = $viewModelFactory->create(BlockRenderer::class);
 ?>
 <div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml(
     $viewModel->getFieldName()
