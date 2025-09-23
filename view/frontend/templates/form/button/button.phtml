@@ -25,6 +25,6 @@ use Loki\Field\Util\ButtonInterface;
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button"
         :disabled="disabled"
         @click.prevent="submit">
-    <?= /* @noEscape */ $childRenderer->html('icon'); ?>
+    <?= /* @noEscape */ $childRenderer->html($block, 'icon'); ?>
     <?= $escaper->escapeHtml(__((string)$viewModel->getButtonLabel())) ?>
 </button>

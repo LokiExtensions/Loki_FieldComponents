@@ -34,7 +34,7 @@ $showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
         <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
-            <?= /* @noEscape */ $blockRenderer->html( 'loki-field-components.utils.required'); ?>
+            <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-field-components.utils.required'); ?>
         <?php endif; ?>
     </label>
 <?php else: ?>
@@ -42,7 +42,7 @@ $showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
         <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
-            <?= /* @noEscape */ $blockRenderer->html( 'loki-field-components.utils.required'); ?>
+            <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-field-components.utils.required'); ?>
         <?php endif; ?>
     </span>
 <?php endif; ?>
