@@ -39,7 +39,7 @@ $text = $block->getHelpText();
         aria-label="<?= $escaper->escapeHtml('Help') ?>"
         @click.prevent="toggle"
         class="<?= /* @noEscape */ $css('help', 'image') ?>">
-        <?= /* @noEscape */ $imageRenderer->icon($icon) ?>
+        <?= /* @noEscape */ $imageRenderer->icon($block, $icon) ?>
     </button>
 
     <div
@@ -51,7 +51,7 @@ $text = $block->getHelpText();
             @click.prevent="toggle"
             aria-label="<?= $escaper->escapeHtml('Close help') ?>"
             class="<?= /* @noEscape */ $css('help float-right fill-white', 'popup-image') ?>">
-            <?= /* @noEscape */ $imageRenderer->icon($icon) ?>
+            <?= /* @noEscape */ $imageRenderer->icon($block, $icon) ?>
         </button>
         <?= $escaper->escapeHtml(__($text)) ?>
     </div>
