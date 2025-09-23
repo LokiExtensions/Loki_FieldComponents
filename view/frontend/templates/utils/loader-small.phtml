@@ -12,5 +12,5 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var BlockRenderer $blockRenderer */
 ?>
 <div class="<?= /* @noEscape */ $css('w-6 h-6', 'inner') ?>">
-    <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+    <?= /* @noEscape */ $childRenderer->html( 'loki-field-components.utils.loader') ?>
 </div>

@@ -44,7 +44,7 @@ $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 
             <div x-cloak x-show="showLoader"
                  class="<?= /* @noEscape */ $css('field-loader flex absolute inset-y-0 right-0 p-3', 'loader') ?>">
-                <?= /* @noEscape */ $blockRenderer->html($block, 'loki-field-components.utils.loader') ?>
+                <?= /* @noEscape */ $childRenderer->html( 'loki-field-components.utils.loader') ?>
             </div>
         </div>
 
@@ -65,7 +65,6 @@ $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
     <?php endif; ?>
 
     <?= /* @noEscape */ $blockRenderer->html(
-        $block,
         'loki-components.utils.local-messages',
         ['dom_id' => $viewModel->getElementId() . '-messages',]
     ) ?>
