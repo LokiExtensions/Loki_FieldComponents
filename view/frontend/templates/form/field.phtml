@@ -31,7 +31,6 @@ $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?= /* @noEscape */ $templateRenderer->html(
-        $block,
         'Loki_FieldComponents::form/field/label.phtml',
         ['alias' => 'label']
     ) ?>
@@ -39,7 +38,6 @@ $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
     <div class="<?= /* @noEscape */ $css('flex', 'container') ?>">
         <div class="<?= /* @noEscape */ $css('relative grow', 'field') ?>">
             <?= /* @noEscape */ $templateRenderer->html(
-                $block,
                 $fieldTypeManager->getFieldTemplateFromViewModel($viewModel),
                 $viewModel->getFieldData()
             ) ?>
@@ -52,7 +50,7 @@ $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 
         <?php if ($viewModel->getHelpText()): ?>
             <div class="<?= /* @noEscape */ $css('relative grow-0 flex content-center', 'field') ?>">
-                <?= /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::utils/help.phtml', [
+                <?= /* @noEscape */ $templateRenderer->html('Loki_FieldComponents::utils/help.phtml', [
                     'alias' => 'help',
                     'help_text' => $viewModel->getHelpText(),
                 ]) ?>
