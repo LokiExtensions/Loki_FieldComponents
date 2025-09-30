@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1] - 30 September 2025
+### Fixed
+- Add simple overlay template without loader icon
+- Update README
+
 ## [2.2.0] - 23 September 2025
 ### Fixed
 - Remove redundant CSS classes from icon containers
