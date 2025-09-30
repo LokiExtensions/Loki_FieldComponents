@@ -59,6 +59,10 @@
         </block>
 
         <block
+            name="loki-field-components.utils.overlay"
+            template="Loki_FieldComponents::utils/overlay.phtml"/>
+
+        <block
             name="loki-field-components.utils.required"
             template="Loki_FieldComponents::utils/required.phtml"/>
 

@@ -1,0 +1,19 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Util\Block\ImageRenderer;
+use Magento\Framework\View\Element\Template;
+use Loki\CssUtils\Util\CssClass;
+
+/** @version 2.2.0 */
+/** @var Template $block */
+/** @var CssClass $css */
+/** @var ImageRenderer $imageRenderer */
+?>
+<div
+    x-cloak
+    x-show="showLoader"
+    :aria-busy="showLoader"
+    aria-live="polite"
+    class="<?= /* @noEscape */ $css('z-30 absolute top-0 left-0 right-0 bottom-0 inset-0 bg-white/60 flex justify-center items-center') ?>">
+</div>
