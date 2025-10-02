@@ -25,16 +25,13 @@ use Loki\Field\Field\FieldTypeManager;
 
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 ?>
-<div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml(
-    $viewModel->getFieldName()
-) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
+<div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?= /* @noEscape */ $templateRenderer->html(
         $block,
         'Loki_FieldComponents::form/field/label.phtml',
-        ['alias' => 'label'],
-        $block
+        ['alias' => 'label']
     ) ?>
 
     <div class="<?= /* @noEscape */ $css('flex', 'container') ?>">
