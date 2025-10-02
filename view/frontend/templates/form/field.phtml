@@ -23,6 +23,10 @@ use Loki\Field\Field\FieldTypeManager;
 /** @var FieldViewModel $viewModel */
 /** @var FieldTypeManager $fieldTypeManager */
 
+if (empty($templateRenderer)) {
+    throw new RuntimeException('Template renderer not found in block "'.$block->getNameInLayout().'"');
+}
+
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 ?>
 <div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
