@@ -8,6 +8,7 @@
         block-size: var(--switch-height);
         inline-size: var(--switch-width);
         user-select: none;
+        appearance: none;
 
         &:not(:disabled) {
             cursor: pointer;
