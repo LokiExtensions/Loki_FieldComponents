@@ -70,6 +70,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         $fieldAttributes['required'] = $this->isRequired();
         $fieldAttributes['disabled'] = $this->isDisabled();
 
+        $fieldAttributes['autocomplete'] = 'off';
         if ($this->hasAutocomplete()) {
             $fieldAttributes['autocomplete'] = $this->getAutocomplete();
         }
