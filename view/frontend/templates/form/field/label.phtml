@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Loki\Components\Component\ComponentViewModelInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Field\Component\Base\Field\FieldViewModel;
@@ -11,6 +12,7 @@ use Loki\Components\Factory\ViewModelFactory;
 use Loki\Field\Field\FieldTypeManager;
 
 /** @version 2.2.2 */
+/** @var ComponentViewModelInterface $viewModel */
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var FieldViewModel $viewModel */

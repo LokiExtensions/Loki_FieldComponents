@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 /** @version 2.2.2 */
 
+use Loki\Components\Component\ComponentViewModelInterface;
 use Loki\Components\Util\Block\CssStyle;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
@@ -13,6 +14,7 @@ use Loki\CssUtils\Util\CssClass;
 use Loki\Components\Util\Block\TemplateRenderer;
 use Loki\Field\Field\FieldTypeManager;
 
+/** @var ComponentViewModelInterface $viewModel */
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var CssClass $css */
