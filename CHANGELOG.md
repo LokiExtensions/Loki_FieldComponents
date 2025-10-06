@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.2] - 06 October 2025
+### Fixed
+- Always add autocomplete=off to field by default
+- Throw exception when template renderer is not found in critical templates
+
 ## [2.2.1] - 30 September 2025
 ### Fixed
 - Add simple overlay template without loader icon
