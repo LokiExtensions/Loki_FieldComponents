@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.3] - 07 October 2025
+### Fixed
+- Add appearance:none to input switch
+
 ## [2.2.2] - 06 October 2025
 ### Fixed
 - Always add autocomplete=off to field by default
