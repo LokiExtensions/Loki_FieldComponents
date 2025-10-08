@@ -22,7 +22,7 @@ use Loki\Field\Util\ButtonInterface;
 /** @var ChildRenderer $childRenderer */
 
 ?>
-<button class="<?= /* @noEscape */ $css('btn align-middle') ?>"
+<button class="<?= /* @noEscape */ $css('btn flex justify-center items-center') ?>"
         :class="cssClass"
         type="button"
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button"
