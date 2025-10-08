@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.4] - 08 October 2025
+### Fixed
+- Use flexbox to align content in button
+- Always enable the step-forward button, just change its appearance
+
+## [2.2.4] - 08 October 2025
+### Fixed
+- Use flexbox to align content in button
+- Always enable the step-forward button, just change its appearance
+
 ## [2.2.3] - 07 October 2025
 ### Fixed
 - Add appearance:none to input switch
