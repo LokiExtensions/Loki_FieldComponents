@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.5] - 08 October 2025
+### Fixed
+- Fix password field styling under Luma
+
 ## [2.2.4] - 08 October 2025
 ### Fixed
 - Use flexbox to align content in button
