@@ -32,7 +32,11 @@ if (empty($width)) {
 $text = $block->getHelpText();
 
 ?>
-<div class="<?= /* @noEscape */ $css('ml-2 flex relative') ?>" x-data="LokiToggle" x-cloak>
+<div
+    role="tooltip"
+    class="<?= /* @noEscape */ $css('ml-2 flex relative') ?>"
+    x-data="LokiToggle"
+    x-cloak>
     <button
         type="button"
         aria-label="<?= $escaper->escapeHtml('Help') ?>"
