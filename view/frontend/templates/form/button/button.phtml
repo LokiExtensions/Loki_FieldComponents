@@ -21,13 +21,29 @@ use Loki\Field\Util\ButtonInterface;
 /** @var ImageRenderer $imageRenderer */
 /** @var ChildRenderer $childRenderer */
 
+$buttonHint = $block->getButtonHint();
 ?>
 <button class="<?= /* @noEscape */ $css('btn flex justify-center items-center') ?>"
         :class="cssClass"
         type="button"
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button"
         :disabled="disabled"
-        @click.prevent="submit">
+        @click.prevent="submit"
+        <?php if ($buttonHint) : ?>
+        aria-describedby="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button-hint"
+    <?php endif; ?>
+>
     <?= /* @noEscape */ $childRenderer->html($block, 'icon'); ?>
     <?= $escaper->escapeHtml(__((string)$viewModel->getButtonLabel())) ?>
 </button>
+
+<?php if ($buttonHint) : ?>
+    <div
+        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button-hint"
+        class="<?= $escaper->escapeHtmlAttr($css('hidden', 'hint')) ?>"
+        aria-hidden="true"
+    >
+        <?= $escaper->escapeHtml(__($buttonHint)) ?>
+    </div>
+<?php endif; ?>
+
