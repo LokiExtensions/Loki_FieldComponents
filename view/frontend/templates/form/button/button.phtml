@@ -28,6 +28,7 @@ $buttonHint = $block->getButtonHint();
         type="button"
         id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button"
         :disabled="disabled"
+        x-ref="button"
         @click.prevent="submit"
         <?php if ($buttonHint) : ?>
         aria-describedby="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button-hint"
