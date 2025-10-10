@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.6] - 10 October 2025
+### Fixed
+- Set aria-disabled=true on step-forward-button if not valid
+- Add button hint to step-forward button
+- Add role=tooltip to help popup
+
 ## [2.2.5] - 08 October 2025
 ### Fixed
 - Fix password field styling under Luma
