@@ -10,13 +10,12 @@ use Loki\CssUtils\Util\CssClass;
 /** @var Escaper $escaper */
 /** @var CssClass $css */
 
-$size = (int)$block->getSize();
-if (!$size > 0) {
-    $size = 20;
-}
+$size = $block->getSize() ?? 125;
+$width = $block->getWidth() ?? $size;
+$height = $block->getHeight() ?? $size;
 ?>
 <img alt="<?= $escaper->escapeHtml(__('Loading')) ?>"
      src="<?= /* @noEscape */ $block->getViewFileUrl('Loki_FieldComponents::images/loader.svg'); ?>"
      class="<?= /* @noEscape */ $css('loader') ?>"
-     width="<?= $escaper->escapeHtml($size) ?>"
-     height="<?= $escaper->escapeHtml($size) ?>">
+     width="<?= $escaper->escapeHtml($width) ?>"
+     height="<?= $escaper->escapeHtml($height) ?>">

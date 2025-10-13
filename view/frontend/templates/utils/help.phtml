@@ -14,10 +14,7 @@ use Loki\Components\Factory\ViewModelFactory;
 /** @var ViewModelFactory $viewModelFactory */
 /** @var ImageRenderer $imageRenderer */
 
-$size = (int)$block->getSize();
-if ($size < 1) {
-    $size = 20;
-}
+$size = $block->getSize() ?? 20;
 
 $icon = (string)$block->getIcon();
 if (strlen($icon) < 1) {
