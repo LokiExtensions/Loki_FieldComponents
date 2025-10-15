@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.8] - 15 October 2025
+### Fixed
+- Bump
+
 ## [2.2.7] - 15 October 2025
 ### Fixed
 - Cleanup image templates with width, height and size
