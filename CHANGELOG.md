@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.9] - 17 October 2025
+### Fixed
+- Fix merge conflict
+- Document latest version of template
+- Copy generic CI/CD files
+- Update MODULE.json
+
 ## [2.2.8] - 15 October 2025
 ### Fixed
 - Bump
