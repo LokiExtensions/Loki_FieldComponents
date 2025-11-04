@@ -3,6 +3,7 @@
     "version": "2.2.10",
     "description": "N/A",
     "keywords": [
+        "loki-checkout-plan-trial",
         "loki-components"
     ],
     "type": "magento2-module",
