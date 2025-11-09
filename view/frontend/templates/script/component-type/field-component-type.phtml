@@ -50,21 +50,17 @@ use Magento\Framework\View\Element\Template;
             });
         },
         initValidation() {
-            if (!this.$refs.field) {
-                return;
-            }
-
             if (!this.isAriaInvalid()) {
-                this.$refs.field.removeAttribute('aria-invalid');
+                this.$refs.field && this.$refs.field.removeAttribute('aria-invalid');
             } else {
-                this.$refs.field.setAttribute('aria-invalid', true);
+                this.$refs.field && this.$refs.field.setAttribute('aria-invalid', true);
             }
 
             this.$watch('valid', () => {
                 if (!this.isAriaInvalid()) {
-                    this.$refs.field.removeAttribute('aria-invalid');
+                    this.$refs.field && this.$refs.field.removeAttribute('aria-invalid');
                 } else {
-                    this.$refs.field.setAttribute('aria-invalid', true);
+                    this.$refs.field && this.$refs.field.setAttribute('aria-invalid', true);
                 }
             })
         },
