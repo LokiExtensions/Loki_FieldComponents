@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.11] - 12 November 2025
+### Fixed
+- Fix JS error when object is empty
+- Add plan-trial keyword to composer file
+- Update composer keywords
+- Update composer keywords
+
 ## [2.2.10] - 22 October 2025
 ### Fixed
 - Do not escape `$css()` with `escapeHtmlAttr()` but `escapeHtml()`
