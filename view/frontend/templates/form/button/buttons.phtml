@@ -1,13 +1,16 @@
 <?php
 declare(strict_types=1);
 
+use Loki\Components\Util\Block\ChildRenderer;
 use Magento\Framework\View\Element\Template;
 use Loki\CssUtils\Util\CssClass;
 
 /** @version 2.2.11 */
 /** @var Template $block */
 /** @var CssClass $css */
+/** @var ChildRenderer $childRenderer */
+
 ?>
 <div class="<?= /* @noEscape */ $css('flex flex-column gap-2 md:flex-row md:justify-end md:gap-4') ?>">
-    <?= /* @noEscape */ $block->getChildHtml() ?>
+    <?= /* @noEscape */ $childRenderer->all($block) ?>
 </div>

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Loki\Components\Util\Block\ChildRenderer;
 use Magento\Framework\View\Element\Template;
 
 use Loki\Components\Component\ComponentViewModelInterface;
@@ -14,7 +15,9 @@ use Loki\Components\Util\Block\BlockRenderer;
 /** @var CssClass $css */
 /** @var ViewModelFactory $viewModelFactory */
 /** @var BlockRenderer $blockRenderer */
+/** @var ChildRenderer $childRenderer */
+
 ?>
 <fieldset class="<?= /* @noEscape */ $css('field w-auto relative') ?>">
-    <?= /* @noEscape */ $block->getChildHtml() ?>
+    <?= /* @noEscape */ $childRenderer->all($block) ?>
 </fieldset>
