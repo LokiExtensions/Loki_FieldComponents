@@ -36,6 +36,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
                     'type' => 'radio',
                     'id' => $viewModel->getElementId() . '-' . $optionValue,
                     'value' => $optionValue,
+                    'checked' => $optionValue === $viewModel->getValue() ? true : false,
                     ':checked' => 'isChecked',
                     '@change' => 'submitValue',
                 ]) ?>

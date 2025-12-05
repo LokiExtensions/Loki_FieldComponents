@@ -30,6 +30,11 @@ if (false === $optionModel instanceof OptionModelInterface) {
     ]) ?>
 >
     <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
-        <option value="<?= $escaper->escapeHtml($optionValue) ?>"><?= $escaper->escapeHtml($optionLabel) ?></option>
+        <option
+            value="<?= $escaper->escapeHtml($optionValue) ?>"
+            <?= $optionValue === $viewModel->getValue() ? 'selected' : '' ?>
+        >
+            <?= $escaper->escapeHtml($optionLabel) ?>
+        </option>
     <?php endforeach; ?>
 </select>
