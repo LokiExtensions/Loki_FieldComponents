@@ -6,13 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.14] - 11 December 2025
+### Fixed
+- Set value in HTML to avoid Alpine rendering hickup
+
 ## [2.2.13] - 02 December 2025
 ### Fixed
 - Better styling of help popup
 
 ## [2.2.12] - 21 November 2025
 ### Fixed
-- Replace $block->getChildHtml() with $childRenderer->all() including better sorting
+- Replace `$block->getChildHtml()` with `$childRenderer->all()` including better sorting
 
 ## [2.2.11] - 12 November 2025
 ### Fixed
