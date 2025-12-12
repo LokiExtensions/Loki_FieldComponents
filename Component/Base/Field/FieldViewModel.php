@@ -131,7 +131,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             $this->getComponent()->getRepository()->saveValue($defaultValue);
         }
 
-        return $value;
+        return $defaultValue;
     }
 
     public function getInputType(): string
