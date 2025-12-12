@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.15] - 12 December 2025
+### Fixed
+- Allow `default_value` via XML layout
+
 ## [2.2.14] - 11 December 2025
 ### Fixed
 - Set value in HTML to avoid Alpine rendering hickup
