@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.16] - 17 December 2025
+### Fixed
+- Add $isRequiredByDefault to fields
+
 ## [2.2.15] - 12 December 2025
 ### Fixed
 - Allow `default_value` via XML layout
