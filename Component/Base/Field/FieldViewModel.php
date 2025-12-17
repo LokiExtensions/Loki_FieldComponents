@@ -14,6 +14,8 @@ use Loki\Field\Util\OptionModelInterface;
  */
 class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {
+    protected bool $isRequiredByDefault = true;
+
     public function getFieldName(): string
     {
         $parts = explode('.', $this->getNameInLayout());
@@ -156,7 +158,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             return $required;
         }
 
-        return false;
+        return $this->isRequiredByDefault;
     }
 
     public function isEmpty(): bool
