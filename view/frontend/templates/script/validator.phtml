@@ -28,6 +28,10 @@ use Magento\Framework\View\Element\Template;
                 return true;
             }
 
+            if (component.skipValidation) {
+                return true;
+            }
+
             const isValid = component.validators.every(validator => {
                 if (!this.validators[validator]) {
 

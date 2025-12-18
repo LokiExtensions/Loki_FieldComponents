@@ -15,6 +15,7 @@ use Loki\Field\Util\OptionModelInterface;
 class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {
     protected bool $isRequiredByDefault = true;
+    protected bool $skipValidation = false;
 
     public function getFieldName(): string
     {
@@ -112,6 +113,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         return [
             ...parent::getJsData(),
             ...$jsDataFromBlock,
+            'skipValidation' => $this->skipValidation,
             'disabled' => $this->isDisabled(),
             'fieldName' => $this->getFieldName(),
         ];
