@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.17] - 19 December 2025
+### Fixed
+- Add skipValidation flag for read-only components
+
 ## [2.2.16] - 17 December 2025
 ### Fixed
 - Add $isRequiredByDefault to fields
