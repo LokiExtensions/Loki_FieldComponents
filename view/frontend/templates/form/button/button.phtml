@@ -26,7 +26,6 @@ $buttonHint = $block->getButtonHint();
 <button class="<?= /* @noEscape */ $css('btn flex justify-center items-center') ?>"
         :class="cssClass"
         type="button"
-        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button"
         :disabled="disabled"
         x-ref="button"
         @click.prevent="submit"
