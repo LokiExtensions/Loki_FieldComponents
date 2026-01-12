@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.18] - 12 January 2026
+### Fixed
+- Do not add additional ID to root node of button
+- Copy generic CI/CD files
+
 ## [2.2.17] - 19 December 2025
 ### Fixed
 - Add skipValidation flag for read-only components
