@@ -57,12 +57,14 @@ use Magento\Framework\View\Element\Template;
                 this.$refs.field && this.$refs.field.setAttribute('aria-invalid', true);
             }
 
-            this.$watch('valid', () => {
+            this.$watch('valid', (newValue) => {
                 if (!this.isAriaInvalid()) {
                     this.$refs.field && this.$refs.field.removeAttribute('aria-invalid');
                 } else {
                     this.$refs.field && this.$refs.field.setAttribute('aria-invalid', true);
                 }
+
+                document.dispatchEvent(new CustomEvent('loki-components.component.update'));
             })
         },
         setValid(valid) {
