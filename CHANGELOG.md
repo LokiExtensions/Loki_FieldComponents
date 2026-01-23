@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.20] - 23 January 2026
+### Fixed
+- Wrap select in additional div to allow for proper ID
+
 ## [2.2.19] - 20 January 2026
 ### Fixed
 - Trigger loki-components.component.update event as soon as valid changes
