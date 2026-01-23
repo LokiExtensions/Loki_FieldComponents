@@ -2,11 +2,11 @@
 declare(strict_types=1);
 
 use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Util\OptionModelInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
-use Loki\Field\Component\Base\Field\FieldViewModelInterface;
-use Loki\CssUtils\Util\CssClass;
-use Loki\Field\Util\OptionModelInterface;
 
 /** @version 2.2.19 */
 /** @var ComponentViewModelInterface $viewModel */
@@ -22,19 +22,21 @@ if (false === $optionModel instanceof OptionModelInterface) {
     return;
 }
 ?>
-<select
-    class="<?= /* @noEscape */ $css('form-select w-full disabled:bg-zinc-100') ?>"
-    <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
-        ':value' => 'value',
-        '@change' => 'submitSelectedOptions',
-    ]) ?>
->
-    <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
-        <option
-            value="<?= $escaper->escapeHtml($optionValue) ?>"
-            <?= $optionValue === $viewModel->getValue() ? 'selected' : '' ?>
-        >
-            <?= $escaper->escapeHtml($optionLabel) ?>
-        </option>
-    <?php endforeach; ?>
-</select>
+<div class="<?= /* @noEscape */ $css('') ?>">
+    <select
+        class="<?= /* @noEscape */ $css('form-select w-full disabled:bg-zinc-100') ?>"
+        <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            ':value' => 'value',
+            '@change' => 'submitSelectedOptions',
+        ]) ?>
+    >
+        <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
+            <option
+                value="<?= $escaper->escapeHtml($optionValue) ?>"
+                <?= $optionValue === $viewModel->getValue() ? 'selected' : '' ?>
+            >
+                <?= $escaper->escapeHtml($optionLabel) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
