@@ -47,7 +47,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
     public function getFieldData(): array
     {
         return [
-            'alias' => 'field',
+            'alias' => 'field-container',
             'css_classes' => $this->getBlock()->getCssClasses(),
         ];
     }
