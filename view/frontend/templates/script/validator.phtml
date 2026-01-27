@@ -32,8 +32,8 @@ use Magento\Framework\View\Element\Template;
                 return true;
             }
 
-            if (typeof component.componentValidate === 'function') {
-                const isValid = component.componentValidate();
+            if (typeof component.onComponentValidate === 'function') {
+                const isValid = component.onComponentValidate();
                 this.handleIsValid(isValid, component);
 
                 return isValid;
