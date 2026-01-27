@@ -32,6 +32,13 @@ use Magento\Framework\View\Element\Template;
                 return true;
             }
 
+            if (typeof component.componentValidate === 'function') {
+                const isValid = component.componentValidate();
+                this.handleIsValid(isValid);
+
+                return isValid;
+            }
+
             const isValid = component.validators.every(validator => {
                 if (!this.validators[validator]) {
 
@@ -51,13 +58,16 @@ use Magento\Framework\View\Element\Template;
                 return isValid;
             });
 
+            this.handleIsValid(isValid);
+
+            return isValid;
+        },
+        handleIsValid(isValid) {
             if (false === isValid) {
                 this.setInvalid(component);
             } else {
                 this.setValid(component);
             }
-
-            return isValid;
         },
         setInvalid: function (component) {
             component.valid = false;
