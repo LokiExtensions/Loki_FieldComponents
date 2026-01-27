@@ -34,7 +34,7 @@ use Magento\Framework\View\Element\Template;
 
             if (typeof component.componentValidate === 'function') {
                 const isValid = component.componentValidate();
-                this.handleIsValid(isValid);
+                this.handleIsValid(isValid, component);
 
                 return isValid;
             }
@@ -58,11 +58,11 @@ use Magento\Framework\View\Element\Template;
                 return isValid;
             });
 
-            this.handleIsValid(isValid);
+            this.handleIsValid(isValid, component);
 
             return isValid;
         },
-        handleIsValid(isValid) {
+        handleIsValid(isValid, component) {
             if (false === isValid) {
                 this.setInvalid(component);
             } else {
