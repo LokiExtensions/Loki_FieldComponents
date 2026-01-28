@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.21] - 28 January 2026
+### Fixed
+- Rename deprecated class import
+- Rename componentValidate into onComponentValidate
+- Properly pass component to helper function
+- Allow for custom componentValidate() function in Loki Components JS
+
 ## [2.2.20] - 23 January 2026
 ### Fixed
 - Wrap select in additional div to allow for proper ID
