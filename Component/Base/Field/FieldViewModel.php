@@ -19,6 +19,11 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
     public function getFieldName(): string
     {
+        $fieldName = (string)$this->getBlock()->getFieldName();
+        if ($fieldName) {
+            return $fieldName;
+        }
+
         $parts = explode('.', $this->getNameInLayout());
 
         return array_pop($parts);
@@ -31,7 +36,12 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
     public function getFieldLabel(): string
     {
-        return (string)$this->getBlock()->getFieldLabel();
+        $fieldLabel = (string)$this->getBlock()->getFieldLabel();
+        if ($fieldLabel) {
+            return $fieldLabel;
+        }
+
+        return strtoupper($this->getFieldName());
     }
 
     public function showFieldLabel(): bool
