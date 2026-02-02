@@ -72,6 +72,10 @@ use Magento\Framework\View\Element\Template;
         setInvalid: function (component) {
             component.valid = false;
             if (component.$root) {
+                if (component.$root.getAttribute('role') === 'group') {
+                    component.$root.setAttribute('aria-invalid', true);
+                }
+
                 const elements = component.$root.querySelectorAll('[data-type="field"]');
                 elements.forEach(element => {
                     if (element.tagName === 'input') {
@@ -90,6 +94,10 @@ use Magento\Framework\View\Element\Template;
         setValid: function (component) {
             component.valid = true;
             if (component.$root) {
+                if (component.$root.getAttribute('role') === 'group') {
+                    component.$root.removeAttribute('aria-invalid');
+                }
+
                 Array.from(component.$root.getElementsByTagName('input')).forEach(element => {
                     if (component.submitted && typeof element.setCustomValidity === 'function') {
                         element.setCustomValidity('');
