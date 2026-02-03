@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.22] - 03 February 2026
+### Fixed
+- Set aria-invalid to root element if it contains role=group
+- Allow configuring field_name via XML layout
+
 ## [2.2.21] - 28 January 2026
 ### Fixed
 - Rename deprecated class import
