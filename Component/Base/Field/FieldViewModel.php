@@ -84,7 +84,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         $fieldAttributes['disabled'] = $this->isDisabled();
 
         $fieldAttributes['autocomplete'] = 'off';
-        if ($this->hasAutocomplete()) {
+        if ($this->hasAutocomplete() && false === $this->isDisabled()) {
             $fieldAttributes['autocomplete'] = $this->getAutocomplete();
         }
 
