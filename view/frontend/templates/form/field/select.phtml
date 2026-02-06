@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Loki\Components\Component\ComponentViewModelInterface;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Util\OptionInterface;
 use Loki\Field\Util\OptionModelInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
@@ -30,9 +31,13 @@ if (false === $optionModel instanceof OptionModelInterface) {
             '@change' => 'submitSelectedOptions',
         ]) ?>
     >
-        <?php foreach ($optionModel->getOptions($viewModel) as $optionValue => $optionLabel): ?>
+        <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
+            <?php $optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option; ?>
+            <?php $optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex; ?>
+            <?php $disabled = $option instanceof OptionInterface ? $option->isDisabled() : false; ?>
             <option
                 value="<?= $escaper->escapeHtml($optionValue) ?>"
+                <?= $disabled ? 'disabled' : '' ?>
                 <?= $optionValue === $viewModel->getValue() ? 'selected' : '' ?>
             >
                 <?= $escaper->escapeHtml($optionLabel) ?>

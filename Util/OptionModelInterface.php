@@ -7,5 +7,10 @@ use Loki\Components\Component\ComponentViewModelInterface;
 
 interface OptionModelInterface
 {
+    /**
+     * @param ComponentViewModelInterface $viewModel
+     *
+     * @return string[]|OptionInterface[]
+     */
     public function getOptions(ComponentViewModelInterface $viewModel): array;
 }
