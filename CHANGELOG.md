@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.23] - 12 February 2026
+### Fixed
+- Allow PHP Config to read from current store level
+- Add Option-model for select-fields (with disabled flag)
+- Remove autocomplete when field is disabled
+
 ## [2.2.22] - 03 February 2026
 ### Fixed
 - Set aria-invalid to root element if it contains role=group
