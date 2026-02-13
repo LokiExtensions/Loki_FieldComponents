@@ -16,6 +16,7 @@ use Magento\Framework\View\Element\Template;
         skipValidation: false,
         disabled: false,
         submitted: false,
+        required: false,
         validators: [],
         validationActions: {
             lokiComponentValidator() {
@@ -51,6 +52,10 @@ use Magento\Framework\View\Element\Template;
             });
         },
         initValidation() {
+            if (this.required && !this.validators.includes('required')) {
+                this.validators.push('required');
+            }
+
             if (!this.isAriaInvalid()) {
                 this.$refs.field && this.$refs.field.removeAttribute('aria-invalid');
             } else {

@@ -122,10 +122,11 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
         return [
             ...parent::getJsData(),
-            ...$jsDataFromBlock,
             'skipValidation' => $this->skipValidation,
+            'required' => $this->isRequired(),
             'disabled' => $this->isDisabled(),
             'fieldName' => $this->getFieldName(),
+            ...$jsDataFromBlock,
         ];
     }
 
