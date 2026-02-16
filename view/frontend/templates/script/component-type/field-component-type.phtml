@@ -85,6 +85,7 @@ use Magento\Framework\View\Element\Template;
         },
         isAriaInvalid() {
             if (this.messages.filter(message => message.type === 'error').length > 0) {
+                this.valid = false;
                 return true;
             }
 
