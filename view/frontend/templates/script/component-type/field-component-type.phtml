@@ -84,6 +84,10 @@ use Magento\Framework\View\Element\Template;
             return this.valid && this.isSubmitted();
         },
         isAriaInvalid() {
+            if (this.messages.filter(message => message.type === 'error').length > 0) {
+                return true;
+            }
+
             return !this.valid && this.submitted;
         },
         isSubmitted() {
