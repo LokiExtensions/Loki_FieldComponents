@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.25] - 16 February 2026
+### Fixed
+- Issue when streetname contained spaces
+- Make sure aria-invalid is set if any of the local messages contain errors
+
 ## [2.2.24] - 13 February 2026
 ### Fixed
 - Add new Alpine.js flag for required to make validation simpler
