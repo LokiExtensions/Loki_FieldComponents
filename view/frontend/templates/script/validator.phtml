@@ -24,10 +24,6 @@ use Magento\Framework\View\Element\Template;
         validate: function (component) {
             component.messages = [];
 
-            if (!component.validators) {
-                return true;
-            }
-
             if (component.skipValidation) {
                 return true;
             }
@@ -37,6 +33,14 @@ use Magento\Framework\View\Element\Template;
                 this.handleIsValid(isValid, component);
 
                 return isValid;
+            }
+
+            if (typeof component.valid === 'undefined') {
+                return true;
+            }
+
+            if (!component.validators) {
+                return true;
             }
 
             const isValid = component.validators.every(validator => {

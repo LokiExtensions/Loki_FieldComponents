@@ -12,8 +12,6 @@ use Magento\Framework\View\Element\Template;
         ...LokiComponentType,
         fieldName: '',
         fieldValue: null,
-        valid: true,
-        skipValidation: false,
         disabled: false,
         submitted: false,
         required: false,
@@ -85,7 +83,6 @@ use Magento\Framework\View\Element\Template;
         },
         isAriaInvalid() {
             if (this.messages.filter(message => message.type === 'error').length > 0) {
-                this.valid = false;
                 return true;
             }
 
