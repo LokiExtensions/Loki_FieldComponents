@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.26] - 18 February 2026
+### Fixed
+- Set skipValidation = false for any component by default
+
 ## [2.2.25] - 16 February 2026
 ### Fixed
 - Issue when streetname contained spaces
