@@ -28,7 +28,15 @@ use Magento\Framework\View\Element\Template;
                 return true;
             }
 
+            if (typeof component.validate === 'function') {
+                const isValid = component.validate();
+                this.handleIsValid(isValid, component);
+
+                return isValid;
+            }
+
             if (typeof component.onComponentValidate === 'function') {
+                console.log('Loki Component method "onComponentValidate" is called but deprecated.');
                 const isValid = component.onComponentValidate();
                 this.handleIsValid(isValid, component);
 
