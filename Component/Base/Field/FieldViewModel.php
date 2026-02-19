@@ -14,6 +14,8 @@ use Loki\Field\Util\OptionModelInterface;
  */
 class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {
+    protected bool $isRequiredByDefault = false;
+
     public function getFieldName(): string
     {
         $fieldName = (string)$this->getBlock()->getFieldName();
