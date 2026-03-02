@@ -4,7 +4,8 @@
         "Loki_CssUtils",
         "Magento_Backend",
         "Magento_Config",
-        "Magento_MediaStorage"
+        "Magento_MediaStorage",
+        "Magento_Store"
     ],
     "modules": [
         "Loki_Base",
@@ -24,16 +25,14 @@
     "components": [],
     "config": [
         {
-            "path": "loki_field_components/fields/use_required_block",
+            "path": "loki_field_components\/fields\/use_required_block",
             "label": "Field settings > Use required block",
-            "description": "Each required field could be styled with an additional required block. In Luma, this is nice. In Hyv\u00e4, this is not needed because the styling is done via CSS. This settings adds the block <code>loki-field-components.utils.required</code> when a field is required"
+            "description": "Each required field could be styled with an additional required block. In Luma, this is nice. In Hyv\u00e4, this is not needed because the styling is done via CSS. This settings adds the block <code>loki-field-components.utils.required<\/code> when a field is required"
         }
     ],
     "tests": {
         "unit": 1,
         "integration": 0,
         "functional": 0
-    },
-    "phpcs_severity": "8",
-    "phpstan_level": "3"
+    }
 }
