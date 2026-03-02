@@ -16,6 +16,7 @@
         "Magento_Customer",
         "Magento_Directory",
         "Magento_MediaStorage",
+        "Magento_Quote",
         "Magento_Store",
         "Magento_Theme",
         "Yireo_CspUtilities"
