@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.28] - 02 March 2026
+### Fixed
+- Set `requiredErrorMessage` prop from block arg `required_error_message`
+- Allow for component to override `requiredErrorMessage`
+
 ## [2.2.27] - 19 February 2026
 ### Fixed
 - Field Components are not required by default
