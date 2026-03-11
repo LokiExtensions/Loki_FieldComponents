@@ -87,6 +87,18 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             $fieldAttributes['autocomplete'] = $this->getAutocomplete();
         }
 
+        if ($this->getInputType() === 'date') {
+            $maxDate = (string)$this->getBlock()->getMaxDate();
+            if (!empty($maxDate)) {
+                $fieldAttributes['max'] = date('Y-m-d', strtotime($maxDate));
+            }
+
+            $minDate = (string)$this->getBlock()->getMinDate();
+            if (!empty($minDate)) {
+                $fieldAttributes['min'] = date('Y-m-d', strtotime($minDate));
+            }
+        }
+
         if ($this->getPlaceholder()) {
             $fieldAttributes['placeholder'] = $this->getPlaceholder();
         }
