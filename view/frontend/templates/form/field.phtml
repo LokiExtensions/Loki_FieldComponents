@@ -12,7 +12,7 @@ use Loki\CssUtils\Util\CssClass;
 use Loki\Components\Util\Block\TemplateRenderer;
 use Loki\Field\Field\FieldTypeManager;
 
-/** @version 2.2.28 */
+/** @version 2.2.29 */
 /** @var ComponentViewModelInterface $viewModel */
 /** @var Template $block */
 /** @var Escaper $escaper */
@@ -33,11 +33,13 @@ $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 <div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
+    <?php if (!in_array($fieldTypeManager->getFieldTypeFromViewModel($viewModel), ['checkbox', 'radio'])): ?>
     <?= /* @noEscape */ $templateRenderer->html(
         $block,
         'Loki_FieldComponents::form/field/label.phtml',
         ['alias' => 'label']
     ) ?>
+    <?php endif; ?>
 
     <div class="<?= /* @noEscape */ $css('flex', 'container') ?>">
         <div class="<?= /* @noEscape */ $css('relative grow', 'field') ?>">

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.29] - 12 March 2026
+### Fixed
+- Skip separate label for checkboxes and radiobuttons
+
 ## [2.2.28] - 02 March 2026
 ### Fixed
 - Set `requiredErrorMessage` prop from block arg `required_error_message`
