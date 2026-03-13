@@ -39,14 +39,9 @@ use Magento\Framework\View\Element\Template;
                 if (this.loading) {
                     this.$refs.field.classList.add('loading');
                     this.$refs.field.setAttribute('aria-busy', true);
-                    this.$refs.field.setAttribute('disabled', true);
                 } else {
                     this.$refs.field.classList.remove('loading');
                     this.$refs.field.removeAttribute('aria-busy');
-
-                    if (!this.disabled) {
-                        this.$refs.field.removeAttribute('disabled');
-                    }
                 }
             });
         },
