@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.31] - 17 March 2026
+### Fixed
+- Do not set `flex` CSS class on loader when it is hidden (fixing Breeze issue)
+- Do not set fields to disabled when loading, because of UI flow breaking
+
 ## [2.2.30] - 12 March 2026
 ### Fixed
 - Allow for date-input tuning via min_date and max_date
