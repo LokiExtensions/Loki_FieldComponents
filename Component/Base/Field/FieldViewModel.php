@@ -121,6 +121,10 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
                 continue;
             }
 
+            if (!is_string($fieldAttributeValue)) {
+                $fieldAttributeValue = json_encode($fieldAttributeValue);
+            }
+
             $fieldAttributesAsString .= ' '.$fieldAttributeName . '="' . $fieldAttributeValue . '"';
         }
 
