@@ -3,11 +3,11 @@
 namespace Loki\Field\Component\Base\Field;
 
 use Loki\Components\Component\ComponentContext;
+use Loki\Components\Component\ComponentViewModel;
 use Loki\Field\Field\FieldTypeManager;
+use Loki\Field\Util\OptionModelInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\View\Element\AbstractBlock;
-use Loki\Components\Component\ComponentViewModel;
-use Loki\Field\Util\OptionModelInterface;
 
 /**
  * @method ComponentContext getContext()
@@ -121,11 +121,12 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
                 continue;
             }
 
-            if (!is_string($fieldAttributeValue)) {
+            if (is_string($fieldAttributeValue) || is_numeric($fieldAttributeValue)) {
+                $fieldAttributesAsString .= ' ' . $fieldAttributeName . '="' . $fieldAttributeValue . '"';
+            } else {
                 $fieldAttributeValue = json_encode($fieldAttributeValue);
+                $fieldAttributesAsString .= ' '.$fieldAttributeName . '=\'' . $fieldAttributeValue . '\'';
             }
-
-            $fieldAttributesAsString .= ' '.$fieldAttributeName . '="' . $fieldAttributeValue . '"';
         }
 
         return trim($fieldAttributesAsString);
