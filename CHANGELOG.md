@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.32] - 08 April 2026
+### Fixed
+- Make sure JSON HTML attributes are accompanied with single quotes
+- Allow for HTML attribute via XML layout to be non-string (like array)
+
 ## [2.2.31] - 17 March 2026
 ### Fixed
 - Do not set `flex` CSS class on loader when it is hidden (fixing Breeze issue)
