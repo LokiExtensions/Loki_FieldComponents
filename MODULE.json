@@ -36,5 +36,15 @@
         "functional": 0
     },
     "phpcs_severity": "7",
-    "phpstan_level": "3"
+    "phpstan_level": "3",
+    "module_name": "Loki_FieldComponents",
+    "composer_name": "loki/magento2-field-components",
+    "php_versions": [
+        "8.1",
+        "8.2",
+        "8.3",
+        "8.4"
+    ],
+    "skip_magento_versions": [],
+    "skip_css_utils": false
 }
