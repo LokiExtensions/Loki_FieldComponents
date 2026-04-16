@@ -34,7 +34,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
                 class="<?= /* @noEscape */ $css('form-radio', 'input') ?>"
                 <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
                     'type' => 'radio',
-                    'id' => $viewModel->getElementId() . '-' . $optionValue,
+                    'id' => $viewModel->getFieldId() . '-' . $optionValue,
                     'value' => $optionValue,
                     'checked' => $optionValue === $viewModel->getValue() ? true : false,
                     ':checked' => 'isChecked',
