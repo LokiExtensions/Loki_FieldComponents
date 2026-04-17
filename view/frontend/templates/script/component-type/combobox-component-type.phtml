@@ -36,8 +36,6 @@ use Magento\Framework\View\Element\Template;
         filteredOptions() {
             const filtered = this.options.filter(option => !option.disabled && option.value !== '');
 
-            console.log('test1', this.options);
-
             if (!this.query.trim()) {
                 return filtered;
             }
