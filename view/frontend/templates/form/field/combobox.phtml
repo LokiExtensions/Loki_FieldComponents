@@ -1,0 +1,114 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Field\Util\OptionInterface;
+use Loki\Field\Util\OptionModelInterface;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var ComponentViewModelInterface $viewModel */
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var FieldViewModel $viewModel */
+/** @var CssClass $css */
+
+$viewModel = $block->getViewModel();
+$optionModel = $viewModel->getOptionModel();
+if (false === $optionModel instanceof OptionModelInterface) {
+    echo $escaper->escapeHtml(__('No options found'));
+    return;
+}
+?>
+<div
+    class="<?= /* @noEscape */ $css('') ?>"
+    x-data="LokiComboboxComponent"
+    class="relative w-full max-w-sm"
+>
+    <div class="relative">
+        <input
+            x-ref="input"
+            x-model="query"
+            @focus="openList()"
+            @click="openList()"
+            @input="onInput()"
+            @keydown.arrow-down.prevent="moveDown()"
+            @keydown.arrow-up.prevent="moveUp()"
+            @keydown.enter.prevent="selectActive()"
+            @keydown.escape.prevent="closeList()"
+            @keydown.tab="closeList()"
+            type="text"
+            autocomplete="off"
+            role="combobox"
+            :aria-expanded="open"
+            aria-autocomplete="list"
+            class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pr-10 text-gray-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+            placeholder="Choose a country"
+        >
+
+        <button
+            type="button"
+            @click="toggle()"
+            class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
+            tabindex="-1"
+            aria-label="Toggle options"
+        >
+            <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+            </svg>
+        </button>
+    </div>
+
+    <ul
+        x-show="open"
+        x-transition.origin.top.left
+        @click.outside="closeList()"
+        class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+        role="listbox"
+        style="display: none;"
+    >
+        <template x-if="filteredOptions.length === 0">
+            <li class="px-3 py-2 text-gray-500">
+                No results found
+            </li>
+        </template>
+
+        <template x-for="(option, index) in filteredOptions" :key="option.value">
+            <li
+                @mouseenter="activeIndex = index"
+                @mousedown.prevent="selectOption(option)"
+                :class="index === activeIndex ? 'bg-primary text-white' : 'bg-white text-gray-900'"
+                class="cursor-pointer px-3 py-2"
+                role="option"
+                :aria-selected="option.value === selectedValue"
+            >
+                <span x-text="option.label"></span>
+            </li>
+        </template>
+    </ul>
+
+
+    <select
+        x-ref="select"
+        class="<?= /* @noEscape */ $css('form-select hidden') ?>"
+        <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            ':value' => 'value',
+            '@change' => 'submitSelectedOptions',
+        ]) ?>
+    >
+        <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
+            <?php $optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option; ?>
+            <?php $optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex; ?>
+            <?php $disabled = $option instanceof OptionInterface ? $option->isDisabled() : false; ?>
+            <option
+                value="<?= $escaper->escapeHtml($optionValue) ?>"
+                <?= $disabled ? 'disabled' : '' ?>
+                <?= $optionValue === $viewModel->getValue() ? 'selected' : '' ?>
+            >
+                <?= $escaper->escapeHtml($optionLabel) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>

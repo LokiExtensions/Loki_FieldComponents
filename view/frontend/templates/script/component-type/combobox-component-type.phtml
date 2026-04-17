@@ -1,0 +1,131 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+
+/** @version 2.2.32 */
+/** @var Template $block */
+
+?>
+<script>
+    const LokiComboboxComponentType = {
+        ...LokiFieldComponentType,
+        options: [],
+        open: false,
+        query: '',
+        selectedValue: '',
+        activeIndex: -1,
+        placeholder: '',
+
+        initCombobox() {
+            this.options = Array.from(this.$refs.select.options).map(option => ({
+                value: option.value,
+                label: option.text,
+                disabled: option.disabled
+            }));
+
+            const selectedOption = this.$refs.select.selectedOptions[0];
+
+            if (selectedOption) {
+                this.selectedValue = selectedOption.value;
+                this.query = selectedOption.value === '' ? '' : selectedOption.text;
+                this.placeholder = this.options[0]?.value === '' ? this.options[0].label : '';
+            }
+        },
+
+        filteredOptions() {
+            const filtered = this.options.filter(option => !option.disabled && option.value !== '');
+
+            console.log('test1', this.options);
+
+            if (!this.query.trim()) {
+                return filtered;
+            }
+
+            const q = this.query.toLowerCase();
+
+            return filtered.filter(option =>
+                option.label.toLowerCase().includes(q)
+            );
+        },
+
+        onInput() {
+            this.open = true;
+            this.activeIndex = this.filteredOptions.length ? 0 : -1;
+
+            if (this.query.trim() === '') {
+                this.selectedValue = '';
+                this.$refs.select.value = '';
+                this.$refs.select.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        },
+
+        openList() {
+            this.open = true;
+            this.activeIndex = this.filteredOptions.length ? 0 : -1;
+        },
+
+        closeList() {
+            this.open = false;
+            this.activeIndex = -1;
+
+            const selected = this.options.find(option => option.value === this.selectedValue);
+            this.query = selected && selected.value !== '' ? selected.label : '';
+        },
+
+        toggle() {
+            if (this.open) {
+                this.closeList();
+            } else {
+                this.openList();
+                this.$nextTick(() => this.$refs.input.focus());
+            }
+        },
+
+        moveDown() {
+            if (!this.open) {
+                this.openList();
+                return;
+            }
+
+            if (!this.filteredOptions.length) {
+                return;
+            }
+
+            this.activeIndex = (this.activeIndex + 1) % this.filteredOptions.length;
+        },
+
+        moveUp() {
+            if (!this.open) {
+                this.openList();
+                this.activeIndex = this.filteredOptions.length ? this.filteredOptions.length - 1 : -1;
+                return;
+            }
+
+            if (!this.filteredOptions.length) {
+                return;
+            }
+
+            this.activeIndex = (this.activeIndex - 1 + this.filteredOptions.length) % this.filteredOptions.length;
+        },
+
+        selectActive() {
+            if (this.activeIndex < 0 || !this.filteredOptions[this.activeIndex]) {
+                return;
+            }
+
+            this.selectOption(this.filteredOptions[this.activeIndex]);
+        },
+
+        selectOption(option) {
+            this.selectedValue = option.value;
+            this.query = option.label;
+            this.open = false;
+            this.activeIndex = -1;
+
+            this.$refs.select.value = option.value;
+            this.$refs.select.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+    };
+</script>

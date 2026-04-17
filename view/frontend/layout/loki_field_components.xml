@@ -18,6 +18,16 @@
             <block
                 name="loki-field-components.script.component-type.field"
                 template="Loki_FieldComponents::script/component-type/field-component-type.phtml"/>
+
+            <block
+                name="loki-field-components.script.component-type.combobox"
+                template="Loki_FieldComponents::script/component-type/combobox-component-type.phtml"/>
+
+            <!--
+            <block
+                name="loki-field-components.script.component-type.uploader"
+                template="Loki_FieldComponents::script/component-type/uploader-component-type.phtml"/>
+            -->
         </referenceBlock>
 
         <referenceBlock name="loki.script.component">
@@ -27,11 +37,15 @@
 
             <block
                 name="loki-field-components.script.components.password"
-                template="Loki_FieldComponents::script/component/password.phtml"/>
+                template="Loki_FieldComponents::script/component/password-component.phtml"/>
 
             <block
                 name="loki-field-components.script.components.password-repeat"
-                template="Loki_FieldComponents::script/component/password-repeat.phtml"/>
+                template="Loki_FieldComponents::script/component/password-repeat-component.phtml"/>
+
+            <block
+                name="loki-field-components.script.components.combobox"
+                template="Loki_FieldComponents::script/component/combobox-component.phtml"/>
         </referenceBlock>
 
         <block

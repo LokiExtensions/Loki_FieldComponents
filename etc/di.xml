@@ -13,6 +13,7 @@
         <arguments>
             <argument name="fieldTypes" xsi:type="array">
                 <item name="checkbox" xsi:type="string">Loki_FieldComponents::form/field/checkbox.phtml</item>
+                <item name="combobox" xsi:type="string">Loki_FieldComponents::form/field/combobox.phtml</item>
                 <item name="input" xsi:type="string">Loki_FieldComponents::form/field/input.phtml</item>
                 <item name="password" xsi:type="string">Loki_FieldComponents::form/field/password.phtml</item>
                 <item name="password_repeat" xsi:type="string">Loki_FieldComponents::form/field/password-repeat.phtml</item>
