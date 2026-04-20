@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use Loki\Components\Component\ComponentViewModelInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Loki\Components\Util\Block\BlockRenderer;
@@ -9,11 +8,10 @@ use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\CssUtils\Util\CssClass;
 
 /** @version 2.2.32 */
-/** @var ComponentViewModelInterface $viewModel */
+/** @var FieldViewModel $viewModel */
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var Template $fieldBlock */
-/** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
 /** @var BlockRenderer $blockRenderer */
 
