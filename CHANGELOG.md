@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.33] - 22 April 2026
+### Fixed
+- Add field-type comboxbox (experimental)
+- Base radio-box its ID upon field-ID, not template-ID
+
 ## [2.2.32] - 08 April 2026
 ### Fixed
 - Make sure JSON HTML attributes are accompanied with single quotes
@@ -18,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.30] - 12 March 2026
 ### Fixed
-- Allow for date-input tuning via min_date and max_date
+- Allow for date-input tuning via `min_date` and `max_date`
 
 ## [2.2.29] - 12 March 2026
 ### Fixed
