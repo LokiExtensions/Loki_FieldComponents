@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.34] - 29 April 2026
+### Fixed
+- Fix Tailwind 4 flex-col
+
 ## [2.2.33] - 22 April 2026
 ### Fixed
 - Add field-type comboxbox (experimental)
