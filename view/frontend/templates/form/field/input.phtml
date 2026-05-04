@@ -20,7 +20,6 @@ $viewModel = $block->getViewModel();
 $ancestorBlock = $viewModel->getBlock();
 $inputPrefix = $ancestorBlock->getInputPrefix(); // @todo: Move to Field class
 $fieldAttributes = $viewModel->getFieldAttributes();
-
 // @todo: Move inputPrefix HTML to separate template
 ?>
 <div class="<?= /* @noEscape */ $css('w-full flex') ?>">
@@ -49,7 +48,7 @@ $fieldAttributes = $viewModel->getFieldAttributes();
         ]) ?>
     >
 
-    <template x-if="isCompleted">
+    <div x-show="isCompleted">
         <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-components.utils.field-completed') ?>
-    </template>
+    </div>
 </div>
