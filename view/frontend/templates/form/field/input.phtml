@@ -48,7 +48,8 @@ $fieldAttributes = $viewModel->getFieldAttributes();
             '@change' => 'submit',
         ]) ?>
     >
-    <div x-show="isCompleted" class="<?= /* @noEscape */ $css('absolute right-0', 'required') ?>">
+
+    <template x-if="isCompleted">
         <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-components.utils.field-completed') ?>
-    </div>
+    </template>
 </div>
