@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.35] - 05 May 2026
+### Fixed
+- Move field-completed block to div again, because template does not work without proper HTML
+- Change isCompleted-box into an Alpine template to remove HTML clutter
+
 ## [2.2.34] - 29 April 2026
 ### Fixed
 - Fix Tailwind 4 flex-col
