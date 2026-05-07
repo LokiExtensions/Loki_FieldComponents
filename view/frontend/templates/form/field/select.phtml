@@ -38,11 +38,11 @@ if (false === $optionModel instanceof OptionModelInterface) {
         <?php foreach ($optionModel->getOptions($viewModel) as $option): ?>
             <?php if ($option instanceof OptionGroupInterface): ?>
             <optgroup
-                label="<?= $option->getLabel() ?>"
-                <?= $option->isDisabled() ? 'disabled' : '' ?>
+                label="<?= $escaper->escapeHtml($option->getLabel()) ?>"
+                <?= /* @noEscape */ $option->isDisabled() ? 'disabled' : '' ?>
             >
                 <?php foreach ($option->getOptions() as $subOptionIndex => $subOption): ?>
-                    <?= $templateRenderer->html(
+                    <?= /* @noEscape */ $templateRenderer->html(
                         $block,
                         'Loki_FieldComponents::form/field/select/option.phtml',
                         ['option' => $subOption]
@@ -50,7 +50,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
                 <?php endforeach; ?>
             </optgroup>
             <?php else: ?>
-                <?= $templateRenderer->html(
+                <?= /* @noEscape */ $templateRenderer->html(
                     $block,
                     'Loki_FieldComponents::form/field/select/option.phtml',
                     ['option' => $option]
