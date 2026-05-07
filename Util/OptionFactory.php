@@ -11,12 +11,17 @@ class OptionFactory
     ) {
     }
 
-    public function create(mixed $value, string $label, bool $disabled = false): Option
-    {
+    public function create(
+        mixed $value,
+        string $label,
+        bool $disabled = false,
+        bool $selected = false
+    ): Option {
         return $this->objectManager->create(Option::class, [
             'value' => $value,
             'label' => $label,
-            'disabled' => $disabled
+            'disabled' => $disabled,
+            'selected' => $selected,
         ]);
     }
 }

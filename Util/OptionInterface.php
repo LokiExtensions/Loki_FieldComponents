@@ -9,4 +9,5 @@ interface OptionInterface
 
     public function getLabel(): string;
     public function isDisabled(): bool;
+    public function isSelected(): bool;
 }

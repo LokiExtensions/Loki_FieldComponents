@@ -2,8 +2,11 @@
 declare(strict_types=1);
 
 use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\Components\Util\Block\TemplateRenderer;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Util\OptionGroupInterface;
+use Loki\Field\Util\OptionGroupModelInterface;
 use Loki\Field\Util\OptionInterface;
 use Loki\Field\Util\OptionModelInterface;
 use Magento\Framework\Escaper;
@@ -14,6 +17,7 @@ use Magento\Framework\View\Element\Template;
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var FieldViewModelInterface $viewModel */
+/** @var TemplateRenderer $templateRenderer */
 /** @var CssClass $css */
 
 $viewModel = $block->getViewModel();
@@ -31,17 +35,27 @@ if (false === $optionModel instanceof OptionModelInterface) {
             '@change' => 'submitSelectedOptions',
         ]) ?>
     >
-        <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
-            <?php $optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option; ?>
-            <?php $optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex; ?>
-            <?php $disabled = $option instanceof OptionInterface ? $option->isDisabled() : false; ?>
-            <option
-                value="<?= $escaper->escapeHtml($optionValue) ?>"
-                <?= $disabled ? 'disabled' : '' ?>
-                <?= $optionValue === $viewModel->getValue() ? 'selected' : '' ?>
+        <?php foreach ($optionModel->getOptions($viewModel) as $option): ?>
+            <?php if ($option instanceof OptionGroupInterface): ?>
+            <optgroup
+                label="<?= $option->getLabel() ?>"
+                <?= $option->isDisabled() ? 'disabled' : '' ?>
             >
-                <?= $escaper->escapeHtml($optionLabel) ?>
-            </option>
+                <?php foreach ($option->getOptions() as $subOptionIndex => $subOption): ?>
+                    <?= $templateRenderer->html(
+                        $block,
+                        'Loki_FieldComponents::form/field/select/option.phtml',
+                        ['option' => $subOption]
+                    ) ?>
+                <?php endforeach; ?>
+            </optgroup>
+            <?php else: ?>
+                <?= $templateRenderer->html(
+                    $block,
+                    'Loki_FieldComponents::form/field/select/option.phtml',
+                    ['option' => $option]
+                ) ?>
+            <?php endif; ?>
         <?php endforeach; ?>
     </select>
 </div>

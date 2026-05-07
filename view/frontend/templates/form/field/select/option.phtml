@@ -1,0 +1,33 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Util\OptionInterface;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @version 2.2.35 */
+/** @var ComponentViewModelInterface $viewModel */
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var FieldViewModelInterface $viewModel */
+/** @var CssClass $css */
+
+$viewModel = $block->getViewModel();
+$option = $block->getOption();
+$optionIndex = $block->getOptionIndex();
+$optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option;
+?>
+<?php $optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex; ?>
+<?php $disabled = $option instanceof OptionInterface ? $option->isDisabled() : false; ?>
+<?php $selected = $option instanceof OptionInterface ? $option->isSelected() : false; ?>
+<?php $selected = $viewModel->getValue() === $optionValue ? true : $selected; ?>
+<option
+    value="<?= $escaper->escapeHtml($optionValue) ?>"
+    <?= $disabled ? 'disabled' : '' ?>
+    <?= $selected ? 'selected' : '' ?>
+>
+    <?= $escaper->escapeHtml($optionLabel) ?>
+</option>

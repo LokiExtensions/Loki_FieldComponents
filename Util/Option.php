@@ -5,9 +5,10 @@ namespace Loki\Field\Util;
 class Option implements OptionInterface
 {
     public function __construct(
-        private mixed $value,
-        private string $label,
-        private bool $disabled = false
+        private readonly mixed $value,
+        private readonly string $label,
+        private readonly bool $disabled = false,
+        private readonly bool $selected = false
     ) {
     }
 
@@ -18,11 +19,16 @@ class Option implements OptionInterface
 
     public function getLabel(): string
     {
-        return $this->label;
+        return (string)__($this->label);
     }
 
     public function isDisabled(): bool
     {
         return $this->disabled;
+    }
+
+    public function isSelected(): bool
+    {
+        return $this->selected;
     }
 }
