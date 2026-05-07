@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.36] - 07 May 2026
+### Fixed
+- Add support for optgroups within a select-field
+
 ## [2.2.35] - 05 May 2026
 ### Fixed
 - Move field-completed block to div again, because template does not work without proper HTML
