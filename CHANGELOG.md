@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.37] - 11 May 2026
+### Fixed
+- Fix issue with original select-options loosing their value
+
 ## [2.2.36] - 07 May 2026
 ### Fixed
 - Add support for optgroups within a select-field
