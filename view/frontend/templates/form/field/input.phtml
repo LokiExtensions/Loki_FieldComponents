@@ -40,6 +40,7 @@ $fieldAttributes = $viewModel->getFieldAttributes();
     <input
         class="<?= /* @noEscape */ $css('form-input w-full disabled:bg-zinc-100', 'input') ?>"
         <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            'name' => $viewModel->getFieldName(),
             'type' => $viewModel->getInputType(),
             'value' => $viewModel->getValue(),
             ':value' => 'value',
