@@ -35,7 +35,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
             '@change' => 'submitSelectedOptions',
         ]) ?>
     >
-        <?php foreach ($optionModel->getOptions($viewModel) as $option): ?>
+        <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
             <?php if ($option instanceof OptionGroupInterface): ?>
             <optgroup
                 label="<?= $escaper->escapeHtml($option->getLabel()) ?>"
@@ -45,7 +45,10 @@ if (false === $optionModel instanceof OptionModelInterface) {
                     <?= /* @noEscape */ $templateRenderer->html(
                         $block,
                         'Loki_FieldComponents::form/field/select/option.phtml',
-                        ['option' => $subOption]
+                        [
+                            'option_index' => $subOptionIndex,
+                            'option' => $subOption
+                        ]
                     ) ?>
                 <?php endforeach; ?>
             </optgroup>
@@ -53,7 +56,10 @@ if (false === $optionModel instanceof OptionModelInterface) {
                 <?= /* @noEscape */ $templateRenderer->html(
                     $block,
                     'Loki_FieldComponents::form/field/select/option.phtml',
-                    ['option' => $option]
+                    [
+                        'option' => $option,
+                        'option_index' => $optionIndex,
+                    ]
                 ) ?>
             <?php endif; ?>
         <?php endforeach; ?>
