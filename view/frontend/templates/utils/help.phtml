@@ -38,6 +38,7 @@ $text = $block->getHelpText();
         type="button"
         aria-label="<?= $escaper->escapeHtml('Help') ?>"
         @click.prevent="toggle"
+        @keyup.escape="hide"
         class="<?= /* @noEscape */ $css('help', 'image') ?>">
         <?= /* @noEscape */ $imageRenderer->icon($block, $icon) ?>
     </button>
@@ -45,6 +46,8 @@ $text = $block->getHelpText();
     <div
         x-cloak
         x-show="shown"
+        @click.prevent="hide"
+        @click.outside.prevent="hide"
         class="<?= $escaper->escapeHtml($width) ?> <?= /* @noEscape */ $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
         <button
             type="button"
