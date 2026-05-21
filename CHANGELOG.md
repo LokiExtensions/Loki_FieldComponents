@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.39] - 21 May 2026
+### Fixed
+- Allow for better UI of help-toggling
+
 ## [2.2.38] - 15 May 2026
 ### Fixed
 - Add `name` attribute to input and select fields
