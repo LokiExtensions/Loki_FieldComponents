@@ -2,6 +2,7 @@
 
 namespace Loki\Field\Field;
 
+use Loki\Components\Component\ComponentViewModelInterface;
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
@@ -70,6 +71,10 @@ class FieldTypeManager implements ArgumentInterface
         $optionModel = $block->getOptionModel();
 
         if (false === $optionModel instanceof OptionModelInterface) {
+            return 'text';
+        }
+
+        if (false === $viewModel instanceof ComponentViewModelInterface) {
             return 'text';
         }
 
