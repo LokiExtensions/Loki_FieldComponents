@@ -40,7 +40,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             return $fieldLabel;
         }
 
-        return strtoupper($this->getFieldName());
+        return ucwords(str_replace('_', ' ', $this->getFieldName()));
     }
 
     public function showFieldLabel(): bool
@@ -104,8 +104,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         }
 
         $fieldAttributesFromBlock = (array)$this->getBlock()->getFieldAttributes();
-
-        return array_merge($fieldAttributes, $fieldAttributesFromBlock, $customAttributes);
+        return array_merge($fieldAttributes, $customAttributes, $fieldAttributesFromBlock);
     }
 
     public function getFieldAttributesAsString(array $customAttributes = []): string
