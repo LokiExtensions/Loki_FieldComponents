@@ -29,8 +29,13 @@ if (empty($templateRenderer)) {
 }
 
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
+$additionalClasses = [];
+$additionalClasses[] = $viewModel->isRequired() ? 'required' : 'optional';
+$additionalClasses[] = $viewModel->getFieldName();
+$additionalClasses[] = 'field-type-'.$fieldTypeManager->getFieldTypeFromViewModel($viewModel);
+
 ?>
-<div class="<?= /* @noEscape */ $css('field w-auto relative') ?> <?= $viewModel->isRequired() ? 'required' : 'optional' ?> <?= $escaper->escapeHtml($viewModel->getFieldName()) ?>" style="<?= $escaper->escapeHtml($style()) ?>">
+<div class="<?= /* @noEscape */ implode(' ', $additionalClasses).' '.$css('field w-auto relative') ?>" style="<?= $escaper->escapeHtml($style()) ?>">
     <?= /* @noEscape */ $block->getChildHtml('before') ?>
 
     <?php if (!in_array($fieldTypeManager->getFieldTypeFromViewModel($viewModel), ['checkbox', 'radio'])): ?>
