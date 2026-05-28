@@ -24,7 +24,7 @@ class FieldTypeManager implements ArgumentInterface
 
         $fieldType = $block->getFieldType();
         if ($fieldType === 'text_select') {
-            $fieldType = $this->getFieldTypeFromTextSelect($block);
+            $fieldType = $this->getFieldTypeFromTextSelect($viewModel, $block);
         }
 
         if (array_key_exists($fieldType, $this->getFieldTemplateMapping())) {
@@ -65,16 +65,11 @@ class FieldTypeManager implements ArgumentInterface
      * @return string
      * @todo: Allow for multiple field template locators
      */
-    private function getFieldTypeFromTextSelect(AbstractBlock $block): string
+    private function getFieldTypeFromTextSelect(FieldViewModelInterface $viewModel, AbstractBlock $block): string
     {
-        $viewModel = $block->getViewModel();
         $optionModel = $block->getOptionModel();
 
         if (false === $optionModel instanceof OptionModelInterface) {
-            return 'text';
-        }
-
-        if (false === $viewModel instanceof ComponentViewModelInterface) {
             return 'text';
         }
 
