@@ -24,6 +24,10 @@ use Loki\Field\Field\FieldTypeManager;
 /** @var FieldViewModel $viewModel */
 /** @var FieldTypeManager $fieldTypeManager */
 
+if (!isset($viewModel) || !$viewModel instanceof FieldViewModel) {
+    throw new RuntimeException('No ViewModel found for block "'.$block->getNameInLayout().'"');
+}
+
 if (empty($templateRenderer)) {
     throw new RuntimeException('Template renderer not found in block "'.$block->getNameInLayout().'"');
 }
