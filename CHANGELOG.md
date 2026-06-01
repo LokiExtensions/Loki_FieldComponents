@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.40] - 01 June 2026
+### Fixed
+- Fix issue with `text_select` field type not finding ViewModel properly
+- Allowing overriding field attributes via XML layout
+- Throw friendly exception when field.phtml is called without ViewModel
+- Add CSS class `field-type-X`
+- Double-check $viewModel is set to prevent possible error
+
 ## [2.2.39] - 21 May 2026
 ### Fixed
 - Allow for better UI of help-toggling
