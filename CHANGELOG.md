@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.41] - 12 June 2026
+### Fixed
+- Replace LokiComponentFormKey with Alpine.store form key
+
 ## [2.2.40] - 01 June 2026
 ### Fixed
 - Fix issue with `text_select` field type not finding ViewModel properly
