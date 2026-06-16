@@ -19,7 +19,7 @@ $componentUtil = $viewModelFactory->create(ComponentUtil::class);
     const LokiUploaderComponentType = {
         ...LokiComponentType,
         async submit() {
-            const formKey = Alpine.store('LokiComponents').formKey;
+            const formKey = MageCookies.get('form_key');
             const url = new URL('<?= /* @noEscape */ $componentUtil->getPostUrl(
             ) ?>?form_key=' + formKey + '&isAjax=true');
             const formData = new FormData(form);
