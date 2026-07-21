@@ -1,0 +1,44 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Util\OptionInterface;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @version 2.2.42 */
+/** @var ComponentViewModelInterface $viewModel */
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var FieldViewModelInterface $viewModel */
+/** @var CssClass $css */
+
+$viewModel = $block->getViewModel();
+$option = $block->getOption();
+$optionIndex = $block->getOptionIndex();
+$optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option;
+$optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex;
+$disabled = $option instanceof OptionInterface ? $option->isDisabled() : false;
+$selected = $option instanceof OptionInterface ? $option->isSelected() : false;
+$selected = $viewModel->getValue() === $optionValue ? true : $selected;
+?>
+<label class="<?= /* @noEscape */ $css('flex items-center gap-3 cursor-pointer', 'option') ?>">
+    <input
+        class="<?= /* @noEscape */ $css('form-radio', 'input') ?>"
+        <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+            'type' => 'radio',
+            'id' => $viewModel->getFieldId() . '-' . $optionValue,
+            'value' => $optionValue,
+            'disabled' => $disabled ? true : false,
+            'checked' => $selected ? true : false,
+            ':checked' => 'isChecked',
+            '@change' => 'submitValue',
+        ]) ?>
+    >
+    <span class="<?= /* @noEscape */ $css('', 'label') ?>">
+                <?= $escaper->escapeHtml(__($optionLabel)) ?>
+            </span>
+</label>
+
