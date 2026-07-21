@@ -29,7 +29,7 @@ $selected = $viewModel->getValue() === $optionValue ? true : $selected;
         class="<?= /* @noEscape */ $css('form-radio', 'input') ?>"
         <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
             'type' => 'radio',
-            'id' => $viewModel->getFieldId() . '-' . $optionValue,
+            'id' => $viewModel->getFieldId() . '-' . strtolower($optionValue),
             'value' => $optionValue,
             'disabled' => $disabled ? true : false,
             'checked' => $selected ? true : false,
