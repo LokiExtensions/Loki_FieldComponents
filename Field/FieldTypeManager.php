@@ -22,7 +22,7 @@ class FieldTypeManager implements ArgumentInterface
             return $blockShowLabel;
         }
 
-        return !in_array($this->getFieldTypeFromViewModel($viewModel), ['checkbox', 'radio']);
+        return !in_array($this->getFieldTypeFromViewModel($viewModel), ['checkbox']);
     }
 
     public function getFieldTypeFromViewModel(FieldViewModelInterface $viewModel): string
