@@ -15,6 +15,16 @@ class FieldTypeManager implements ArgumentInterface
     ) {
     }
 
+    public function showLabel(FieldViewModelInterface $viewModel): bool
+    {
+        $blockShowLabel =$viewModel->getBlock()->getShowLabel();
+        if (is_bool($blockShowLabel)) {
+            return $blockShowLabel;
+        }
+
+        return !in_array($this->getFieldTypeFromViewModel($viewModel), ['checkbox', 'radio']);
+    }
+
     public function getFieldTypeFromViewModel(FieldViewModelInterface $viewModel): string
     {
         $block = $viewModel->getBlock();
