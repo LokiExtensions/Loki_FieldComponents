@@ -26,4 +26,8 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Loki\Components\Validator\Validator">
+        <plugin name="Loki_FieldComponents::validator" type="Loki\Field\Plugin\ValidatorPlugin" />
+    </type>
 </config>
