@@ -28,5 +28,8 @@
         "psr-4": {
             "Loki\\Field\\": ""
         }
+    },
+    "extra": {
+        "label": "Loki Field Components"
     }
 }
