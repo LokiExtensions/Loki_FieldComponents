@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.43] - 07 August 2026
+### Security
+- Rewrite `x-html` to `x-text` because of CSP
+- Make sure disabled fields can not be edited
+
+### Fixed
+- Give radio fields a default padding to align with other field types
+- Only hide label for checkboxes by default
+- Allow radio field to show field label via block argument
+- Allow radio field to enable field label via `show_label` block argument
+- Lowercase for radio input DOM ID
+- Allow of radioboxes with OptionGroupInterface
+- Add explanation to JS error message
+
 ## [2.2.42] - 16 June 2026
 ### Fixed
 - Change Alpine.store('LokiComponents').formKey yet again to MageCookies

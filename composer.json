@@ -1,6 +1,6 @@
 {
     "name": "loki/magento2-field-components",
-    "version": "2.2.42",
+    "version": "2.2.43",
     "description": "Core module to allow fields to be defined via Loki Components",
     "keywords": [
         "loki-checkout-plan-trial",
