@@ -37,5 +37,5 @@ $max = (int)$viewModel->getBlock()->getMax();
         <span class="<?= /* @noEscape */ $css('text-sm', 'max') ?>"><?= (int)$max ?></span>
     <?php endif ?>
 
-    <span class="<?= /* @noEscape */ $css('block text-sm w-full text-center', 'bubble') ?>" x-html="value"></span>
+    <span class="<?= /* @noEscape */ $css('block text-sm w-full text-center', 'bubble') ?>" x-text="value"></span>
 </div>
