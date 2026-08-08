@@ -96,5 +96,12 @@
                 template="Loki_FieldComponents::script/alpine-mask.phtml"
             />
         </referenceBlock>
+
+        <referenceContainer name="alpine-js.plugin">
+            <block
+                name="loki.alpine-plugin-mask"
+                template="Loki_FieldComponents::script/alpine-mask.phtml"
+            />
+        </referenceContainer>
     </body>
 </page>
