@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.44] - 08 August 2026
+### Fixed
+- Add Alpine Mask plugin to Mage-OS container properly
+
 ## [2.2.43] - 07 August 2026
 ### Security
 - Rewrite `x-html` to `x-text` because of CSP
