@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Loki\Base\ViewModel\Block\ChildRenderer;
 use Loki\Components\Component\ComponentViewModelInterface;
 use Loki\CssUtils\Util\CssStyle;
 use Magento\Framework\Escaper;
@@ -19,6 +20,7 @@ use Loki\Field\Field\FieldTypeManager;
 /** @var CssClass $css */
 /** @var CssStyle $style */
 /** @var ViewModelFactory $viewModelFactory */
+/** @var ChildRenderer $childRenderer */
 /** @var TemplateRenderer $templateRenderer */
 /** @var BlockRenderer $blockRenderer */
 /** @var FieldViewModel $viewModel */
@@ -32,6 +34,10 @@ if (empty($templateRenderer)) {
     throw new RuntimeException('Template renderer not found in block "'.$block->getNameInLayout().'"');
 }
 
+if (empty($childRenderer)) {
+    throw new RuntimeException('Child renderer not found in block "'.$block->getNameInLayout().'"');
+}
+
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 $additionalClasses = [];
 $additionalClasses[] = $viewModel->isRequired() ? 'required' : 'optional';
@@ -40,7 +46,7 @@ $additionalClasses[] = 'field-type-'.$fieldTypeManager->getFieldTypeFromViewMode
 
 ?>
 <div class="<?= /* @noEscape */ implode(' ', $additionalClasses).' '.$css('field w-auto relative') ?>" style="<?= $escaper->escapeHtml($style()) ?>">
-    <?= /* @noEscape */ $block->getChildHtml('before') ?>
+    <?= /* @noEscape */ $childRenderer->any($block, 'before') ?>
 
     <?php if ($fieldTypeManager->showLabel($viewModel)): ?>
     <?= /* @noEscape */ $templateRenderer->html(
@@ -90,5 +96,5 @@ $additionalClasses[] = 'field-type-'.$fieldTypeManager->getFieldTypeFromViewMode
         ['dom_id' => $viewModel->getElementId().'-messages',]
     ) ?>
 
-    <?= /* @noEscape */ $block->getChildHtml('after') ?>
+    <?= /* @noEscape */ $childRenderer->any($block, 'after') ?>
 </div>
