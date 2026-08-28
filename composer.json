@@ -10,6 +10,7 @@
     "require": {
         "ext-json": "*",
         "ext-pcre": "*",
+        "loki/magento2-base": "^1.2",
         "loki/magento2-components": "^2.5",
         "loki/magento2-css-utils": "^1.0",
         "magento/framework": "^103.0",
