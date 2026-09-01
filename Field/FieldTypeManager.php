@@ -33,6 +33,10 @@ class FieldTypeManager implements ArgumentInterface
         }
 
         $fieldType = $block->getFieldType();
+        if (empty($fieldType)) {
+            return 'input';
+        }
+
         if ($fieldType === 'text_select') {
             $fieldType = $this->getFieldTypeFromTextSelect($viewModel, $block);
         }
