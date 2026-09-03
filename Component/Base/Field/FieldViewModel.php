@@ -179,6 +179,11 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         return (string)$this->getBlock()->getInputLabel();
     }
 
+    public function getInputPrefix(): string
+    {
+        return (string)$this->getBlock()->getInputPrefix();
+    }
+
     public function isRequired(): bool
     {
         $required = $this->getBlock()->getRequired();

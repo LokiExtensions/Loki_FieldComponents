@@ -1,0 +1,31 @@
+<?php
+declare(strict_types=1);
+
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Component\Base\Field\FieldViewModel;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var FieldViewModel $viewModel */
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var CssClass $css */
+
+$viewModel = $block->getViewModel();
+$inputPrefix = $viewModel->getInputPrefix();
+
+if (!$inputPrefix) {
+    return;
+}
+?>
+<div class="<?= /* @noEscape */ $css('', 'input_prefix') ?>">
+    <?php if (str_ends_with($inputPrefix, '.svg')): ?>
+        <img
+            src="<?= /* @noEscape */ $block->getViewFileUrl($inputPrefix); ?>"
+            class="<?= /* @noEscape */ $css('', 'input_prefix_icon') ?>"
+            alt=""
+        >
+    <?php else: ?>
+        <?= /* @noEscape */ $inputPrefix ?>
+    <?php endif; ?>
+</div>

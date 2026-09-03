@@ -32,7 +32,7 @@ $showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
 <?php if ($useLabelTag): ?>
     <label
         for="<?= $escaper->escapeHtml($viewModel->getElementId()) ?>-field"
-        class="<?= /* @noEscape */ $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?> <?= /* @noEscape */ $showLabelClass ?>">
+        class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?> <?= /* @noEscape */ $showLabelClass ?>">
         <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
@@ -40,7 +40,7 @@ $showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
         <?php endif; ?>
     </label>
 <?php else: ?>
-    <span class="<?= /* @noEscape */ $css('inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>" <?= /* @noEscape */ $showLabelClass ?>>
+    <span class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>" <?= /* @noEscape */ $showLabelClass ?>>
         <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
