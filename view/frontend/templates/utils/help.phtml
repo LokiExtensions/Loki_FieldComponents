@@ -36,7 +36,7 @@ $text = $block->getHelpText();
     x-cloak>
     <button
         type="button"
-        aria-label="<?= $escaper->escapeHtml('Help') ?>"
+        aria-label="<?= $escaper->escapeHtml(__('Help')) ?>"
         @click.prevent="toggle"
         @keyup.escape="hide"
         class="<?= /* @noEscape */ $css('help', 'image') ?>">
@@ -52,7 +52,7 @@ $text = $block->getHelpText();
         <button
             type="button"
             @click.prevent="toggle"
-            aria-label="<?= $escaper->escapeHtml('Close help') ?>"
+            aria-label="<?= $escaper->escapeHtml(__('Close help')) ?>"
             class="<?= /* @noEscape */ $css('help float-right fill-white', 'popup-image') ?>">
             <?= /* @noEscape */ $imageRenderer->icon($block, $icon) ?>
         </button>

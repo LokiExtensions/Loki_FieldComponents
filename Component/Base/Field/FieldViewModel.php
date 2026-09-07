@@ -70,7 +70,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
     {
         $fieldAttributes = [
             'id' => $this->getFieldId(),
-            'aria-label' => $this->getFieldLabel(),
+            'aria-label' => __($this->getFieldLabel()),
             'aria-errormessage' => $this->getElementId() . '-messages',
             'data-type' => 'field',
             'x-ref' => 'field',
