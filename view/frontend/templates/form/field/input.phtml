@@ -20,7 +20,8 @@ $viewModel = $block->getViewModel();
 $inputCss = 'input-'.$viewModel->getInputType(). ' form-input w-full disabled:bg-zinc-100';
 ?>
 <div class="<?= /* @noEscape */ $css('w-full flex') ?>">
-    <?= $templateRenderer->html($block, 'Loki_FieldComponents::form/field/input/prefix.phtml') ?>
+    <?= /* @noEscape */
+$templateRenderer->html($block, 'Loki_FieldComponents::form/field/input/prefix.phtml') ?>
 
     <input
         class="<?= /* @noEscape */ $css($inputCss, 'input') ?>"
