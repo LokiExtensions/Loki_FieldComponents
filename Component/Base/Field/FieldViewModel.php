@@ -128,7 +128,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             }
         }
 
-        return trim($fieldAttributesAsString);
+        return trim($fieldAttributesAsString, " \f\n\r\t\v\x00");
     }
 
     public function getJsData(): array
