@@ -99,7 +99,7 @@
 
         <referenceContainer name="alpine-js.plugin">
             <block
-                name="loki.alpine-plugin-mask"
+                name="loki.alpine-plugin-mask.mage-os"
                 template="Loki_FieldComponents::script/alpine-mask.phtml"
             />
         </referenceContainer>
