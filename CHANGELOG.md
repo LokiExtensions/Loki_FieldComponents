@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.46] - 14 October 2026
+### Fixed
+- Rename duplicate block `loki.alpine-plugin-mask` to `loki.alpine-plugin-mask.mage-os`
+- Add `trim()` its second argument for PHP 8.6 compatibility
+- Make field ARIA labels translatable
+- Move input prefix to separate PHTML template and add CSS `input-text` and `label` classes
+- Fix PHP 8.5 issue with `array_key_exists`
+
 ## [2.2.45] - 28 August 2026
 ### Fixed
 - Render child elements via `ChildRenderer::any()`
