@@ -26,13 +26,13 @@ $viewModel = $block->getViewModel();
         class="<?= /* @noEscape */ $css('form-checkbox', 'input') ?>"
         <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
             'type' => 'checkbox',
-            'value' => $viewModel->getValue(),
-            'checked' => $viewModel->getValue() === true,
+            'value' => '1',
+            'checked' => in_array($viewModel->getValue(), [true, 1, '1'], true),
             ':checked' => 'value',
             '@change' => 'submitChecked'
         ]) ?>
     >
     <span class="<?= /* @noEscape */ $css('cursor-pointer', 'label') ?>">
-        <?= /* @noEscape */ __($viewModel->getInputLabel()) ?>
+        <?= $escaper->escapeHtml(__($viewModel->getInputLabel()), ['a', 'strong', 'em', 'b', 'i', 'span']) ?>
     </span>
 </label>

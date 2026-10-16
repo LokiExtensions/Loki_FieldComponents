@@ -27,8 +27,8 @@ $viewModel = $block->getViewModel();
         <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
             'role' => 'switch',
             'type' => 'checkbox',
-            'value' => $viewModel->getValue(),
-            'checked' => $viewModel->getValue() === true,
+            'value' => '1',
+            'checked' => in_array($viewModel->getValue(), [true, 1, '1'], true),
             ':checked' => 'value',
             '@change' => 'submitChecked',
         ]) ?>
