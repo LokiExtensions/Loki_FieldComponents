@@ -5,6 +5,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Render `aria-label` as plain string instead of JSON-encoded `Phrase` (`aria-label='"Label"'`)
+- Escape all field attribute values in `FieldViewModel::getFieldAttributesAsString()`
+- Do not overwrite values `0`, `"0"` and `false` with the default value in `FieldViewModel::getValue()`
+- Treat `0` and `"0"` as non-empty for required fields
+- Respect block `default_value`, `Option::getValue()`, `Option::isSelected()`, disabled options and option groups in `FieldRepository::getDefaultValue()`
+- Count uppercase letters as alphanumeric in password complexity validation (PHP and JS)
+- Prevent `TypeError` with non-string values in `PasswordComplexityValidator`
+- Prevent `TypeError` with numeric option keys in radio options
+- Compare option values loosely when marking select and radio options as selected (new `Loki\Field\Util\OptionValue`)
+- Use option model of ViewModel (including ancestor block) for radio fields and `text_select` field type
+- Render option groups of radio fields as fieldsets instead of `optgroup`
+- Fall back to input template for unknown field types in `FieldTypeManager::getFieldTemplateByType()`
+- Ignore invalid `min_date` and `max_date` values instead of rendering `1970-01-01`
+- Fix `hidden` CSS class of non-label field labels
+- Escape checkbox input label (allowing basic inline tags)
+- Fix checkbox and switch `checked` state for values `1` and `"1"`
+- JS: Treat `false`, whitespace and empty arrays as empty in `required` validator
+- JS: Support async validators and stop leaking global variables in `LokiComponentValidator`
+- JS: Set and reset custom validity of all form elements (`tagName` was compared in lowercase)
+- JS: Fix combobox keyboard navigation and "No results found" message (`filteredOptions` was used as property)
+- JS: Combobox no longer creates a nested field component overriding the value of the actual field component
+- JS: Remove hardcoded combobox placeholder "Choose a country"
+- JS: Only compare repeated passwords once both are filled, do not stack error messages, and mark field as invalid
+- JS: Use `escapeJs()` for translated strings in scripts
+- Add `type="button"` to password toggle buttons
+- Fix file upload field and uploader component type
 
 ## [2.2.46] - 14 October 2026
 ### Fixed
