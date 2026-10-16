@@ -15,24 +15,25 @@ class PasswordComplexityValidator implements ValidatorInterface
 
     public function validate(mixed $value, ?ComponentInterface $component = null): bool|array
     {
-        if (empty($value)) {
+        if ($value === null || $value === '' || false === is_scalar($value)) {
             return true;
         }
 
+        $value = (string)$value;
         $errors = [];
 
         $minLength = $this->passwordComplexity->getMinimum();
-        if (strlen($value) < $minLength) {
-            $errors[] = (string)__('Your password needs to have more than %1 characters.', $minLength);
+        if (mb_strlen($value) < $minLength) {
+            $errors[] = (string)__('Your password needs to have at least %1 characters.', $minLength);
         }
 
         $minNumeric = $this->passwordComplexity->getMinimumNumeric();
-        if (preg_match_all( '/[0-9]{1}/', $value) < $minNumeric) {
+        if (preg_match_all('/[0-9]/', $value) < $minNumeric) {
             $errors[] = (string)__('Your password needs to contain at least %1 numbers.', $minNumeric);
         }
 
         $minOther = $this->passwordComplexity->getMinimumOther();
-        if (preg_match_all( '/[^a-z0-9]{1}/', $value) < $minOther) {
+        if (preg_match_all('/[^a-zA-Z0-9]/u', $value) < $minOther) {
             $errors[] = (string)__('Your password needs to contain at least %1 non-alphanumeric characters.', $minOther);
         }
 

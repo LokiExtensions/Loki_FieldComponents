@@ -12,7 +12,7 @@ class PasswordComplexityValidatorTest extends TestCase
      * @return void
      * @dataProvider getTestValues
      */
-    public function testValidate(string $password, bool|string $expectedResult)
+    public function testValidate(mixed $password, bool|string $expectedResult)
     {
         $passwordComplexity = new PasswordComplexity();
         $validator = new PasswordComplexityValidator($passwordComplexity);
@@ -35,13 +35,15 @@ class PasswordComplexityValidatorTest extends TestCase
         }
     }
 
-    public function getTestValues(): array
+    public static function getTestValues(): array
     {
         return [
             ['foo', 'characters'],
             ['P@rFa^tl2243yF!!ne', true],
             ['password', 'numbers'],
             ['password42', 'non-alphanumeric'],
+            ['PAssword42', 'non-alphanumeric'],
+            [12345678, 'non-alphanumeric'],
         ];
     }
 }
