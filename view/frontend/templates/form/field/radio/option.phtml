@@ -2,9 +2,10 @@
 declare(strict_types=1);
 
 use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\Components\Factory\ViewModelFactory;
 use Loki\CssUtils\Util\CssClass;
-use Loki\Field\Component\Base\Field\FieldViewModelInterface;
-use Loki\Field\Util\OptionInterface;
+use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Field\Util\OptionValue;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 
@@ -12,33 +13,35 @@ use Magento\Framework\View\Element\Template;
 /** @var ComponentViewModelInterface $viewModel */
 /** @var Template $block */
 /** @var Escaper $escaper */
-/** @var FieldViewModelInterface $viewModel */
+/** @var FieldViewModel $viewModel */
 /** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var OptionValue $optionValueUtil */
 
+$optionValueUtil = $viewModelFactory->create(OptionValue::class);
 $viewModel = $block->getViewModel();
 $option = $block->getOption();
-$optionIndex = $block->getOptionIndex();
-$optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option;
-$optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex;
-$disabled = $option instanceof OptionInterface ? $option->isDisabled() : false;
-$selected = $option instanceof OptionInterface ? $option->isSelected() : false;
-$selected = $viewModel->getValue() === $optionValue ? true : $selected;
+$optionIndex = $block->getOptionIndex() ?? '';
+$optionLabel = $optionValueUtil->getLabel($option);
+$optionValue = $optionValueUtil->getValue($option, $optionIndex);
+$disabled = $optionValueUtil->isDisabled($option) || $viewModel->isDisabled();
+$selected = $optionValueUtil->isSelected($option, $optionIndex, $viewModel->getValue());
+$optionId = $viewModel->getFieldId() . '-' . preg_replace('/[^a-z0-9_-]+/', '-', strtolower($optionValue));
 ?>
 <label class="<?= /* @noEscape */ $css('flex items-center gap-3 cursor-pointer', 'option') ?>">
     <input
         class="<?= /* @noEscape */ $css('form-radio', 'input') ?>"
         <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
             'type' => 'radio',
-            'id' => $viewModel->getFieldId() . '-' . strtolower($optionValue),
+            'id' => $optionId,
             'value' => $optionValue,
-            'disabled' => $disabled ? true : false,
-            'checked' => $selected ? true : false,
+            'disabled' => $disabled,
+            'checked' => $selected,
             ':checked' => 'isChecked',
             '@change' => 'submitValue',
         ]) ?>
     >
     <span class="<?= /* @noEscape */ $css('', 'label') ?>">
-                <?= $escaper->escapeHtml(__($optionLabel)) ?>
-            </span>
+        <?= $escaper->escapeHtml(__($optionLabel)) ?>
+    </span>
 </label>
-

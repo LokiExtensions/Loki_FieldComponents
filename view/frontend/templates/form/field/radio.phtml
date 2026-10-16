@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Loki\Components\Util\Block\TemplateRenderer;
+use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Field\Util\OptionGroupInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
@@ -13,11 +14,12 @@ use Loki\Components\Component\ComponentViewModelInterface;
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var ComponentViewModelInterface $viewModel */
+/** @var FieldViewModel $viewModel */
 /** @var TemplateRenderer $templateRenderer */
 /** @var CssClass $css */
 
 $viewModel = $block->getViewModel();
-$optionModel = $block->getAncestorBlock()->getOptionModel();
+$optionModel = $viewModel->getOptionModel();
 if (false === $optionModel instanceof OptionModelInterface) {
     echo $escaper->escapeHtml(__('No options found'));
     return;
@@ -26,28 +28,31 @@ if (false === $optionModel instanceof OptionModelInterface) {
 ?>
 <div
     class="<?= /* @noEscape */ $css('grid grid-cols-1 md:grid-cols-2 py-2') ?>"
+    role="radiogroup"
     :aria-invalid="isAriaInvalid"
     :data-valid="isValid"
     data-type="field"
 >
-    <?php $i = 0; ?>
     <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
         <?php if ($option instanceof OptionGroupInterface): ?>
-        <optgroup
-            label="<?= $escaper->escapeHtml($option->getLabel()) ?>"
+        <fieldset
+            class="<?= /* @noEscape */ $css('col-span-full', 'option-group') ?>"
             <?= /* @noEscape */ $option->isDisabled() ? 'disabled' : '' ?>
         >
-            <?php foreach ($option->getOptions() as $subOptionIndex => $subOption): ?>
+            <legend class="<?= /* @noEscape */ $css('', 'option-group-label') ?>">
+                <?= $escaper->escapeHtml($option->getLabel()) ?>
+            </legend>
+            <?php foreach ((array)(method_exists($option, 'getOptions') ? $option->getOptions() : []) as $subOptionIndex => $subOption): ?>
                 <?= /* @noEscape */ $templateRenderer->html(
                     $block,
-                    'Loki_FieldComponents::form/field/select/option.phtml',
+                    'Loki_FieldComponents::form/field/radio/option.phtml',
                     [
                         'option_index' => $subOptionIndex,
                         'option' => $subOption
                     ]
                 ) ?>
             <?php endforeach; ?>
-        </optgroup>
+        </fieldset>
         <?php else: ?>
         <?= /* @noEscape */ $templateRenderer->html(
             $block,
@@ -57,6 +62,6 @@ if (false === $optionModel instanceof OptionModelInterface) {
                 'option_index' => $optionIndex,
             ]
         ) ?>
-    <?php endif; ?>
+        <?php endif; ?>
     <?php endforeach; ?>
 </div>

@@ -2,9 +2,10 @@
 declare(strict_types=1);
 
 use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\Components\Factory\ViewModelFactory;
 use Loki\CssUtils\Util\CssClass;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
-use Loki\Field\Util\OptionInterface;
+use Loki\Field\Util\OptionValue;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 
@@ -14,18 +15,20 @@ use Magento\Framework\View\Element\Template;
 /** @var Escaper $escaper */
 /** @var FieldViewModelInterface $viewModel */
 /** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var OptionValue $optionValueUtil */
 
+$optionValueUtil = $viewModelFactory->create(OptionValue::class);
 $viewModel = $block->getViewModel();
 $option = $block->getOption();
-$optionIndex = $block->getOptionIndex();
-$optionLabel = $option instanceof OptionInterface ? $option->getLabel() : $option;
+$optionIndex = $block->getOptionIndex() ?? '';
+$optionLabel = $optionValueUtil->getLabel($option);
+$optionValue = $optionValueUtil->getValue($option, $optionIndex);
+$disabled = $optionValueUtil->isDisabled($option);
+$selected = $optionValueUtil->isSelected($option, $optionIndex, $viewModel->getValue());
 ?>
-<?php $optionValue = $option instanceof OptionInterface ? $option->getValue() : $optionIndex; ?>
-<?php $disabled = $option instanceof OptionInterface ? $option->isDisabled() : false; ?>
-<?php $selected = $option instanceof OptionInterface ? $option->isSelected() : false; ?>
-<?php $selected = $viewModel->getValue() === $optionValue ? true : $selected; ?>
 <option
-    value="<?= $escaper->escapeHtml($optionValue) ?>"
+    value="<?= $escaper->escapeHtmlAttr($optionValue) ?>"
     <?= $disabled ? 'disabled' : '' ?>
     <?= $selected ? 'selected' : '' ?>
 >
