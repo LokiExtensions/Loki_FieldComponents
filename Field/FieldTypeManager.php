@@ -38,7 +38,7 @@ class FieldTypeManager implements ArgumentInterface
         }
 
         if ($fieldType === 'text_select') {
-            $fieldType = $this->getFieldTypeFromTextSelect($viewModel, $block);
+            $fieldType = $this->getFieldTypeFromTextSelect($viewModel);
         }
 
         if (array_key_exists($fieldType, $this->getFieldTemplateMapping())) {
@@ -66,7 +66,12 @@ class FieldTypeManager implements ArgumentInterface
 
     public function getFieldTemplateByType(string $type): string
     {
-        return $this->getFieldTemplateMapping()[$type];
+        $fieldTemplateMapping = $this->getFieldTemplateMapping();
+        if (array_key_exists($type, $fieldTemplateMapping)) {
+            return $fieldTemplateMapping[$type];
+        }
+
+        return $fieldTemplateMapping['input'] ?? 'Loki_FieldComponents::form/field/input.phtml';
     }
 
     public function getFieldTemplateMapping(): array
@@ -75,13 +80,13 @@ class FieldTypeManager implements ArgumentInterface
     }
 
     /**
-     * @param AbstractBlock $block
+     * @param FieldViewModelInterface $viewModel
      * @return string
      * @todo: Allow for multiple field template locators
      */
-    private function getFieldTypeFromTextSelect(FieldViewModelInterface $viewModel, AbstractBlock $block): string
+    private function getFieldTypeFromTextSelect(FieldViewModelInterface $viewModel): string
     {
-        $optionModel = $block->getOptionModel();
+        $optionModel = $viewModel->getOptionModel();
 
         if (false === $optionModel instanceof OptionModelInterface) {
             return 'text';
@@ -91,7 +96,6 @@ class FieldTypeManager implements ArgumentInterface
             return 'text';
         }
 
-        $block->setOptionModel($optionModel);
         return 'select';
     }
 }
