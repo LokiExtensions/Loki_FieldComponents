@@ -221,7 +221,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
     private function isEmptyValue(mixed $value): bool
     {
         if (is_string($value)) {
-            return trim($value) === '';
+            return trim($value, " \f\n\r\t\v\x00") === '';
         }
 
         return $value === null || $value === [];
