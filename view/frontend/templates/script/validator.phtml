@@ -12,18 +12,22 @@ use Magento\Framework\View\Element\Template;
     LokiComponentValidator = {
         validators: {
             required: (component) => {
-                isValid = true;
-                if (component.value === '' || component.value === null || component.value === undefined) {
-                    let errorMessage = '<?= $escaper->escapeHtml(__('Value is required')) ?>';
-                    if (component.requiredErrorMessage) {
-                        errorMessage = component.requiredErrorMessage;
-                    }
+                const value = component.value;
+                const isEmpty = value === '' || value === null || value === undefined || value === false
+                    || (typeof value === 'string' && value.trim() === '')
+                    || (Array.isArray(value) && value.length === 0);
 
-                    component.messages.push({type:'error', text: errorMessage});
-                    isValid = false;
+                if (!isEmpty) {
+                    return true;
                 }
 
-                return isValid;
+                let errorMessage = '<?= $escaper->escapeJs((string)__('Value is required')) ?>';
+                if (component.requiredErrorMessage) {
+                    errorMessage = component.requiredErrorMessage;
+                }
+
+                component.messages.push({type:'error', text: errorMessage});
+                return false;
             }
         },
         validate: function (component) {
@@ -34,18 +38,12 @@ use Magento\Framework\View\Element\Template;
             }
 
             if (typeof component.validate === 'function') {
-                const isValid = component.validate();
-                this.handleIsValid(isValid, component);
-
-                return isValid;
+                return this.handleResult(component.validate(), component);
             }
 
             if (typeof component.onComponentValidate === 'function') {
                 console.log('Loki Component method "onComponentValidate" is called but deprecated. Use "validate" instead.');
-                const isValid = component.onComponentValidate();
-                this.handleIsValid(isValid, component);
-
-                return isValid;
+                return this.handleResult(component.onComponentValidate(), component);
             }
 
             if (typeof component.valid === 'undefined') {
@@ -56,27 +54,48 @@ use Magento\Framework\View\Element\Template;
                 return true;
             }
 
-            const isValid = component.validators.every(validator => {
-                if (!this.validators[validator]) {
-                    return true;
+            const pendingResults = [];
+            for (const validator of component.validators) {
+                if (typeof this.validators[validator] !== 'function') {
+                    continue;
                 }
 
-                let isValid = true;
                 const result = this.validators[validator](component);
-                if (Boolean(result && typeof result.then === 'function')) {
-                    result.then(value => {
-                        isValid = value;
-                    })
-                } else {
-                    isValid = result;
+                if (this.isPromise(result)) {
+                    pendingResults.push(result);
+                    continue;
                 }
 
-                return isValid;
-            });
+                if (!result) {
+                    this.handleIsValid(false, component);
+                    return false;
+                }
+            }
 
-            this.handleIsValid(isValid, component);
+            if (pendingResults.length > 0) {
+                return Promise.all(pendingResults).then(results => {
+                    const isValid = results.every(result => Boolean(result));
+                    this.handleIsValid(isValid, component);
+                    return isValid;
+                });
+            }
 
-            return isValid;
+            this.handleIsValid(true, component);
+            return true;
+        },
+        isPromise(result) {
+            return Boolean(result && typeof result.then === 'function');
+        },
+        handleResult(result, component) {
+            if (this.isPromise(result)) {
+                return result.then(isValid => {
+                    this.handleIsValid(isValid, component);
+                    return isValid;
+                });
+            }
+
+            this.handleIsValid(result, component);
+            return result;
         },
         handleIsValid(isValid, component) {
             if (false === isValid) {
@@ -85,23 +104,30 @@ use Magento\Framework\View\Element\Template;
                 this.setValid(component);
             }
         },
+        getFieldElements(component) {
+            if (!component.$root) {
+                return [];
+            }
+
+            return Array.from(component.$root.querySelectorAll('[data-type="field"], input, select, textarea'));
+        },
         setInvalid: function (component) {
             component.valid = false;
             if (component.$root) {
-                if (component.$root.getAttribute('role') === 'group') {
+                if (['group', 'radiogroup'].includes(component.$root.getAttribute('role'))) {
                     component.$root.setAttribute('aria-invalid', true);
                 }
 
-                const elements = component.$root.querySelectorAll('[data-type="field"]');
-                elements.forEach(element => {
-                    if (element.tagName === 'input') {
-                        if (typeof element.setCustomValidity === 'function') {
-                            element.setCustomValidity('Value is invalid');
-                        }
+                this.getFieldElements(component).forEach(element => {
+                    if (typeof element.setCustomValidity === 'function') {
+                        element.setCustomValidity('<?= $escaper->escapeJs((string)__('Value is invalid')) ?>');
                     }
 
-                    element.setAttribute('aria-invalid', true);
-                    document.dispatchEvent(new CustomEvent('loki-components.dom-update', {target: {element}}));
+                    if (element.matches('[data-type="field"]')) {
+                        element.setAttribute('aria-invalid', true);
+                    }
+
+                    document.dispatchEvent(new CustomEvent('loki-components.dom-update', {detail: {element}}));
                 });
             }
 
@@ -110,17 +136,17 @@ use Magento\Framework\View\Element\Template;
         setValid: function (component) {
             component.valid = true;
             if (component.$root) {
-                if (component.$root.getAttribute('role') === 'group') {
+                if (['group', 'radiogroup'].includes(component.$root.getAttribute('role'))) {
                     component.$root.removeAttribute('aria-invalid');
                 }
 
-                Array.from(component.$root.getElementsByTagName('input')).forEach(element => {
-                    if (component.submitted && typeof element.setCustomValidity === 'function') {
+                this.getFieldElements(component).forEach(element => {
+                    if (typeof element.setCustomValidity === 'function') {
                         element.setCustomValidity('');
                     }
 
-                    document.dispatchEvent(new CustomEvent('loki-components.dom-update', {target: {element}}));
                     element.removeAttribute('aria-invalid');
+                    document.dispatchEvent(new CustomEvent('loki-components.dom-update', {detail: {element}}));
                 });
             }
 

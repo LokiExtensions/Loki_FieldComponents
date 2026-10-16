@@ -71,7 +71,7 @@ use Magento\Framework\View\Element\Template;
             document.dispatchEvent(new CustomEvent('loki-components.component.update'));
         },
         isValid() {
-            if (this.valid && this.value && this.value.length > 0) {
+            if (this.valid && !this.isEmpty()) {
                 return true;
             }
 
@@ -90,13 +90,25 @@ use Magento\Framework\View\Element\Template;
         beforeSubmit() {
         },
         isChecked() {
-            return this.$el.value === this.value;
+            if (this.value === null || this.value === undefined) {
+                return false;
+            }
+
+            return this.$el.value === String(this.value);
         },
         isEmpty() {
-            return !this.value;
+            if (this.value === null || this.value === undefined || this.value === false) {
+                return true;
+            }
+
+            if (Array.isArray(this.value)) {
+                return this.value.length === 0;
+            }
+
+            return String(this.value).trim() === '';
         },
         isCompleted() {
-            if (!this.value) {
+            if (this.isEmpty()) {
                 return false;
             }
 
@@ -134,7 +146,7 @@ use Magento\Framework\View\Element\Template;
         },
         async submit() {
             this.submitted = true;
-            for ([key, callback] of Object.entries(this.validationActions)) {
+            for (const callback of Object.values(this.validationActions)) {
                 const result = await callback.bind(this).call();
                 if (result === false) {
                     return false;
