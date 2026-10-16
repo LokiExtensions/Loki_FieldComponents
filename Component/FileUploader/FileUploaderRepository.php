@@ -39,11 +39,14 @@ class FileUploaderRepository extends FieldRepository
         $uploader->setAllowRenameFiles(true);
         $result = $uploader->save($target);
 
-        if ($result['file']) {
-            $this->getGlobalMessageRegistry()->addSuccess('File has been successfully uploaded.');
+        if (empty($result['file'])) {
+            $this->getGlobalMessageRegistry()->addError((string)__('File could not be uploaded.'));
+            return;
         }
 
-        $absoluteFilename = $target . $uploader->getUploadedFileName();
+        $this->getGlobalMessageRegistry()->addSuccess((string)__('File has been successfully uploaded.'));
+
+        $absoluteFilename = rtrim($target, '/') . '/' . ltrim((string)$uploader->getUploadedFileName(), '/');
         // @todo: Save $absoluteFilename somewhere
     }
 

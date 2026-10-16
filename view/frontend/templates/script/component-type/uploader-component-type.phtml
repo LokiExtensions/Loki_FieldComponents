@@ -22,7 +22,11 @@ $componentUtil = $viewModelFactory->create(ComponentUtil::class);
             const formKey = MageCookies.get('form_key');
             const url = new URL('<?= /* @noEscape */ $componentUtil->getPostUrl(
             ) ?>?form_key=' + formKey + '&isAjax=true');
-            const formData = new FormData(form);
+            const formData = new FormData();
+            const file = this.$refs.field?.files?.[0];
+            if (file) {
+                formData.append('componentValue', file);
+            }
 
             await fetch(url, {
                 method: 'post',
@@ -30,7 +34,6 @@ $componentUtil = $viewModelFactory->create(ComponentUtil::class);
                 headers: {
                     'X-Alpine-Request': true,
                     'X-Requested-With': 'XMLHttpRequest',
-                    'Content-Type': 'application/json'
                 },
                 body: formData,
             })
