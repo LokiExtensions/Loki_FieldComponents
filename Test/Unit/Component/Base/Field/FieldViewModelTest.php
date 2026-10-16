@@ -7,6 +7,7 @@ use Loki\Components\Component\ComponentRepositoryInterface;
 use Loki\Components\Filter\Filter;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Field\Test\Unit\Mock\BlockMock;
+use Magento\Framework\Escaper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -148,6 +149,11 @@ class FieldViewModelTest extends TestCase
             public function getElementId(): string
             {
                 return 'test-element';
+            }
+
+            protected function getEscaper(): Escaper
+            {
+                return new Escaper();
             }
         };
 

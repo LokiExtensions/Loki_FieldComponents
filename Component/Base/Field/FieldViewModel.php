@@ -7,6 +7,7 @@ use Loki\Components\Component\ComponentViewModel;
 use Loki\Field\Field\FieldTypeManager;
 use Loki\Field\Util\OptionModelInterface;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\AbstractBlock;
 
 /**
@@ -136,7 +137,12 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
     private function escapeAttribute(string|int|float $value): string
     {
-        return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        return (string)$this->getEscaper()->escapeHtml((string)$value);
+    }
+
+    protected function getEscaper(): Escaper
+    {
+        return ObjectManager::getInstance()->get(Escaper::class);
     }
 
     public function getJsData(): array
