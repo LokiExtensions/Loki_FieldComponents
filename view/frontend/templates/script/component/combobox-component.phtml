@@ -11,5 +11,13 @@ use Magento\Framework\View\Element\Template;
         Alpine.data('LokiComboboxComponent', () => ({
             ...LokiComboboxComponentType,
         }));
+
+        // UI-only state, to be nested inside an existing field component without overriding its value or methods
+        Alpine.data('LokiCombobox', () => ({
+            ...LokiComboboxComponentPartial,
+            init() {
+                this.initCombobox();
+            },
+        }));
     });
 </script>

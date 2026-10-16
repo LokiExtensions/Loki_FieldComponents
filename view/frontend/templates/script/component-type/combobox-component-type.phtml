@@ -8,8 +8,7 @@ use Magento\Framework\View\Element\Template;
 
 ?>
 <script>
-    const LokiComboboxComponentType = {
-        ...LokiFieldComponentType,
+    const LokiComboboxComponentPartial = {
         options: [],
         open: false,
         query: '',
@@ -18,66 +17,77 @@ use Magento\Framework\View\Element\Template;
         placeholder: '',
 
         initCombobox() {
+            if (!this.$refs.select) {
+                return;
+            }
+
             this.options = Array.from(this.$refs.select.options).map(option => ({
                 value: option.value,
-                label: option.text,
+                label: option.text.trim(),
                 disabled: option.disabled
             }));
 
-            const selectedOption = this.$refs.select.selectedOptions[0];
+            this.placeholder = this.options[0]?.value === '' ? this.options[0].label : this.placeholder;
+            this.syncSelectedOption(this.$refs.select.value);
 
-            if (selectedOption) {
-                this.selectedValue = selectedOption.value;
-                this.query = selectedOption.value === '' ? '' : selectedOption.text;
-                this.placeholder = this.options[0]?.value === '' ? this.options[0].label : '';
-            }
+            this.$watch('value', (value) => {
+                if (!this.open) {
+                    this.syncSelectedOption(value);
+                }
+            });
+        },
+
+        syncSelectedOption(value) {
+            const selected = this.options.find(option => String(option.value) === String(value ?? ''));
+            this.selectedValue = selected ? selected.value : '';
+            this.query = selected && selected.value !== '' ? selected.label : '';
         },
 
         filteredOptions() {
             const filtered = this.options.filter(option => !option.disabled && option.value !== '');
+            const query = this.query.trim().toLowerCase();
 
-            if (!this.query.trim()) {
+            if (!query) {
                 return filtered;
             }
 
-            const q = this.query.toLowerCase();
-
-            return filtered.filter(option =>
-                option.label.toLowerCase().includes(q)
-            );
+            return filtered.filter(option => option.label.toLowerCase().includes(query));
         },
 
         onInput() {
             this.open = true;
-            this.activeIndex = this.filteredOptions.length ? 0 : -1;
+            this.activeIndex = this.filteredOptions().length ? 0 : -1;
 
-            if (this.query.trim() === '') {
+            if (this.query.trim() === '' && this.selectedValue !== '') {
                 this.selectedValue = '';
                 this.$refs.select.value = '';
-                this.$refs.select.dispatchEvent(new Event('change', { bubbles: true }));
+                this.$refs.select.dispatchEvent(new Event('change', {bubbles: true}));
             }
         },
 
         openList() {
+            if (this.open) {
+                return;
+            }
+
             this.open = true;
-            this.activeIndex = this.filteredOptions.length ? 0 : -1;
+            this.activeIndex = this.filteredOptions().length ? 0 : -1;
         },
 
         closeList() {
             this.open = false;
             this.activeIndex = -1;
-
-            const selected = this.options.find(option => option.value === this.selectedValue);
-            this.query = selected && selected.value !== '' ? selected.label : '';
+            this.syncSelectedOption(this.selectedValue);
         },
 
         toggle() {
             if (this.open) {
                 this.closeList();
-            } else {
-                this.openList();
-                this.$nextTick(() => this.$refs.input.focus());
+                return;
             }
+
+            this.openList();
+            this.$nextTick(() => this.$refs.input.focus());
         },
 
         moveDown() {
@@ -86,33 +96,36 @@ use Magento\Framework\View\Element\Template;
                 return;
             }
 
-            if (!this.filteredOptions.length) {
+            const count = this.filteredOptions().length;
+            if (!count) {
                 return;
             }
 
-            this.activeIndex = (this.activeIndex + 1) % this.filteredOptions.length;
+            this.activeIndex = (this.activeIndex + 1) % count;
         },
 
         moveUp() {
+            const count = this.filteredOptions().length;
             if (!this.open) {
                 this.openList();
-                this.activeIndex = this.filteredOptions.length ? this.filteredOptions.length - 1 : -1;
+                this.activeIndex = count ? count - 1 : -1;
                 return;
             }
 
-            if (!this.filteredOptions.length) {
+            if (!count) {
                 return;
             }
 
-            this.activeIndex = (this.activeIndex - 1 + this.filteredOptions.length) % this.filteredOptions.length;
+            this.activeIndex = (this.activeIndex - 1 + count) % count;
         },
 
         selectActive() {
-            if (this.activeIndex < 0 || !this.filteredOptions[this.activeIndex]) {
+            const option = this.filteredOptions()[this.activeIndex];
+            if (this.activeIndex < 0 || !option) {
                 return;
             }
 
-            this.selectOption(this.filteredOptions[this.activeIndex]);
+            this.selectOption(option);
         },
 
         selectOption(option) {
@@ -122,8 +135,12 @@ use Magento\Framework\View\Element\Template;
             this.activeIndex = -1;
 
             this.$refs.select.value = option.value;
-            this.$refs.select.dispatchEvent(new Event('change', { bubbles: true }));
-        }
+            this.$refs.select.dispatchEvent(new Event('change', {bubbles: true}));
+        },
+    };
 
+    const LokiComboboxComponentType = {
+        ...LokiFieldComponentType,
+        ...LokiComboboxComponentPartial,
     };
 </script>
