@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.2.47] - 14 October 2026
 ### Fixed
 - Render `aria-label` as plain string instead of JSON-encoded `Phrase` (`aria-label='"Label"'`)
 - Escape all field attribute values in `FieldViewModel::getFieldAttributesAsString()`
