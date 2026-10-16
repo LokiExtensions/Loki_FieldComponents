@@ -70,7 +70,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
     {
         $fieldAttributes = [
             'id' => $this->getFieldId(),
-            'aria-label' => __($this->getFieldLabel()),
+            'aria-label' => (string)__($this->getFieldLabel()),
             'aria-errormessage' => $this->getElementId() . '-messages',
             'data-type' => 'field',
             'x-ref' => 'field',
@@ -88,14 +88,14 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         }
 
         if ($this->getInputType() === 'date') {
-            $maxDate = (string)$this->getBlock()->getMaxDate();
-            if (!empty($maxDate)) {
-                $fieldAttributes['max'] = date('Y-m-d', strtotime($maxDate));
+            $maxDate = strtotime((string)$this->getBlock()->getMaxDate());
+            if ($maxDate !== false) {
+                $fieldAttributes['max'] = date('Y-m-d', $maxDate);
             }
 
-            $minDate = (string)$this->getBlock()->getMinDate();
-            if (!empty($minDate)) {
-                $fieldAttributes['min'] = date('Y-m-d', strtotime($minDate));
+            $minDate = strtotime((string)$this->getBlock()->getMinDate());
+            if ($minDate !== false) {
+                $fieldAttributes['min'] = date('Y-m-d', $minDate);
             }
         }
 
@@ -120,15 +120,23 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
                 continue;
             }
 
-            if (is_string($fieldAttributeValue) || is_numeric($fieldAttributeValue)) {
-                $fieldAttributesAsString .= ' ' . $fieldAttributeName . '="' . $fieldAttributeValue . '"';
-            } else {
-                $fieldAttributeValue = json_encode($fieldAttributeValue);
-                $fieldAttributesAsString .= ' '.$fieldAttributeName . '=\'' . $fieldAttributeValue . '\'';
+            if ($fieldAttributeValue instanceof \Stringable) {
+                $fieldAttributeValue = (string)$fieldAttributeValue;
             }
+
+            if (false === is_string($fieldAttributeValue) && false === is_numeric($fieldAttributeValue)) {
+                $fieldAttributeValue = (string)json_encode($fieldAttributeValue);
+            }
+
+            $fieldAttributesAsString .= ' ' . $fieldAttributeName . '="' . $this->escapeAttribute($fieldAttributeValue) . '"';
         }
 
         return trim($fieldAttributesAsString, " \f\n\r\t\v\x00");
+    }
+
+    private function escapeAttribute(string|int|float $value): string
+    {
+        return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 
     public function getJsData(): array
@@ -148,18 +156,20 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
     public function getValue(): mixed
     {
         $value = parent::getValue();
-        if (!empty($value)) {
+        if (false === $this->isEmptyValue($value)) {
             return $value;
         }
 
         if (false === $this->getComponent()->hasRepository()) {
-            return null;
+            return $value;
         }
 
         $defaultValue = $this->getComponent()->getRepository()->getDefaultValue();
-        if (!empty($defaultValue)) {
-            $this->getComponent()->getRepository()->saveValue($defaultValue);
+        if ($this->isEmptyValue($defaultValue)) {
+            return $value;
         }
+
+        $this->getComponent()->getRepository()->saveValue($defaultValue);
 
         return $defaultValue;
     }
@@ -196,7 +206,19 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
     public function isEmpty(): bool
     {
-        return empty($this->getValue());
+        $value = $this->getValue();
+
+        // An unchecked checkbox is stored as false, which does not satisfy a required field
+        return $value === false || $this->isEmptyValue($value);
+    }
+
+    private function isEmptyValue(mixed $value): bool
+    {
+        if (is_string($value)) {
+            return trim($value) === '';
+        }
+
+        return $value === null || $value === [];
     }
 
     public function isValid(): bool
