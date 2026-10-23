@@ -4,13 +4,12 @@ namespace Loki\Field\Test\Unit\Util;
 
 use Loki\Field\Util\Option;
 use Loki\Field\Util\OptionValue;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class OptionValueTest extends TestCase
 {
-    /**
-     * @dataProvider getIsSelectedValues
-     */
+    #[DataProvider('getIsSelectedValues')]
     public function testIsSelected(mixed $option, int|string $optionIndex, mixed $currentValue, bool $expected): void
     {
         $this->assertSame($expected, (new OptionValue())->isSelected($option, $optionIndex, $currentValue));

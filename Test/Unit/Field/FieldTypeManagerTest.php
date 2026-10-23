@@ -49,6 +49,77 @@ class FieldTypeManagerTest extends TestCase
         $this->assertSame('input.phtml', $this->getFieldTypeManager()->getFieldTemplateByType('unknown'));
     }
 
+    public function testKnownFieldType(): void
+    {
+        $viewModel = $this->getViewModel(['field_type' => 'radio']);
+        $this->assertSame('radio', $this->getFieldTypeManager()->getFieldTypeFromViewModel($viewModel));
+    }
+
+    public function testFieldTypeWithoutBlockIsInput(): void
+    {
+        $viewModel = $this->createMock(FieldViewModelInterface::class);
+        $viewModel->method('getBlock')->willReturn(null);
+
+        $fieldTypeManager = $this->getFieldTypeManager();
+        $this->assertSame('input', $fieldTypeManager->getFieldTypeFromViewModel($viewModel));
+        $this->assertSame('input.phtml', $fieldTypeManager->getFieldTemplateFromViewModel($viewModel));
+    }
+
+    public function testFieldTemplateFromFieldType(): void
+    {
+        $viewModel = $this->getViewModel(['field_type' => 'select']);
+        $this->assertSame('select.phtml', $this->getFieldTypeManager()->getFieldTemplateFromViewModel($viewModel));
+    }
+
+    public function testFieldTemplateFromBlockWinsOverFieldType(): void
+    {
+        $viewModel = $this->getViewModel(['field_type' => 'select', 'field_template' => 'Foo_Bar::custom.phtml']);
+        $this->assertSame(
+            'Foo_Bar::custom.phtml',
+            $this->getFieldTypeManager()->getFieldTemplateFromViewModel($viewModel)
+        );
+    }
+
+    public function testTextSelectWithoutOptionModelIsText(): void
+    {
+        $viewModel = $this->getViewModel(['field_type' => 'text_select']);
+        $this->assertSame('text', $this->getFieldTypeManager()->getFieldTypeFromViewModel($viewModel));
+    }
+
+    public function testFieldTemplateWithEmptyMappingFallsBackToDefaultInputTemplate(): void
+    {
+        $this->assertSame(
+            'Loki_FieldComponents::form/field/input.phtml',
+            (new FieldTypeManager())->getFieldTemplateByType('select')
+        );
+    }
+
+    public function testFieldTemplateMapping(): void
+    {
+        $this->assertSame(self::FIELD_TYPES, $this->getFieldTypeManager()->getFieldTemplateMapping());
+    }
+
+    public function testShowLabelByDefault(): void
+    {
+        $this->assertTrue($this->getFieldTypeManager()->showLabel($this->getViewModel([])));
+    }
+
+    public function testHideLabelForCheckbox(): void
+    {
+        $fieldTypeManager = new FieldTypeManager(self::FIELD_TYPES + ['checkbox' => 'checkbox.phtml']);
+        $this->assertFalse($fieldTypeManager->showLabel($this->getViewModel(['field_type' => 'checkbox'])));
+    }
+
+    public function testShowLabelFromBlockWins(): void
+    {
+        $fieldTypeManager = new FieldTypeManager(self::FIELD_TYPES + ['checkbox' => 'checkbox.phtml']);
+        $this->assertTrue($fieldTypeManager->showLabel($this->getViewModel([
+            'field_type' => 'checkbox',
+            'show_label' => true,
+        ])));
+        $this->assertFalse($fieldTypeManager->showLabel($this->getViewModel(['show_label' => false])));
+    }
+
     private function getViewModel(array $blockData, ?array $options = null): FieldViewModelInterface
     {
         $optionModel = null;
