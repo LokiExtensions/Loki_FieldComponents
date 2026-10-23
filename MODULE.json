@@ -29,7 +29,23 @@
         "Magento_Variable",
         "Yireo_CspUtilities"
     ],
-    "components": [],
+    "components": [
+        "loki-field-components.test.checkbox",
+        "loki-field-components.test.checkbox_required",
+        "loki-field-components.test.combobox",
+        "loki-field-components.test.disabled",
+        "loki-field-components.test.input",
+        "loki-field-components.test.masked",
+        "loki-field-components.test.password",
+        "loki-field-components.test.password_repeat",
+        "loki-field-components.test.radio",
+        "loki-field-components.test.required",
+        "loki-field-components.test.required_custom",
+        "loki-field-components.test.select",
+        "loki-field-components.test.select_multiple",
+        "loki-field-components.test.switch",
+        "loki-field-components.test.textarea"
+    ],
     "config": [
         {
             "path": "loki_field_components/fields/use_required_block",

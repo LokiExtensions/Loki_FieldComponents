@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="1column">
+    <update handle="loki_components"/>
+    <update handle="loki_field_components"/>
+
+    <body>
+        <referenceContainer name="content">
+            <block name="loki-field-components.test.input"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_label" xsi:type="string">Test input</argument>
+                    <argument name="placeholder" xsi:type="string">Type something</argument>
+                    <argument name="help_text" xsi:type="string">Some help text</argument>
+                    <argument name="comment" xsi:type="string">Some comment</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.required"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_label" xsi:type="string">Required input</argument>
+                    <argument name="required" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.required_custom"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_label" xsi:type="string">Required input with custom message</argument>
+                    <argument name="required" xsi:type="boolean">true</argument>
+                    <argument name="required_error_message" xsi:type="string">Please fill in this test field</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.textarea"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">textarea</argument>
+                    <argument name="field_label" xsi:type="string">Test textarea</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.password"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">password</argument>
+                    <argument name="field_label" xsi:type="string">Test password</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.password_repeat"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">password_repeat</argument>
+                    <argument name="field_label" xsi:type="string">Test password repeat</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.select"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">select</argument>
+                    <argument name="field_label" xsi:type="string">Test select</argument>
+                    <argument name="option_model" xsi:type="object">Loki\Field\Component\Test\TestOptionModel</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.select_multiple"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">select</argument>
+                    <argument name="field_label" xsi:type="string">Test multiple select</argument>
+                    <argument name="option_model" xsi:type="object">Loki\Field\Component\Test\TestOptionModel</argument>
+                    <argument name="field_attributes" xsi:type="array">
+                        <item name="multiple" xsi:type="boolean">true</item>
+                    </argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.checkbox"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">checkbox</argument>
+                    <argument name="field_label" xsi:type="string">Test checkbox</argument>
+                    <argument name="input_label" xsi:type="string">Subscribe to test</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.checkbox_required"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">checkbox</argument>
+                    <argument name="field_label" xsi:type="string">Test required checkbox</argument>
+                    <argument name="input_label" xsi:type="string">Accept test terms</argument>
+                    <argument name="required" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.switch"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">switch</argument>
+                    <argument name="field_label" xsi:type="string">Test switch</argument>
+                    <argument name="input_label" xsi:type="string">Enable test</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.radio"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">radio</argument>
+                    <argument name="field_label" xsi:type="string">Test radio</argument>
+                    <argument name="required" xsi:type="boolean">true</argument>
+                    <argument name="option_model" xsi:type="object">Loki\Field\Component\Test\TestOptionModel</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.combobox"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">combobox</argument>
+                    <argument name="field_label" xsi:type="string">Test combobox</argument>
+                    <argument name="include_empty_option" xsi:type="boolean">true</argument>
+                    <argument name="option_model" xsi:type="object">Loki\Field\Component\Test\TestOptionModel</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.disabled"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_label" xsi:type="string">Test disabled</argument>
+                    <argument name="disabled" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+
+            <block name="loki-field-components.test.masked"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_label" xsi:type="string">Test masked</argument>
+                    <argument name="field_attributes" xsi:type="array">
+                        <item name="x-mask" xsi:type="string">9999 aa</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

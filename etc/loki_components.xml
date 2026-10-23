@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<components xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Loki_Components:etc/loki_components.xsd">
+    <group
+        name="loki-field-components-test"
+        class="Loki\Field\Component\Base\Field\FieldComponent"
+        viewModel="Loki\Field\Component\Base\Field\FieldViewModel"
+        repository="Loki\Field\Component\Test\TestFieldRepository"
+    />
+
+    <component name="loki-field-components.test.input" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.required" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.required_custom" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.textarea" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.password" group="loki-field-components-test">
+        <validator name="password_complexity"/>
+    </component>
+    <component name="loki-field-components.test.password_repeat" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.select" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.select_multiple" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.checkbox" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.checkbox_required" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.switch" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.radio" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.combobox" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.disabled" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.masked" group="loki-field-components-test"/>
+</components>
