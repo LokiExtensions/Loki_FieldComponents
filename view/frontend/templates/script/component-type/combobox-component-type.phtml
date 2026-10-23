@@ -87,7 +87,7 @@ use Magento\Framework\View\Element\Template;
             }
 
             this.openList();
-            this.$nextTick(() => this.$refs.input.focus());
+            this.$nextTick(() => this.$refs.field?.focus());
         },
 
         moveDown() {
