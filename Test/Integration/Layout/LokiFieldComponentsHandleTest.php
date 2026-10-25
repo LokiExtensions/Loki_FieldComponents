@@ -54,7 +54,9 @@ class LokiFieldComponentsHandleTest extends TestCase
             $this->assertInstanceOf(AbstractBlock::class, $layout->getBlock($blockName), 'Block "' . $blockName . '"');
         }
 
-        $this->assertSame(20, (int)$layout->getBlock('loki-field-components.utils.loader-small')->getSize());
+        $block = $layout->getBlock('loki-field-components.utils.loader-small');
+        $this->assertInstanceOf(AbstractBlock::class, $block);
+        $this->assertSame(20, (int)$block->getSize());
     }
 
     public function testValidatorScriptIsRendered(): void
@@ -97,7 +99,9 @@ class LokiFieldComponentsHandleTest extends TestCase
     {
         $layout = $this->loadTestLayout(['loki_field_components']);
 
-        $html = (string)$layout->getBlock('loki.alpine-plugin-mask')?->toHtml();
+        $block = $layout->getBlock('loki.alpine-plugin-mask');
+        $this->assertInstanceOf(AbstractBlock::class, $block);
+        $html = (string)$block->toHtml();
         $this->assertStringContainsString('alpine-mask', $html);
     }
 }

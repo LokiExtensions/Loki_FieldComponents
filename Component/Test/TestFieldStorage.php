@@ -2,7 +2,7 @@
 
 namespace Loki\Field\Component\Test;
 
-use Magento\Framework\Session\SessionManagerInterface;
+use Magento\Framework\Session\Generic as Session;
 
 /**
  * Session storage for the field components on the test page (layout handle `loki_field_components_index_test`)
@@ -12,7 +12,7 @@ class TestFieldStorage
     private const SESSION_KEY = 'loki_field_components_test';
 
     public function __construct(
-        private readonly SessionManagerInterface $session
+        private readonly Session $session
     ) {
     }
 
