@@ -21,6 +21,7 @@
         "php": ">=8.2 <8.6"
     },
     "require-dev": {
+        "laminas/laminas-http": "^2.24",
         "phpunit/phpunit": "^10.5"
     },
     "license": [
