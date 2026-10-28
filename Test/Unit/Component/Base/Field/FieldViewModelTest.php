@@ -5,6 +5,7 @@ namespace Loki\Field\Test\Unit\Component\Base\Field;
 use Loki\Components\Component\ComponentInterface;
 use Loki\Components\Component\ComponentRepositoryInterface;
 use Loki\Components\Filter\Filter;
+use Loki\Components\Validator\Validator;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Field\Test\Unit\Mock\BlockMock;
 use Loki\Field\Util\OptionModelInterface;
@@ -50,6 +51,90 @@ class FieldViewModelTest extends TestCase
         $this->assertMatchesRegularExpression('/(^| )multiple( |$)/', $attributes);
         $this->assertStringNotContainsString('checked', $attributes);
         $this->assertDoesNotMatchRegularExpression('/(^| )disabled( |$)/', $attributes);
+    }
+
+    public function testInvalidAttributeNamesAreSkipped(): void
+    {
+        $attributes = $this->getViewModel()->getFieldAttributesAsString([
+            'onclick="alert(1)" data-x' => 'foo',
+            'data-valid' => 'bar',
+        ]);
+
+        $this->assertStringNotContainsString('onclick', $attributes);
+        $this->assertStringContainsString('data-valid="bar"', $attributes);
+    }
+
+    public function testAlpineAttributesOnlyAcceptScalarValues(): void
+    {
+        $attributes = $this->getViewModel()->getFieldAttributesAsString([
+            'x-init' => ['alert(1)'],
+            ':class' => 'cssClass',
+        ]);
+
+        $this->assertStringNotContainsString('x-init', $attributes);
+        $this->assertStringContainsString(':class="cssClass"', $attributes);
+    }
+
+    #[DataProvider('getSecretFieldData')]
+    public function testIsSecretField(array $blockData, bool $expected): void
+    {
+        $this->assertSame($expected, $this->getViewModel($blockData)->isSecretField());
+    }
+
+    public static function getSecretFieldData(): array
+    {
+        return [
+            [[], false],
+            [['field_type' => 'select'], false],
+            [['field_type' => 'password'], true],
+            [['field_type' => 'password_repeat'], true],
+            [['input_type' => 'password'], true],
+        ];
+    }
+
+    public function testSecretFieldUsesNewPasswordAutocomplete(): void
+    {
+        $this->assertSame(
+            'new-password',
+            $this->getViewModel(['field_type' => 'password'])->getFieldAttributes()['autocomplete']
+        );
+        $this->assertSame(
+            'current-password',
+            $this->getViewModel(['field_type' => 'password', 'autocomplete' => 'current-password'])
+                ->getFieldAttributes()['autocomplete']
+        );
+    }
+
+    public function testDefaultValueIsNotSavedWhenInvalid(): void
+    {
+        $repository = $this->createMock(ComponentRepositoryInterface::class);
+        $repository->method('getValue')->willReturn(null);
+        $repository->method('getDefaultValue')->willReturn('default');
+        $repository->expects($this->never())->method('saveValue');
+
+        $validator = $this->createMock(Validator::class);
+        $validator->method('validate')->willReturn(false);
+
+        $viewModel = $this->getViewModel([], $repository);
+        $viewModel->setValidator($validator);
+
+        $this->assertNull($viewModel->getValue());
+    }
+
+    public function testDefaultValueIsSavedWhenValid(): void
+    {
+        $repository = $this->createMock(ComponentRepositoryInterface::class);
+        $repository->method('getValue')->willReturn(null);
+        $repository->method('getDefaultValue')->willReturn('default');
+        $repository->expects($this->once())->method('saveValue')->with('default');
+
+        $validator = $this->createMock(Validator::class);
+        $validator->method('validate')->willReturn(true);
+
+        $viewModel = $this->getViewModel([], $repository);
+        $viewModel->setValidator($validator);
+
+        $this->assertSame('default', $viewModel->getValue());
     }
 
     #[DataProvider('getFalsyButFilledValues')]

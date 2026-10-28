@@ -5,6 +5,7 @@ namespace Loki\Field\Test\Unit\Component\Base\Field;
 use Loki\Field\Component\Base\Field\FieldComponent;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Field\Test\Unit\Mock\BlockMock;
+use Loki\Field\Util\OptionModelInterface;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
@@ -59,11 +60,47 @@ class FieldComponentTest extends TestCase
         $this->assertSame(['custom', 'first_name'], $component->getValidators(['custom']));
     }
 
+    public function testOptionsValidatorIsAddedWithOptionModel(): void
+    {
+        $component = $this->getComponent(optionModel: $this->createMock(OptionModelInterface::class));
+        $this->assertContains(FieldComponent::OPTIONS_VALIDATOR, $component->getValidators());
+    }
+
+    public function testOptionsValidatorCanBeDisabled(): void
+    {
+        $component = $this->getComponent(
+            blockData: ['validate_options' => false],
+            optionModel: $this->createMock(OptionModelInterface::class)
+        );
+
+        $this->assertNotContains(FieldComponent::OPTIONS_VALIDATOR, $component->getValidators());
+    }
+
+    public function testOptionsValidatorIsNotAddedWithoutOptionModel(): void
+    {
+        $this->assertNotContains(FieldComponent::OPTIONS_VALIDATOR, $this->getComponent()->getValidators());
+    }
+
+    public function testSecurityFilterIsAlwaysAdded(): void
+    {
+        $component = $this->getComponent(componentFilters: ['trim']);
+        $this->assertSame(['trim', 'security'], $component->getFilters());
+    }
+
+    public function testSecretFieldSkipsAlteringFilters(): void
+    {
+        $component = $this->getComponent(componentFilters: ['trim', 'lowercase'], secretField: true);
+        $this->assertSame(['lowercase'], $component->getFilters());
+    }
+
     private function getComponent(
         bool $required = false,
         array $blockData = [],
         array $componentValidators = [],
         array $viewModelValidators = [],
+        ?OptionModelInterface $optionModel = null,
+        array $componentFilters = [],
+        bool $secretField = false,
     ): FieldComponent {
         $block = $this->getBlockMock('loki.test.first_name', $blockData);
 
@@ -72,6 +109,8 @@ class FieldComponentTest extends TestCase
         $viewModel->method('isRequired')->willReturn($required);
         $viewModel->method('getBlock')->willReturn($block);
         $viewModel->method('getValidators')->willReturn($viewModelValidators);
+        $viewModel->method('getOptionModel')->willReturn($optionModel);
+        $viewModel->method('isSecretField')->willReturn($secretField);
 
         $component = $this->getMockBuilder(FieldComponent::class)
             ->disableOriginalConstructor()
@@ -80,6 +119,7 @@ class FieldComponentTest extends TestCase
         $component->method('getViewModel')->willReturn($viewModel);
 
         (new ReflectionProperty($component, 'validators'))->setValue($component, $componentValidators);
+        (new ReflectionProperty($component, 'filters'))->setValue($component, $componentFilters);
 
         return $component;
     }

@@ -89,6 +89,16 @@ class FieldRenderingTest extends TestCase
         $this->assertStringContainsString(':type="inputType"', $html);
     }
 
+    public function testStoredPasswordIsNotRendered(): void
+    {
+        foreach (['password', 'password_repeat'] as $fieldName) {
+            $this->getTestStorage()->saveValue(self::TEST_PREFIX . $fieldName, 'S3cr3t!!pass');
+            $html = $this->renderTestBlock($fieldName);
+
+            $this->assertStringNotContainsString('S3cr3t', $html, 'Password is rendered in field "' . $fieldName . '"');
+        }
+    }
+
     public function testPasswordRepeatField(): void
     {
         $html = $this->renderTestBlock('password_repeat');

@@ -6,16 +6,21 @@ use Loki\Components\Component\ComponentInterface;
 use Loki\Components\Component\ComponentViewModelInterface;
 use Loki\Components\Validator\Validator;
 use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Components\Messages\LocalMessageRegistry;
 use Loki\Field\Plugin\ValidatorPlugin;
+use Loki\Field\Test\Unit\Mock\BlockMock;
+use Loki\Field\Validator\FieldValueGuard;
 use PHPUnit\Framework\TestCase;
 
 class ValidatorPluginTest extends TestCase
 {
+    use BlockMock;
+
     public function testDisabledFieldIsInvalidWithoutCallingValidator(): void
     {
         $component = $this->getComponent($this->getFieldViewModel(true));
 
-        $result = (new ValidatorPlugin())->aroundValidate(
+        $result = $this->getPlugin()->aroundValidate(
             $this->createMock(Validator::class),
             function () {
                 $this->fail('Validator should not be called for a disabled field');
@@ -37,7 +42,7 @@ class ValidatorPluginTest extends TestCase
             return true;
         };
 
-        $result = (new ValidatorPlugin())->aroundValidate(
+        $result = $this->getPlugin()->aroundValidate(
             $this->createMock(Validator::class),
             $proceed,
             $component,
@@ -54,7 +59,7 @@ class ValidatorPluginTest extends TestCase
     {
         $component = $this->getComponent($this->getFieldViewModel(false));
 
-        $result = (new ValidatorPlugin())->aroundValidate(
+        $result = $this->getPlugin()->aroundValidate(
             $this->createMock(Validator::class),
             fn () => false,
             $component
@@ -68,7 +73,7 @@ class ValidatorPluginTest extends TestCase
         $component = $this->getComponent($this->createMock(ComponentViewModelInterface::class));
 
         $called = false;
-        $result = (new ValidatorPlugin())->aroundValidate(
+        $result = $this->getPlugin()->aroundValidate(
             $this->createMock(Validator::class),
             function () use (&$called) {
                 $called = true;
@@ -82,10 +87,56 @@ class ValidatorPluginTest extends TestCase
         $this->assertTrue($result);
     }
 
-    private function getFieldViewModel(bool $disabled): FieldViewModel
+    public function testInvalidFieldValueIsRejectedWithMessage(): void
+    {
+        $viewModel = $this->getFieldViewModel(false, ['field_type' => 'select']);
+
+        $localMessageRegistry = $this->createMock(LocalMessageRegistry::class);
+        $localMessageRegistry->expects($this->once())->method('addError');
+
+        $component = $this->createMock(ComponentInterface::class);
+        $component->method('getViewModel')->willReturn($viewModel);
+        $component->method('dispatchLocalMessages')->willReturn(true);
+        $component->method('getLocalMessageRegistry')->willReturn($localMessageRegistry);
+
+        $result = $this->getPlugin()->aroundValidate(
+            $this->createMock(Validator::class),
+            function () {
+                $this->fail('Validator should not be called for an invalid field value');
+            },
+            $component,
+            ['red', 'green']
+        );
+
+        $this->assertFalse($result);
+    }
+
+    public function testFieldValueIsOnlyGuardedAtTheTopLevel(): void
+    {
+        $component = $this->getComponent($this->getFieldViewModel(false, ['field_type' => 'select']));
+
+        $result = $this->getPlugin()->aroundValidate(
+            $this->createMock(Validator::class),
+            fn () => true,
+            $component,
+            ['red'],
+            '',
+            1
+        );
+
+        $this->assertTrue($result);
+    }
+
+    private function getPlugin(): ValidatorPlugin
+    {
+        return new ValidatorPlugin(new FieldValueGuard());
+    }
+
+    private function getFieldViewModel(bool $disabled, array $blockData = []): FieldViewModel
     {
         $viewModel = $this->createMock(FieldViewModel::class);
         $viewModel->method('isDisabled')->willReturn($disabled);
+        $viewModel->method('getBlock')->willReturn($this->getBlockMock('loki.test.field', $blockData));
 
         return $viewModel;
     }

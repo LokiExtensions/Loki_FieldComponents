@@ -5,6 +5,7 @@
         <arguments>
             <argument name="validators" xsi:type="array">
                 <item name="password_complexity" xsi:type="object">Loki\Field\Validator\PasswordComplexityValidator</item>
+                <item name="field_options" xsi:type="object">Loki\Field\Validator\OptionValidator</item>
             </argument>
         </arguments>
     </type>

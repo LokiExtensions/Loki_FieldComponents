@@ -76,6 +76,58 @@ class HtmlRoundtripTest extends TestCase
         $this->assertSame(['green', 'blue'], $this->getStorage()->getValue(self::PREFIX . 'select_multiple'));
     }
 
+    public function testPasswordIsSavedUnfilteredAndNotRendered(): void
+    {
+        $password = '<Ab>12!!x9 ';
+        $response = $this->post('password', $password);
+
+        $this->assertSame($password, $this->getStorage()->getValue(self::PREFIX . 'password'));
+        $this->assertStringNotContainsString('12!!x9', (string)$response->getBody());
+        $this->assertStringContainsString('autocomplete="new-password"', (string)$response->getBody());
+    }
+
+    public function testUnknownOptionIsNotSaved(): void
+    {
+        $this->post('select', 'purple');
+        $this->assertNotSame('purple', $this->getStorage()->getValue(self::PREFIX . 'select'));
+    }
+
+    public function testDisabledOptionIsNotSaved(): void
+    {
+        $this->post('radio', 'black');
+        $this->assertNotSame('black', $this->getStorage()->getValue(self::PREFIX . 'radio'));
+    }
+
+    public function testEnabledOptionIsSaved(): void
+    {
+        $this->post('radio', 'green');
+        $this->assertSame('green', $this->getStorage()->getValue(self::PREFIX . 'radio'));
+    }
+
+    public function testArrayForSingleSelectIsNotSaved(): void
+    {
+        $this->post('select', ['red', 'green']);
+        $this->assertNotSame(['red', 'green'], $this->getStorage()->getValue(self::PREFIX . 'select'));
+    }
+
+    public function testUnknownOptionInMultipleSelectIsNotSaved(): void
+    {
+        $this->post('select_multiple', ['green', 'purple']);
+        $this->assertNotSame(['green', 'purple'], $this->getStorage()->getValue(self::PREFIX . 'select_multiple'));
+    }
+
+    public function testTooLongValueIsNotSaved(): void
+    {
+        $this->post('input', str_repeat('a', 256));
+        $this->assertFalse($this->getStorage()->hasValue(self::PREFIX . 'input'));
+    }
+
+    public function testNonBooleanCheckboxValueIsNotSaved(): void
+    {
+        $this->post('checkbox', 'yes');
+        $this->assertFalse($this->getStorage()->hasValue(self::PREFIX . 'checkbox'));
+    }
+
     private function post(string $fieldName, mixed $value): HttpResponse
     {
         $blockName = self::PREFIX . $fieldName;

@@ -15,6 +15,8 @@ use Magento\Framework\View\Element\AbstractBlock;
  */
 class FieldViewModel extends ComponentViewModel implements FieldViewModelInterface
 {
+    public const SECRET_FIELD_TYPES = ['password', 'password_repeat'];
+
     protected bool $isRequiredByDefault = false;
 
     public function getFieldName(): string
@@ -83,7 +85,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         $fieldAttributes['required'] = $this->isRequired();
         $fieldAttributes['disabled'] = $this->isDisabled();
 
-        $fieldAttributes['autocomplete'] = 'off';
+        $fieldAttributes['autocomplete'] = $this->isSecretField() ? 'new-password' : 'off';
         if ($this->hasAutocomplete() && false === $this->isDisabled()) {
             $fieldAttributes['autocomplete'] = $this->getAutocomplete();
         }
@@ -116,6 +118,11 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
                 continue;
             }
 
+            $fieldAttributeName = (string)$fieldAttributeName;
+            if (false === $this->isValidAttributeName($fieldAttributeName)) {
+                continue;
+            }
+
             if ($fieldAttributeValue === null || $fieldAttributeValue === true) {
                 $fieldAttributesAsString .= ' ' .$fieldAttributeName;
                 continue;
@@ -126,6 +133,11 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             }
 
             if (false === is_string($fieldAttributeValue) && false === is_numeric($fieldAttributeValue)) {
+                // Alpine attributes are evaluated as JavaScript, so only plain expressions are allowed
+                if ($this->isAlpineAttributeName($fieldAttributeName)) {
+                    continue;
+                }
+
                 $fieldAttributeValue = (string)json_encode($fieldAttributeValue);
             }
 
@@ -133,6 +145,18 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         }
 
         return trim($fieldAttributesAsString, " \f\n\r\t\v\x00");
+    }
+
+    private function isValidAttributeName(string $attributeName): bool
+    {
+        return (bool)preg_match('/^[a-zA-Z_:@][a-zA-Z0-9_:.@-]*$/', $attributeName);
+    }
+
+    private function isAlpineAttributeName(string $attributeName): bool
+    {
+        return str_starts_with($attributeName, 'x-')
+            || str_starts_with($attributeName, ':')
+            || str_starts_with($attributeName, '@');
     }
 
     private function escapeAttribute(string|int|float $value): string
@@ -156,7 +180,17 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             'disabled' => $this->isDisabled(),
             'fieldName' => $this->getFieldName(),
             ...$jsDataFromBlock,
+            ...($this->isSecretField() ? ['value' => ''] : []),
         ];
+    }
+
+    public function isSecretField(): bool
+    {
+        if (in_array((string)$this->getBlock()->getFieldType(), self::SECRET_FIELD_TYPES, true)) {
+            return true;
+        }
+
+        return $this->getInputType() === 'password';
     }
 
     public function getValue(): mixed
@@ -172,6 +206,14 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
         $defaultValue = $this->getComponent()->getRepository()->getDefaultValue();
         if ($this->isEmptyValue($defaultValue)) {
+            return $value;
+        }
+
+        if ($this->filter !== null) {
+            $defaultValue = $this->filter->filter($this->getComponent(), $defaultValue);
+        }
+
+        if ($this->validator !== null && false === $this->validator->validate($this->getComponent(), $defaultValue)) {
             return $value;
         }
 
