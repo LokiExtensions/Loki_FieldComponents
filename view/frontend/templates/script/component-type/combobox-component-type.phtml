@@ -28,6 +28,7 @@ use Magento\Framework\View\Element\Template;
             }));
 
             this.placeholder = this.options[0]?.value === '' ? this.options[0].label : this.placeholder;
+            this.placeholder = this.placeholder || this.$root.dataset.placeholder || '';
             this.syncSelectedOption(this.$refs.select.value);
 
             this.$watch('value', (value) => {

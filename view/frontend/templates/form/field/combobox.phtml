@@ -30,9 +30,7 @@ $listboxId = $viewModel->getFieldId() . '-listbox';
 <div
     class="<?= /* @noEscape */ $css('relative w-full') ?>"
     x-data="LokiCombobox"
-    <?php if ($viewModel->getPlaceholder()): ?>
-    x-init="placeholder = placeholder || <?= $escaper->escapeHtmlAttr(json_encode($viewModel->getPlaceholder())) ?>"
-    <?php endif; ?>
+    data-placeholder="<?= $escaper->escapeHtmlAttr($viewModel->getPlaceholder()) ?>"
 >
     <div class="<?= /* @noEscape */ $css('relative', 'input-container') ?>">
         <input
