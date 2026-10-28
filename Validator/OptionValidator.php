@@ -42,10 +42,10 @@ class OptionValidator implements ValidatorInterface
         }
 
         $value = (string)$value;
-        $knownValues = [];
+        $hasZeroOption = false;
         foreach ($this->getOptions($options) as [$optionIndex, $option, $disabled]) {
             $optionValue = $this->optionValue->getValue($option, $optionIndex);
-            $knownValues[$optionValue] = true;
+            $hasZeroOption = $hasZeroOption || $optionValue === '0';
             if ($optionValue !== $value) {
                 continue;
             }
@@ -58,7 +58,7 @@ class OptionValidator implements ValidatorInterface
         }
 
         // A value of "0" is a common placeholder for "nothing selected yet"
-        if ($value === '0' && false === array_key_exists('0', $knownValues)) {
+        if ($value === '0' && false === $hasZeroOption) {
             return true;
         }
 

@@ -39,13 +39,17 @@ class FieldComponent extends Component
     public function getFilters(array $filters = []): array
     {
         $filters = parent::getFilters($filters);
-        $viewModel = $this->getViewModel();
-        if (false === $viewModel instanceof FieldViewModel || false === $viewModel->isSecretField()) {
+        if (false === $this->isSecretField($this->getViewModel())) {
             return $filters;
         }
 
         // Passwords are never rendered, while filtering them would silently change them
         return array_values(array_diff($filters, self::SECRET_FIELD_SKIPPED_FILTERS));
+    }
+
+    private function isSecretField(mixed $viewModel): bool
+    {
+        return $viewModel instanceof FieldViewModel && $viewModel->isSecretField();
     }
 
     private function validateOptions(mixed $viewModel): bool
