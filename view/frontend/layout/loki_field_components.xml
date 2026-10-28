@@ -22,12 +22,6 @@
             <block
                 name="loki-field-components.script.component-type.combobox"
                 template="Loki_FieldComponents::script/component-type/combobox-component-type.phtml"/>
-
-            <!--
-            <block
-                name="loki-field-components.script.component-type.uploader"
-                template="Loki_FieldComponents::script/component-type/uploader-component-type.phtml"/>
-            -->
         </referenceBlock>
 
         <referenceBlock name="loki.script.component">
