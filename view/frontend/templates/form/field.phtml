@@ -45,7 +45,7 @@ $additionalClasses[] = $viewModel->getFieldName();
 $additionalClasses[] = 'field-type-'.$fieldTypeManager->getFieldTypeFromViewModel($viewModel);
 
 ?>
-<div class="<?= /* @noEscape */ implode(' ', $additionalClasses).' '.$css('field w-auto relative') ?>" style="<?= $escaper->escapeHtml($style()) ?>">
+<div class="<?= $escaper->escapeHtml(implode(' ', $additionalClasses)) ?> <?= /* @noEscape */ $css('field w-auto relative') ?>" style="<?= $escaper->escapeHtml($style()) ?>">
     <?= /* @noEscape */ $childRenderer->any($block, 'before') ?>
 
     <?php if ($fieldTypeManager->showLabel($viewModel)): ?>
@@ -86,7 +86,7 @@ $additionalClasses[] = 'field-type-'.$fieldTypeManager->getFieldTypeFromViewMode
 
     <?php if ($viewModel->getComment()): ?>
         <div class="<?= /* @noEscape */ $css('text-sm', 'comment') ?>">
-            <?= /* @noEscape */ $viewModel->getComment() ?>
+            <?= $escaper->escapeHtml(__($viewModel->getComment()), ['a', 'strong', 'em', 'b', 'i', 'br']) ?>
         </div>
     <?php endif; ?>
 

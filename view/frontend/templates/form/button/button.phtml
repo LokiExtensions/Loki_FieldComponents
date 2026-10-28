@@ -30,7 +30,7 @@ $buttonHint = $block->getButtonHint();
         x-ref="button"
         @click.prevent="submit"
         <?php if ($buttonHint) : ?>
-        aria-describedby="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button-hint"
+        aria-describedby="<?= $escaper->escapeHtmlAttr($viewModel->getFieldId()) ?>-button-hint"
     <?php endif; ?>
 >
     <?= /* @noEscape */ $childRenderer->html($block, 'icon'); ?>
@@ -39,7 +39,7 @@ $buttonHint = $block->getButtonHint();
 
 <?php if ($buttonHint) : ?>
     <div
-        id="<?= $escaper->escapeHtml($viewModel->getFieldId()) ?>-button-hint"
+        id="<?= $escaper->escapeHtmlAttr($viewModel->getFieldId()) ?>-button-hint"
         class="<?= $escaper->escapeHtml($css('hidden', 'hint')) ?>"
         aria-hidden="true"
     >

@@ -39,7 +39,7 @@ if (false === $optionModel instanceof OptionModelInterface) {
         <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
             <?php if ($option instanceof OptionGroupInterface): ?>
             <optgroup
-                label="<?= $escaper->escapeHtml($option->getLabel()) ?>"
+                label="<?= $escaper->escapeHtmlAttr($option->getLabel()) ?>"
                 <?= /* @noEscape */ $option->isDisabled() ? 'disabled' : '' ?>
             >
                 <?php foreach ($option->getOptions() as $subOptionIndex => $subOption): ?>

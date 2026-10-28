@@ -24,11 +24,11 @@ if (!$inputPrefix) {
 <div class="<?= /* @noEscape */ $css('', 'input_prefix') ?>">
     <?php if (str_ends_with($inputPrefix, '.svg')): ?>
         <img
-            src="<?= /* @noEscape */ $block->getViewFileUrl($inputPrefix); ?>"
+            src="<?= $escaper->escapeUrl($block->getViewFileUrl($inputPrefix)) ?>"
             class="<?= /* @noEscape */ $css('', 'input_prefix_icon') ?>"
             alt=""
         >
     <?php else: ?>
-        <?= /* @noEscape */ $inputPrefix ?>
+        <?= $escaper->escapeHtml($inputPrefix, ['span', 'strong', 'em', 'b', 'i']) ?>
     <?php endif; ?>
 </div>

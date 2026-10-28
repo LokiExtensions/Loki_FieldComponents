@@ -14,8 +14,8 @@ $size = $block->getSize() ?? 125;
 $width = $block->getWidth() ?? $size;
 $height = $block->getHeight() ?? $size;
 ?>
-<img alt="<?= $escaper->escapeHtml(__('Loading')) ?>"
-     src="<?= /* @noEscape */ $block->getViewFileUrl('Loki_FieldComponents::images/loader.svg'); ?>"
+<img alt="<?= $escaper->escapeHtmlAttr(__('Loading')) ?>"
+     src="<?= $escaper->escapeUrl($block->getViewFileUrl('Loki_FieldComponents::images/loader.svg')) ?>"
      class="<?= /* @noEscape */ $css('loader') ?>"
-     width="<?= $escaper->escapeHtml($width) ?>"
-     height="<?= $escaper->escapeHtml($height) ?>">
+     width="<?= (int)$width ?>"
+     height="<?= (int)$height ?>">

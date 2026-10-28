@@ -19,7 +19,8 @@ use Loki\CssUtils\Util\CssClass;
 /** @var TemplateRenderer $templateRenderer */
 
 $viewModel = $block->getViewModel();
-$inputCss = 'input-'.$viewModel->getInputType(). ' form-input w-full disabled:bg-zinc-100';
+$inputType = preg_replace('/[^a-z0-9_-]/', '', strtolower($viewModel->getInputType()));
+$inputCss = 'input-'.$inputType. ' form-input w-full disabled:bg-zinc-100';
 ?>
 <div class="<?= /* @noEscape */ $css('w-full flex') ?>">
     <?= /* @noEscape */ $templateRenderer->html($block, 'Loki_FieldComponents::form/field/input/prefix.phtml') ?>
