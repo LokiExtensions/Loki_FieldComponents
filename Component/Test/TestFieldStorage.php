@@ -2,6 +2,7 @@
 
 namespace Loki\Field\Component\Test;
 
+use Magento\Framework\App\State as AppState;
 use Magento\Framework\Session\Generic as Session;
 
 /**
@@ -10,9 +11,11 @@ use Magento\Framework\Session\Generic as Session;
 class TestFieldStorage
 {
     private const SESSION_KEY = 'loki_field_components_test';
+    private const MAX_VALUE_SIZE = 4096;
 
     public function __construct(
-        private readonly Session $session
+        private readonly Session $session,
+        private readonly AppState $appState,
     ) {
     }
 
@@ -28,6 +31,10 @@ class TestFieldStorage
 
     public function saveValue(string $componentName, mixed $value): void
     {
+        if (false === $this->isAllowed($value)) {
+            return;
+        }
+
         $values = $this->getValues();
         $values[$componentName] = $value;
         $this->session->setData(self::SESSION_KEY, $values);
@@ -41,5 +48,15 @@ class TestFieldStorage
     private function getValues(): array
     {
         return (array)$this->session->getData(self::SESSION_KEY);
+    }
+
+    private function isAllowed(mixed $value): bool
+    {
+        // The test page is only available in developer mode, so the test values should not be stored otherwise
+        if ($this->appState->getMode() !== AppState::MODE_DEVELOPER) {
+            return false;
+        }
+
+        return strlen((string)json_encode($value)) <= self::MAX_VALUE_SIZE;
     }
 }
