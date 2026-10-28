@@ -10,6 +10,7 @@ use Loki\Field\ViewModel\PasswordComplexity;
 use Magento\Framework\App\ObjectManager;
 use Magento\TestFramework\Fixture\AppArea;
 use Magento\TestFramework\Fixture\AppIsolation;
+use Magento\TestFramework\Fixture\Config as ConfigFixture;
 use PHPUnit\Framework\TestCase;
 
 #[AppArea('frontend')]
@@ -50,16 +51,31 @@ class PasswordComplexityValidatorTest extends TestCase
 
     public function testPasswordComplexityCanBeConfiguredViaDi(): void
     {
+        $validator = $this->getValidatorWithMinimum(10);
+
+        $this->assertTrue($validator->validate('abcdefghij'));
+        $this->assertIsArray($validator->validate('abcdefghi'));
+    }
+
+    #[ConfigFixture('customer/password/minimum_password_length', 6, 'store', 'default')]
+    public function testConfiguredMinimumPasswordLengthIsTheLowerLimit(): void
+    {
+        $validator = $this->getValidatorWithMinimum(4);
+
+        $this->assertTrue($validator->validate('abcdef'));
+        $this->assertIsArray($validator->validate('abcde'));
+    }
+
+    private function getValidatorWithMinimum(int $minimum): PasswordComplexityValidator
+    {
         $objectManager = ObjectManager::getInstance();
-        $validator = $objectManager->create(PasswordComplexityValidator::class, [
+
+        return $objectManager->create(PasswordComplexityValidator::class, [
             'passwordComplexity' => $objectManager->create(PasswordComplexity::class, [
-                'minimum' => 4,
+                'minimum' => $minimum,
                 'minimumNumeric' => 0,
                 'minimumOther' => 0,
             ]),
         ]);
-
-        $this->assertTrue($validator->validate('abcd'));
-        $this->assertIsArray($validator->validate('abc'));
     }
 }
