@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.48] - 29 October 2026
+### Fixed
+- Avoid always-true type checks in FieldComponent and OptionValidator
+- Cover configured minimum password length as lower limit
+- Validate field values server-side and never render passwords
+- Move ACL resource under Stores configuration and drop broken depends
+- Pass placeholder via data attribute instead of x-init
+- Escape field comment, input prefix, classes and attributes
+- Remove unfinished FileUploaderRepository and uploader script
+- Keep disabled radio options disabled after Alpine initialization
+- Focus the field when opening the list with the toggle button
+
+### Added
+- Respect configured minimum password length
+
 ## [2.2.47] - 14 October 2026
 ### Fixed
 - Render `aria-label` as plain string instead of JSON-encoded `Phrase` (`aria-label='"Label"'`)
