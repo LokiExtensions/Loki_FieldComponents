@@ -21,7 +21,9 @@
     },
     "require-dev": {
         "laminas/laminas-http": "^2.24",
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^10.5",
+        "yireo/magento2-integration-test-helper": "~0.0",
+        "loki/magento2-functional-tests": "@dev"
     },
     "license": [
         "OSL-3.0"
@@ -33,8 +35,5 @@
         "psr-4": {
             "Loki\\Field\\": ""
         }
-    },
-    "extra": {
-        "label": "Loki Field Components"
     }
 }
