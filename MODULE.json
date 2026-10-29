@@ -11,21 +11,15 @@
         "Loki_Base",
         "Loki_Components",
         "Loki_CssUtils",
-        "Magento_AdminNotification",
         "Magento_Backend",
-        "Magento_Catalog",
-        "Magento_Cms",
         "Magento_Config",
         "Magento_Csp",
         "Magento_Customer",
         "Magento_Directory",
         "Magento_Eav",
-        "Magento_Indexer",
-        "Magento_MediaStorage",
         "Magento_Quote",
         "Magento_Store",
         "Magento_Theme",
-        "Magento_Variable",
         "Yireo_CspUtilities"
     ],
     "components": [
@@ -53,9 +47,9 @@
         }
     ],
     "tests": {
-        "unit": 21,
-        "integration": 0,
-        "functional": 0
+        "unit": 114,
+        "integration": 59,
+        "functional": 28
     },
     "phpcs_severity": "7",
     "phpstan_level": "5",
