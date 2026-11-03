@@ -3,6 +3,7 @@
 namespace Loki\Field\Component\Test;
 
 use Magento\Framework\App\State as AppState;
+use Magento\Framework\Module\Manager as ModuleManager;
 use Magento\Framework\Session\Generic as Session;
 
 /**
@@ -16,6 +17,7 @@ class TestFieldStorage
     public function __construct(
         private readonly Session $session,
         private readonly AppState $appState,
+        private readonly ModuleManager $moduleManager,
     ) {
     }
 
@@ -52,11 +54,20 @@ class TestFieldStorage
 
     private function isAllowed(mixed $value): bool
     {
-        // The test page is only available in developer mode, so the test values should not be stored otherwise
-        if ($this->appState->getMode() !== AppState::MODE_DEVELOPER) {
+        // The test page is only reachable in developer mode or via the token-protected Loki_FunctionalTests page
+        if (false === $this->isTestEnvironment()) {
             return false;
         }
 
         return strlen((string)json_encode($value)) <= self::MAX_VALUE_SIZE;
+    }
+
+    private function isTestEnvironment(): bool
+    {
+        if ($this->appState->getMode() === AppState::MODE_DEVELOPER) {
+            return true;
+        }
+
+        return $this->moduleManager->isEnabled('Loki_FunctionalTests');
     }
 }
