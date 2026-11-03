@@ -26,25 +26,30 @@ use Loki\Field\Field\FieldTypeManager;
 $fieldTypeManager = $viewModelFactory->create(FieldTypeManager::class);
 $config = $viewModelFactory->create(Config::class);
 $viewModel = $block->getViewModel();
-$useLabelTag = $viewModel->useLabelTagForLabel($block);
-$showLabelClass = $viewModel->showFieldLabel() ? '' : 'hidden';
+$showFieldLabel = $viewModel->showFieldLabel();
+$useLabelTag = $viewModel->useLabelTagForLabel($block) && $showFieldLabel;
+$fieldLabel = $viewModel->getFieldLabel();
 ?>
 <?php if ($useLabelTag): ?>
     <label
         for="<?= $escaper->escapeHtmlAttr($viewModel->getFieldId()) ?>"
-        class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?> <?= /* @noEscape */ $showLabelClass ?>">
-        <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
+        class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        <?= $escaper->escapeHtml(__($fieldLabel)) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
             <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-field-components.utils.required'); ?>
         <?php endif; ?>
     </label>
-<?php else: ?>
-    <span class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?> <?= /* @noEscape */ $showLabelClass ?>">
-        <?= $escaper->escapeHtml(__($viewModel->getFieldLabel())) ?>
+<?php elseif($showFieldLabel): ?>
+    <span class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        <?= $escaper->escapeHtml(__($fieldLabel)) ?>
 
         <?php if ($viewModel->isRequired() && $config->useRequiredBlock()): ?>
             <?= /* @noEscape */ $blockRenderer->html( $block, 'loki-field-components.utils.required'); ?>
         <?php endif; ?>
+    </span>
+<?php else: ?>
+    <span class="<?= /* @noEscape */ $css('label inline-block mt-2 md:mt-0 mb-1.5', 'label') ?>">
+        &nbsp;
     </span>
 <?php endif; ?>
