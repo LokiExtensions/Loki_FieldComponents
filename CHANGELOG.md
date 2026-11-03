@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.49] - 03 November 2026
+### Fixed
+- Make sure empty field labels are shown as span instead
+
 ## [2.2.48] - 29 October 2026
 ### Fixed
 - Avoid always-true type checks in FieldComponent and OptionValidator
