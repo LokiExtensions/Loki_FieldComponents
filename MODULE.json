@@ -47,7 +47,7 @@
         }
     ],
     "tests": {
-        "unit": 114,
+        "unit": 115,
         "integration": 59,
         "functional": 28
     },
