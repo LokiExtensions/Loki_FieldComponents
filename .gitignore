@@ -14,3 +14,15 @@
 .gitlab-ci-local
 .playwright
 .opencode
+
+.php-cs-fixer.cache
+
+.ai/
+
+.playwright/
+
+node_modules/
+
+.opencode/
+
+.gitlab-ci-local/
