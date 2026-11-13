@@ -78,6 +78,20 @@ class FieldRenderingTest extends TestCase
 
         $this->assertStringContainsString('field-type-textarea', $html);
         $this->assertMatchesRegularExpression('/<textarea[^>]*>Say &quot;hi&quot; &amp; bye<\/textarea>/', $html);
+        $this->assertMatchesRegularExpression('/<textarea[^>]+id="loki-field-components-test-textarea-field"/', $html);
+        $this->assertMatchesRegularExpression('/<textarea[^>]+name="textarea"/', $html);
+        $this->assertStringContainsString('for="loki-field-components-test-textarea-field"', $html);
+    }
+
+    public function testTextareaIsNotTheFirstElementOfTheFieldContainer(): void
+    {
+        $html = $this->renderTestBlock('textarea');
+
+        $this->assertMatchesRegularExpression(
+            '/<div[^>]*>\s*<textarea[^>]+id="loki-field-components-test-textarea-field"/',
+            $html,
+            'Attributes that are added to the first element of the field container must not replace the textarea ID'
+        );
     }
 
     public function testPasswordField(): void
