@@ -11,7 +11,8 @@ $disableModules = (new DisableModules(__DIR__.'/../../../../'))
     ->disableByPattern('Magento_TestModule')
     ->disableMagentoInventory()
     ->disableGraphQl()
-    ->enableByMagentoModuleEnv();
+    ->enableByMagentoModuleEnv()
+    ->enableByMagentoModuleFolderEnv();
 
 return (new InstallConfig())
     ->setDisableModules($disableModules)
