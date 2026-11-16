@@ -1,6 +1,6 @@
 import {openTestPage} from '@loki/open-test-page';
 import {test, expect} from '@loki/test';
-import {configure, HTML_ENDPOINT, TEST_PAGE_HANDLES, TestField, THEMES, waitForLokiComponents} from './helpers/configure';
+import {configure, HTML_ENDPOINT, TEST_PAGE_HANDLES, TestField, THEMES, waitForAjaxIdle, waitForLokiComponents} from './helpers/configure';
 
 for (const theme of THEMES) {
     test.describe(`Loki Field Components input field (${theme})`, () => {
@@ -60,6 +60,7 @@ for (const theme of THEMES) {
             await field.field().fill('Something');
             await field.field().press('Tab');
             await page.waitForResponse(response => response.url().includes(HTML_ENDPOINT));
+            await waitForAjaxIdle(page);
 
             await field.field().fill('');
             await field.field().press('Tab');
@@ -75,6 +76,7 @@ for (const theme of THEMES) {
             await field.field().fill('Something');
             await field.field().press('Tab');
             await page.waitForResponse(response => response.url().includes(HTML_ENDPOINT));
+            await waitForAjaxIdle(page);
 
             await field.field().fill('');
             await field.field().press('Tab');
@@ -89,6 +91,7 @@ for (const theme of THEMES) {
             await field.field().fill('Something');
             await field.field().press('Tab');
             await page.waitForResponse(response => response.url().includes(HTML_ENDPOINT));
+            await waitForAjaxIdle(page);
 
             await field.field().fill('');
             await field.field().press('Tab');

@@ -1,5 +1,7 @@
 import {expect, Page, Request} from '@playwright/test';
 
+declare const LokiAjaxQueue: any;
+
 export const THEMES = ['Magento/luma', 'Hyva/default-csp'];
 
 export const TEST_PAGE_HANDLES = ['loki_field_components_index_test'];
@@ -33,6 +35,20 @@ export async function waitForLokiComponents(page: Page) {
         return Alpine
             && Alpine.store('LokiComponents')
             && Alpine.store('LokiComponents').getComponentIds().includes('LokiFieldComponentsTestInput');
+    });
+}
+
+export async function waitForAjaxIdle(page: Page) {
+    await page.waitForFunction(() => {
+        if (typeof LokiAjaxQueue === 'undefined') {
+            return true;
+        }
+
+        if (LokiAjaxQueue.loading || LokiAjaxQueue.posting) {
+            return false;
+        }
+
+        return !LokiAjaxQueue.requests.some((request: any) => request.component.lazyUpdate === false);
     });
 }
 
