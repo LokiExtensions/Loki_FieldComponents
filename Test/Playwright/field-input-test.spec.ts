@@ -76,7 +76,7 @@ for (const theme of THEMES) {
             await field.field().press('Tab');
             await page.waitForResponse(response => response.url().includes(HTML_ENDPOINT));
 
-            await field.field().fill('   ');
+            await field.field().fill('');
             await field.field().press('Tab');
 
             await expect.poll(() => field.getErrorMessages()).toContain('Please fill in this test field');
