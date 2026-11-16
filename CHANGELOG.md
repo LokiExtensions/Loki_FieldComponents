@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.50] - 16 November 2026
+### Fixed
+- Keep the ID of a textarea field when its container gets an ID
+
 ## [2.2.49] - 03 November 2026
 ### Fixed
 - Make sure empty field labels are shown as span instead
