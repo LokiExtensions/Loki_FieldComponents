@@ -48,7 +48,7 @@
     ],
     "tests": {
         "unit": 115,
-        "integration": 59,
+        "integration": 60,
         "functional": 28
     },
     "phpcs_severity": "7",
