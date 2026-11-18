@@ -9,8 +9,6 @@ $disableModules = (new DisableModules(__DIR__.'/../../../../'))
     ->disableByPattern('Hyva')
     ->disableByPattern('SampleData')
     ->disableByPattern('Magento_TestModule')
-    ->disableMagentoInventory()
-    ->disableGraphQl()
     ->enableByMagentoModuleEnv()
     ->enableByMagentoModuleFolderEnv();
 
