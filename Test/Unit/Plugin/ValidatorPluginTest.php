@@ -7,6 +7,7 @@ use Loki\Components\Component\ComponentViewModelInterface;
 use Loki\Components\Validator\Validator;
 use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Components\Messages\LocalMessageRegistry;
+use Loki\Field\Field\FieldTypeManager;
 use Loki\Field\Plugin\ValidatorPlugin;
 use Loki\Field\Test\Unit\Mock\BlockMock;
 use Loki\Field\Validator\FieldValueGuard;
@@ -129,7 +130,9 @@ class ValidatorPluginTest extends TestCase
 
     private function getPlugin(): ValidatorPlugin
     {
-        return new ValidatorPlugin(new FieldValueGuard());
+        $fieldTypeManager = new FieldTypeManager(['input' => 'input.phtml', 'select' => 'select.phtml']);
+
+        return new ValidatorPlugin(new FieldValueGuard($fieldTypeManager));
     }
 
     private function getFieldViewModel(bool $disabled, array $blockData = []): FieldViewModel
