@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.52] - 20 November 2026
+### Fixed
+- Accept boolean values for components without a field type
+
 ## [2.2.51] - 20 November 2026
 ### Fixed
 ## [2.2.51] - 20 November 2026
