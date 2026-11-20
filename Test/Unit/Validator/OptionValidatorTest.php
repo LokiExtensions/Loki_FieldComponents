@@ -4,6 +4,7 @@ namespace Loki\Field\Test\Unit\Validator;
 
 use Loki\Components\Component\ComponentInterface;
 use Loki\Field\Component\Base\Field\FieldViewModelInterface;
+use Loki\Field\Test\Unit\Mock\BlockMock;
 use Loki\Field\Util\Option;
 use Loki\Field\Util\OptionGroup;
 use Loki\Field\Util\OptionModelInterface;
@@ -14,6 +15,8 @@ use PHPUnit\Framework\TestCase;
 
 class OptionValidatorTest extends TestCase
 {
+    use BlockMock;
+
     #[DataProvider('getValues')]
     public function testValidate(mixed $value, bool $expected): void
     {
@@ -34,12 +37,58 @@ class OptionValidatorTest extends TestCase
             'option in group' => ['green', true],
             'empty value' => ['', true],
             'null value' => [null, true],
-            'placeholder zero' => ['0', true],
+            'zero without placeholder flag' => ['0', false],
+            'boolean true without matching option' => [true, false],
+            'boolean false without placeholder flag' => [false, false],
             'unknown option' => ['purple', false],
             'disabled option' => ['black', false],
             'option in disabled group' => ['blue', false],
             'non-scalar value' => [new \stdClass(), false],
         ];
+    }
+
+    public function testZeroPlaceholderIsAcceptedWithFlag(): void
+    {
+        $validator = new OptionValidator(new OptionValue());
+        $component = $this->getComponent([new Option('red', 'Red')], ['allow_zero_placeholder' => true]);
+
+        $this->assertTrue($validator->validate('0', $component));
+        $this->assertTrue($validator->validate(false, $component));
+    }
+
+    public function testZeroPlaceholderFlagMustBeBoolean(): void
+    {
+        $component = $this->getComponent([new Option('red', 'Red')], ['allow_zero_placeholder' => '1']);
+
+        $this->assertNotTrue((new OptionValidator(new OptionValue()))->validate('0', $component));
+    }
+
+    public function testBooleanCannotSelectDisabledOption(): void
+    {
+        $component = $this->getComponent([new Option('1', 'Yes', true), new Option('2', 'No')]);
+
+        $this->assertNotTrue((new OptionValidator(new OptionValue()))->validate(true, $component));
+    }
+
+    public function testBooleanSelectsMatchingOption(): void
+    {
+        $component = $this->getComponent([new Option('1', 'Yes'), new Option('2', 'No')]);
+
+        $this->assertTrue((new OptionValidator(new OptionValue()))->validate(true, $component));
+    }
+
+    #[DataProvider('getBooleanFieldTypes')]
+    public function testBooleanIsAcceptedForBooleanFieldTypes(string $fieldType): void
+    {
+        $component = $this->getComponent([new Option('1', 'Yes', true)], ['field_type' => $fieldType]);
+
+        $this->assertTrue((new OptionValidator(new OptionValue()))->validate(true, $component));
+        $this->assertTrue((new OptionValidator(new OptionValue()))->validate(false, $component));
+    }
+
+    public static function getBooleanFieldTypes(): array
+    {
+        return [['checkbox'], ['switch']];
     }
 
     public function testScalarOptionsUseTheirIndexAsValue(): void
@@ -73,7 +122,7 @@ class OptionValidatorTest extends TestCase
         $this->assertTrue((new OptionValidator(new OptionValue()))->validate('foo', $component));
     }
 
-    private function getComponent(array $options): ComponentInterface
+    private function getComponent(array $options, array $blockData = []): ComponentInterface
     {
         $optionModel = $this->createMock(OptionModelInterface::class);
         $optionModel->method('getOptions')->willReturn($options);
@@ -83,6 +132,7 @@ class OptionValidatorTest extends TestCase
 
         $component = $this->createMock(ComponentInterface::class);
         $component->method('getViewModel')->willReturn($viewModel);
+        $component->method('getBlock')->willReturn($this->getBlockMock('loki.test', $blockData));
 
         return $component;
     }

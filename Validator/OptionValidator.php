@@ -11,6 +11,8 @@ use Loki\Field\Util\OptionValue;
 
 class OptionValidator implements ValidatorInterface
 {
+    private const BOOLEAN_FIELD_TYPES = ['checkbox', 'switch'];
+
     public function __construct(
         private readonly OptionValue $optionValue
     ) {
@@ -18,8 +20,17 @@ class OptionValidator implements ValidatorInterface
 
     public function validate(mixed $value, ?ComponentInterface $component = null): bool|array
     {
-        if ($value === null || $value === '' || is_bool($value)) {
+        if ($value === null || $value === '') {
             return true;
+        }
+
+        $block = $component?->getBlock();
+        if (is_bool($value)) {
+            if (in_array((string)$block?->getFieldType(), self::BOOLEAN_FIELD_TYPES, true)) {
+                return true;
+            }
+
+            $value = $value ? '1' : '0';
         }
 
         $viewModel = $component?->getViewModel();
@@ -57,8 +68,7 @@ class OptionValidator implements ValidatorInterface
             return true;
         }
 
-        // A value of "0" is a common placeholder for "nothing selected yet"
-        if ($value === '0' && false === $hasZeroOption) {
+        if ($value === '0' && false === $hasZeroOption && $block?->getAllowZeroPlaceholder() === true) {
             return true;
         }
 
