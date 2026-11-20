@@ -124,11 +124,11 @@ class FieldValueGuard
     private function getArrayLengthError(AbstractBlock $block, string $fieldType, array $values): ?Phrase
     {
         foreach ($values as $value) {
-            if (false === is_string($value)) {
-                continue;
+            if (false === is_string($value) && false === is_int($value) && false === is_float($value)) {
+                return __('Not a valid value');
             }
 
-            $error = $this->getLengthError($block, $fieldType, $value);
+            $error = $this->getLengthError($block, $fieldType, (string)$value);
             if ($error !== null) {
                 return $error;
             }

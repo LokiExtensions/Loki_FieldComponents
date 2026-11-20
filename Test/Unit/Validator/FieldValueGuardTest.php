@@ -85,6 +85,16 @@ class FieldValueGuardTest extends TestCase
                 ['a', 'abcd'],
                 true
             ],
+            'array with nested array' => [['field_type' => 'select', 'multiple' => true], ['a', ['b']], true],
+            'array with boolean' => [['field_type' => 'select', 'multiple' => true], ['a', true], true],
+            'array with null' => [['field_type' => 'select', 'multiple' => true], ['a', null], true],
+            'array with object' => [['field_type' => 'select', 'multiple' => true], ['a', new \stdClass()], true],
+            'array with numbers' => [['field_type' => 'select', 'multiple' => true], ['a', 1, 2.5], false],
+            'array with too long number' => [
+                ['field_type' => 'select', 'multiple' => true, 'maxlength' => 3],
+                ['a', 12345],
+                true
+            ],
         ];
     }
 
