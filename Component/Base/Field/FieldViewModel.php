@@ -149,7 +149,18 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
     private function isValidAttributeName(string $attributeName): bool
     {
-        return (bool)preg_match('/^[a-zA-Z_:@][a-zA-Z0-9_:.@-]*$/', $attributeName);
+        if (false === (bool)preg_match('/^[a-zA-Z_:@][a-zA-Z0-9_:.@-]*$/', $attributeName)) {
+            return false;
+        }
+
+        $attributeName = strtolower($attributeName);
+        foreach (['on', 'x-html', 'srcdoc'] as $forbiddenPrefix) {
+            if (str_starts_with($attributeName, $forbiddenPrefix)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function isAlpineAttributeName(string $attributeName): bool

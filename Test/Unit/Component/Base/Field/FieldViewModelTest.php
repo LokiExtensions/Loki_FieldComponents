@@ -74,6 +74,51 @@ class FieldViewModelTest extends TestCase
         $this->assertStringContainsString('data-valid="bar"', $attributes);
     }
 
+    #[DataProvider('getDangerousAttributeNames')]
+    public function testDangerousAttributeNamesAreSkipped(string $attributeName): void
+    {
+        $attributes = $this->getViewModel()->getFieldAttributesAsString([$attributeName => 'alert(1)']);
+
+        $this->assertStringNotContainsString($attributeName, $attributes);
+        $this->assertStringNotContainsString('alert', $attributes);
+    }
+
+    public static function getDangerousAttributeNames(): array
+    {
+        return [
+            ['onclick'],
+            ['onmouseover'],
+            ['ONFOCUS'],
+            ['OnError'],
+            ['x-html'],
+            ['X-HTML'],
+            ['x-html.foo'],
+            ['srcdoc'],
+            ['SrcDoc'],
+        ];
+    }
+
+    #[DataProvider('getAllowedAttributeNames')]
+    public function testAllowedAttributeNamesAreRendered(string $attributeName): void
+    {
+        $attributes = $this->getViewModel()->getFieldAttributesAsString([$attributeName => 'foo']);
+
+        $this->assertStringContainsString(' ' . $attributeName . '="foo"', ' ' . $attributes);
+    }
+
+    public static function getAllowedAttributeNames(): array
+    {
+        return [
+            ['x-on:click'],
+            ['@change'],
+            [':value'],
+            ['x-mask'],
+            ['x-mask:dynamic'],
+            ['data-online'],
+            ['inputmode'],
+        ];
+    }
+
     public function testAlpineAttributesOnlyAcceptScalarValues(): void
     {
         $attributes = $this->getViewModel()->getFieldAttributesAsString([
