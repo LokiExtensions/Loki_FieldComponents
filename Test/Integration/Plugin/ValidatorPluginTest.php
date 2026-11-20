@@ -36,6 +36,16 @@ class ValidatorPluginTest extends TestCase
         $this->assertTrue($this->getValidator()->validate($component, 'foo'));
     }
 
+    public function testMaxlengthFieldAttributeIsEnforced(): void
+    {
+        $component = $this->getTestComponent('input');
+        $component->getViewModel()->getBlock()->setFieldAttributes(['maxlength' => 3]);
+
+        $this->assertContains('length', $component->getValidators());
+        $this->assertTrue($this->getValidator()->validate($component, 'foo'));
+        $this->assertFalse($this->getValidator()->validate($component, 'foobar'));
+    }
+
     private function getValidator(): Validator
     {
         return ObjectManager::getInstance()->get(Validator::class);

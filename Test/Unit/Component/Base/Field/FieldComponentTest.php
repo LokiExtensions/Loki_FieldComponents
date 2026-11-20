@@ -37,6 +37,24 @@ class FieldComponentTest extends TestCase
         $this->assertContains('length', $component->getValidators());
     }
 
+    public function testLengthValidatorIsAddedWithMaxlengthAttribute(): void
+    {
+        $component = $this->getComponent(blockData: ['field_attributes' => ['maxlength' => 10]]);
+        $this->assertContains('length', $component->getValidators());
+    }
+
+    public function testLengthValidatorIsAddedWithMinlengthAttribute(): void
+    {
+        $component = $this->getComponent(blockData: ['field_attributes' => ['minlength' => 2]]);
+        $this->assertContains('length', $component->getValidators());
+    }
+
+    public function testLengthValidatorIsNotAddedWithEmptyLengthAttributes(): void
+    {
+        $component = $this->getComponent(blockData: ['field_attributes' => ['minlength' => '', 'maxlength' => 0]]);
+        $this->assertNotContains('length', $component->getValidators());
+    }
+
     public function testLengthValidatorIsNotAddedWithZeroLength(): void
     {
         $component = $this->getComponent(blockData: ['minlength' => 0, 'maxlength' => '0']);

@@ -4,6 +4,7 @@ namespace Loki\Field\Component\Base\Field;
 
 use Loki\Components\Component\Component;
 use Loki\Field\Util\OptionModelInterface;
+use Magento\Framework\View\Element\AbstractBlock;
 
 /**
  * @method FieldRepository getRepository()
@@ -24,7 +25,7 @@ class FieldComponent extends Component
             $validators[] = 'required';
         }
 
-        if ((int)$viewModel->getBlock()->getMinlength() > 0 || (int)$viewModel->getBlock()->getMaxlength() > 0) {
+        if ($this->hasLengthLimit($viewModel->getBlock())) {
             $validators[] = 'length';
         }
 
@@ -45,6 +46,17 @@ class FieldComponent extends Component
 
         // Passwords are never rendered, while filtering them would silently change them
         return array_values(array_diff($filters, self::SECRET_FIELD_SKIPPED_FILTERS));
+    }
+
+    private function hasLengthLimit(AbstractBlock $block): bool
+    {
+        if ((int)$block->getMinlength() > 0 || (int)$block->getMaxlength() > 0) {
+            return true;
+        }
+
+        $fieldAttributes = (array)$block->getFieldAttributes();
+
+        return !empty($fieldAttributes['minlength']) || !empty($fieldAttributes['maxlength']);
     }
 
     private function isSecretField(mixed $viewModel): bool
