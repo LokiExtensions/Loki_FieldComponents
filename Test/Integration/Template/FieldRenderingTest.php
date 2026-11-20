@@ -29,10 +29,10 @@ class FieldRenderingTest extends TestCase
         $this->assertMatchesRegularExpression('/<input[^>]+type="text"/', $html);
         $this->assertStringContainsString('name="input"', $html);
         $this->assertStringContainsString('id="loki-field-components-test-input-field"', $html);
-        $this->assertStringContainsString('aria-label="Test input"', $html);
+        $this->assertStringContainsString('aria-label="Test&#x20;input"', $html);
         $this->assertStringContainsString('aria-errormessage="loki-field-components-test-input-messages"', $html);
-        $this->assertStringContainsString('placeholder="Type something"', $html);
-        $this->assertStringContainsString('value="Hello &quot;world&quot;"', $html);
+        $this->assertStringContainsString('placeholder="Type&#x20;something"', $html);
+        $this->assertStringContainsString('value="Hello&#x20;&quot;world&quot;"', $html);
         $this->assertStringContainsString('for="loki-field-components-test-input-field"', $html);
         $this->assertStringContainsString('Some help text', $html);
         $this->assertDoesNotMatchRegularExpression('/<input[^>]+ required[ >]/', $html);
@@ -51,7 +51,7 @@ class FieldRenderingTest extends TestCase
     {
         $html = $this->renderTestBlock('required');
 
-        $this->assertStringContainsString('required required field-type-input', $html);
+        $this->assertStringContainsString('required&#x20;required&#x20;field-type-input', $html);
         $this->assertMatchesRegularExpression('/<input[^>]+ required[ >]/', $html);
         $this->assertMatchesRegularExpression('/<label[^>]*>\s*Required input\s*<sub[^>]*>\*<\/sub>/', $html);
     }
@@ -177,7 +177,7 @@ class FieldRenderingTest extends TestCase
             $html,
             'Field label is not shown for checkboxes'
         );
-        $this->assertStringContainsString('aria-label="Test checkbox"', $html);
+        $this->assertStringContainsString('aria-label="Test&#x20;checkbox"', $html);
         $this->assertDoesNotMatchRegularExpression('/<input[^>]+ checked[ >]/', $html);
     }
 
@@ -235,6 +235,6 @@ class FieldRenderingTest extends TestCase
 
     public function testMaskedField(): void
     {
-        $this->assertStringContainsString('x-mask="9999 aa"', $this->renderTestBlock('masked'));
+        $this->assertStringContainsString('x-mask="9999&#x20;aa"', $this->renderTestBlock('masked'));
     }
 }

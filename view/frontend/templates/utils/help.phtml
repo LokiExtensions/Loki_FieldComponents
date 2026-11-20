@@ -48,7 +48,7 @@ $text = $block->getHelpText();
         x-show="shown"
         @click.prevent="hide"
         @click.outside.prevent="hide"
-        class="<?= $escaper->escapeHtml($width) ?> <?= /* @noEscape */ $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
+        class="<?= $escaper->escapeHtmlAttr($width) ?> <?= /* @noEscape */ $css('absolute z-50 right-0 p-3 bg-zinc-400 text-white', 'popup') ?>">
         <button
             type="button"
             @click.prevent="toggle"

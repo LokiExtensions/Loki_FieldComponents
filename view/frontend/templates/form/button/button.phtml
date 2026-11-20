@@ -40,7 +40,7 @@ $buttonHint = $block->getButtonHint();
 <?php if ($buttonHint) : ?>
     <div
         id="<?= $escaper->escapeHtmlAttr($viewModel->getFieldId()) ?>-button-hint"
-        class="<?= $escaper->escapeHtml($css('hidden', 'hint')) ?>"
+        class="<?= $escaper->escapeHtmlAttr($css('hidden', 'hint')) ?>"
         aria-hidden="true"
     >
         <?= $escaper->escapeHtml(__($buttonHint)) ?>

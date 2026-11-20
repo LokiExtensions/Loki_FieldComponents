@@ -161,7 +161,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
 
     private function escapeAttribute(string|int|float $value): string
     {
-        return (string)$this->getEscaper()->escapeHtml((string)$value);
+        return $this->getEscaper()->escapeHtmlAttr((string)$value);
     }
 
     protected function getEscaper(): Escaper

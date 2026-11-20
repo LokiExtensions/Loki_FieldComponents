@@ -33,7 +33,7 @@ class HtmlRoundtripTest extends TestCase
 
         $this->assertSame('Hello world', $this->getStorage()->getValue(self::PREFIX . 'input'));
         $this->assertStringContainsString('id="loki-field-components-test-input"', (string)$response->getBody());
-        $this->assertStringContainsString('value="Hello world"', (string)$response->getBody());
+        $this->assertStringContainsString('value="Hello&#x20;world"', (string)$response->getBody());
     }
 
     public function testEmptyRequiredValueIsNotSaved(): void

@@ -10,6 +10,8 @@ use Loki\Field\Component\Base\Field\FieldViewModel;
 use Loki\Field\Test\Unit\Mock\BlockMock;
 use Loki\Field\Util\OptionModelInterface;
 use Magento\Framework\Escaper;
+use Magento\Framework\Translate\InlineInterface;
+use Magento\Framework\ZendEscaper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +25,7 @@ class FieldViewModelTest extends TestCase
         $viewModel = $this->getViewModel(['field_label' => 'First Name']);
         $attributes = $viewModel->getFieldAttributesAsString();
 
-        $this->assertStringContainsString('aria-label="First Name"', $attributes);
+        $this->assertStringContainsString('aria-label="First&#x20;Name"', $attributes);
     }
 
     public function testAttributeValuesAreEscaped(): void
@@ -34,12 +36,20 @@ class FieldViewModelTest extends TestCase
             'data-list' => ['it\'s', '"quoted"'],
         ]);
 
-        $this->assertStringContainsString('value="a&quot;b&lt;c&gt;&#039;d"', $attributes);
-        $this->assertStringContainsString('placeholder="Say &quot;hi&quot;"', $attributes);
+        $this->assertStringContainsString('value="a&quot;b&lt;c&gt;&#x27;d"', $attributes);
+        $this->assertStringContainsString('placeholder="Say&#x20;&quot;hi&quot;"', $attributes);
         $this->assertStringContainsString(
-            'data-list="[&quot;it&#039;s&quot;,&quot;\&quot;quoted\&quot;&quot;]"',
+            'data-list="&#x5B;&quot;it&#x27;s&quot;,&quot;&#x5C;&quot;quoted&#x5C;&quot;&quot;&#x5D;"',
             $attributes
         );
+    }
+
+    public function testEntitiesInAttributeValuesAreEscaped(): void
+    {
+        $attributes = $this->getViewModel()->getFieldAttributesAsString(['data-x' => '&quot;x']);
+
+        $this->assertStringContainsString('data-x="&amp;quot&#x3B;x"', $attributes);
+        $this->assertStringNotContainsString('data-x="&quot;x"', $attributes);
     }
 
     public function testBooleanAttributes(): void
@@ -436,6 +446,19 @@ class FieldViewModelTest extends TestCase
         $this->assertNull($this->getViewModel(['ancestor_block' => $ancestorBlock])->getOptionModel());
     }
 
+    private function getEscaper(): Escaper
+    {
+        $translateInline = $this->createMock(InlineInterface::class);
+        $translateInline->method('isAllowed')->willReturn(false);
+
+        $escaper = new Escaper();
+        $reflection = new \ReflectionClass(Escaper::class);
+        $reflection->getProperty('escaper')->setValue($escaper, new ZendEscaper());
+        $reflection->getProperty('translateInline')->setValue($escaper, $translateInline);
+
+        return $escaper;
+    }
+
     private function getViewModel(
         array $blockData = [],
         ?ComponentRepositoryInterface $repository = null,
@@ -459,11 +482,17 @@ class FieldViewModelTest extends TestCase
                 return 'test-element';
             }
 
+            public ?Escaper $escaper = null;
+
             protected function getEscaper(): Escaper
             {
-                return new Escaper();
+                return $this->escaper ?? new Escaper();
             }
         };
+
+        if (property_exists($viewModel, 'escaper')) {
+            $viewModel->escaper = $this->getEscaper();
+        }
 
         $viewModel->setComponent($component);
         $viewModel->setBlock($block);
