@@ -3,6 +3,7 @@
 namespace Loki\Field\Test\Unit\Validator;
 
 use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Field\Field\FieldTypeManager;
 use Loki\Field\Test\Unit\Mock\BlockMock;
 use Loki\Field\Validator\FieldValueGuard;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -12,10 +13,24 @@ class FieldValueGuardTest extends TestCase
 {
     use BlockMock;
 
+    private const FIELD_TYPES = [
+        'checkbox',
+        'combobox',
+        'input',
+        'password',
+        'password_repeat',
+        'radio',
+        'range',
+        'select',
+        'switch',
+        'text',
+        'textarea',
+    ];
+
     #[DataProvider('getValues')]
     public function testGetError(array $blockData, mixed $value, bool $expectError): void
     {
-        $error = (new FieldValueGuard())->getError($this->getViewModel($blockData), $value);
+        $error = $this->getGuard()->getError($this->getViewModel($blockData), $value);
         $this->assertSame($expectError, $error !== null);
     }
 
@@ -32,7 +47,11 @@ class FieldValueGuardTest extends TestCase
             'long string with max_value_length' => [['max_value_length' => 300], $long, false],
             'max_value_length 0 disables check' => [['max_value_length' => 0], $long, false],
             'max_value_length is enforced' => [['max_value_length' => 2], 'foo', true],
-            'array without field type' => [[], ['a'], false],
+            'array without field type' => [[], ['a'], true],
+            'array for text_select' => [['field_type' => 'text_select'], ['a'], true],
+            'array for unknown field type' => [['field_type' => 'foobar'], ['a'], true],
+            'array allowed by multiple block flag' => [['field_type' => 'select', 'multiple' => true], ['a', 'b'], false],
+            'array with too long element' => [['field_type' => 'select', 'multiple' => true], ['a', $long], true],
             'array for single select' => [['field_type' => 'select'], ['a'], true],
             'array for multiple select' => [['field_type' => 'select', 'field_attributes' => ['multiple' => true]], ['a'], false],
             'array allowed by block' => [['field_type' => 'input', 'allow_array_value' => true], ['a'], false],
@@ -41,6 +60,16 @@ class FieldValueGuardTest extends TestCase
             'checkbox other string' => [['field_type' => 'checkbox'], 'yes', true],
             'integer value' => [[], 42, false],
         ];
+    }
+
+    private function getGuard(): FieldValueGuard
+    {
+        $fieldTypes = [];
+        foreach (self::FIELD_TYPES as $fieldType) {
+            $fieldTypes[$fieldType] = 'Loki_FieldComponents::form/field/' . $fieldType . '.phtml';
+        }
+
+        return new FieldValueGuard(new FieldTypeManager($fieldTypes));
     }
 
     private function getViewModel(array $blockData): FieldViewModel

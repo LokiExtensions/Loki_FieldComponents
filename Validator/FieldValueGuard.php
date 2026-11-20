@@ -3,6 +3,7 @@
 namespace Loki\Field\Validator;
 
 use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Field\Field\FieldTypeManager;
 use Magento\Framework\Phrase;
 use Magento\Framework\View\Element\AbstractBlock;
 
@@ -28,6 +29,7 @@ class FieldValueGuard
     private const BOOLEAN_FIELD_TYPES = ['checkbox', 'switch'];
 
     public function __construct(
+        private readonly FieldTypeManager $fieldTypeManager,
         private readonly int $defaultMaxLength = self::DEFAULT_MAX_LENGTH,
         private readonly int $defaultTextareaMaxLength = self::DEFAULT_TEXTAREA_MAX_LENGTH,
     ) {
@@ -40,10 +42,14 @@ class FieldValueGuard
             return null;
         }
 
-        $fieldType = (string)$block->getFieldType();
+        $fieldType = $this->fieldTypeManager->getFieldTypeFromViewModel($viewModel);
 
         if (is_array($value)) {
-            return $this->rejectArray($block, $fieldType) ? __('Not a valid value') : null;
+            if ($this->rejectArray($block, $fieldType)) {
+                return __('Not a valid value');
+            }
+
+            return $this->getArrayLengthError($block, $fieldType, $value);
         }
 
         if (in_array($fieldType, self::BOOLEAN_FIELD_TYPES, true)) {
@@ -54,6 +60,27 @@ class FieldValueGuard
             return null;
         }
 
+        return $this->getLengthError($block, $fieldType, $value);
+    }
+
+    private function getArrayLengthError(AbstractBlock $block, string $fieldType, array $values): ?Phrase
+    {
+        foreach ($values as $value) {
+            if (false === is_string($value)) {
+                continue;
+            }
+
+            $error = $this->getLengthError($block, $fieldType, $value);
+            if ($error !== null) {
+                return $error;
+            }
+        }
+
+        return null;
+    }
+
+    private function getLengthError(AbstractBlock $block, string $fieldType, string $value): ?Phrase
+    {
         $maxLength = $this->getMaxLength($block, $fieldType);
         if ($maxLength > 0 && mb_strlen($value) > $maxLength) {
             return __('Value should have no more than %1 characters', $maxLength);
