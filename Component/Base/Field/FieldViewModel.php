@@ -153,8 +153,8 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
             return false;
         }
 
-        $attributeName = strtolower($attributeName);
-        foreach (['on', 'x-html', 'srcdoc'] as $forbiddenPrefix) {
+        $attributeName = (string)preg_replace('/^(x-bind:|:)/', '', strtolower($attributeName));
+        foreach (['on', 'srcdoc', 'innerhtml', 'outerhtml', 'x-html'] as $forbiddenPrefix) {
             if (str_starts_with($attributeName, $forbiddenPrefix)) {
                 return false;
             }

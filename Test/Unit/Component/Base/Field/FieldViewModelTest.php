@@ -95,6 +95,13 @@ class FieldViewModelTest extends TestCase
             ['x-html.foo'],
             ['srcdoc'],
             ['SrcDoc'],
+            [':onclick'],
+            ['x-bind:onclick'],
+            [':srcdoc'],
+            ['x-bind:srcdoc'],
+            [':innerHTML'],
+            ['x-bind:innerHTML'],
+            ['X-BIND:OuterHTML'],
         ];
     }
 
