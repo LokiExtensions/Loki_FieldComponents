@@ -57,8 +57,8 @@ $listboxId = $viewModel->getFieldId() . '-listbox';
             :data-valid="isValid"
             :disabled="disabled"
             :placeholder="placeholder"
-            <?= $viewModel->isDisabled() ? 'disabled' : '' ?>
-            <?= $viewModel->isRequired() ? 'aria-required="true"' : '' ?>
+            <?= /* @noEscape */ $viewModel->isDisabled() ? 'disabled' : '' ?>
+            <?= /* @noEscape */ $viewModel->isRequired() ? 'aria-required="true"' : '' ?>
             class="<?= /* @noEscape */ $css('form-input w-full pr-10 disabled:bg-zinc-100', 'input') ?>"
         >
 

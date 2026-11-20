@@ -29,8 +29,8 @@ $selected = $optionValueUtil->isSelected($option, $optionIndex, $viewModel->getV
 ?>
 <option
     value="<?= $escaper->escapeHtmlAttr($optionValue) ?>"
-    <?= $disabled ? 'disabled' : '' ?>
-    <?= $selected ? 'selected' : '' ?>
+    <?= /* @noEscape */ $disabled ? 'disabled' : '' ?>
+    <?= /* @noEscape */ $selected ? 'selected' : '' ?>
 >
     <?= $escaper->escapeHtml($optionLabel) ?>
 </option>
