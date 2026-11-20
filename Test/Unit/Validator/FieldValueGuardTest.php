@@ -59,6 +59,13 @@ class FieldValueGuardTest extends TestCase
             'checkbox string 1' => [['field_type' => 'switch'], '1', false],
             'checkbox other string' => [['field_type' => 'checkbox'], 'yes', true],
             'integer value' => [[], 42, false],
+            'float value' => [['field_type' => 'text'], 4.2, false],
+            'null value' => [['field_type' => 'textarea'], null, false],
+            'boolean value for input' => [[], true, true],
+            'boolean value for password' => [['field_type' => 'password'], false, true],
+            'object value for textarea' => [['field_type' => 'textarea'], new \stdClass(), true],
+            'long integer value' => [['max_value_length' => 2], 12345, true],
+            'long integer value with maxlength attribute' => [['field_attributes' => ['maxlength' => 3]], 12345, true],
         ];
     }
 
