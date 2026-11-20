@@ -29,6 +29,10 @@ class FieldComponent extends Component
             $validators[] = 'length';
         }
 
+        if ($viewModel->getBlock()->getFieldType() === 'range') {
+            $validators[] = 'number';
+        }
+
         if ($this->validateOptions($viewModel)) {
             $validators[] = self::OPTIONS_VALIDATOR;
         }

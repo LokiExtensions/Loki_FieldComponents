@@ -61,6 +61,18 @@ class FieldComponentTest extends TestCase
         $this->assertNotContains('length', $component->getValidators());
     }
 
+    public function testNumberValidatorIsAddedForRange(): void
+    {
+        $component = $this->getComponent(blockData: ['field_type' => 'range']);
+        $this->assertContains('number', $component->getValidators());
+    }
+
+    public function testNumberValidatorIsNotAddedForInput(): void
+    {
+        $component = $this->getComponent(blockData: ['field_type' => 'input']);
+        $this->assertNotContains('number', $component->getValidators());
+    }
+
     public function testValidatorsAreMergedWithoutDuplicates(): void
     {
         $component = $this->getComponent(

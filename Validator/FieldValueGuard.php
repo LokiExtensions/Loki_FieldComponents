@@ -58,6 +58,10 @@ class FieldValueGuard
             return $this->isBooleanValue($value) ? null : __('Not a valid value');
         }
 
+        if ($fieldType === 'range') {
+            return $this->isValidRangeValue($block, $value) ? null : __('Not a valid value');
+        }
+
         if (in_array($fieldType, self::TEXT_FIELD_TYPES, true)) {
             return $this->getTextError($block, $fieldType, $value);
         }
@@ -67,6 +71,37 @@ class FieldValueGuard
         }
 
         return $this->getLengthError($block, $fieldType, $value);
+    }
+
+    private function isValidRangeValue(AbstractBlock $block, mixed $value): bool
+    {
+        if ($value === null || $value === '') {
+            return true;
+        }
+
+        if (false === (is_string($value) || is_int($value) || is_float($value)) || false === is_numeric($value)) {
+            return false;
+        }
+
+        $min = $this->getRangeBound($block, 'min');
+        if ($min !== null && (float)$value < $min) {
+            return false;
+        }
+
+        $max = $this->getRangeBound($block, 'max');
+
+        return $max === null || (float)$value <= $max;
+    }
+
+    private function getRangeBound(AbstractBlock $block, string $name): ?float
+    {
+        $bound = $block->getData($name);
+        if ($bound === null || $bound === '') {
+            $fieldAttributes = (array)$block->getFieldAttributes();
+            $bound = $fieldAttributes[$name] ?? null;
+        }
+
+        return is_numeric($bound) ? (float)$bound : null;
     }
 
     private function getTextError(AbstractBlock $block, string $fieldType, mixed $value): ?Phrase

@@ -65,6 +65,16 @@ class FieldValueGuardTest extends TestCase
             'boolean value for password' => [['field_type' => 'password'], false, true],
             'object value for textarea' => [['field_type' => 'textarea'], new \stdClass(), true],
             'long integer value' => [['max_value_length' => 2], 12345, true],
+            'range integer' => [['field_type' => 'range'], 5, false],
+            'range numeric string' => [['field_type' => 'range'], '5.5', false],
+            'range null' => [['field_type' => 'range'], null, false],
+            'range non-numeric string' => [['field_type' => 'range'], 'abc', true],
+            'range boolean' => [['field_type' => 'range'], true, true],
+            'range within bounds' => [['field_type' => 'range', 'min' => 1, 'max' => 10], '10', false],
+            'range below min' => [['field_type' => 'range', 'min' => 1, 'max' => 10], 0, true],
+            'range above max' => [['field_type' => 'range', 'min' => 1, 'max' => 10], 10.5, true],
+            'range above max attribute' => [['field_type' => 'range', 'field_attributes' => ['max' => 10]], 11, true],
+            'range below zero min' => [['field_type' => 'range', 'min' => 0], -1, true],
             'long integer value with maxlength attribute' => [['field_attributes' => ['maxlength' => 3]], 12345, true],
         ];
     }
