@@ -3,16 +3,17 @@
 namespace Loki\Field\Test\Unit\Component\Test;
 
 use Loki\Field\Component\Test\TestFieldStorage;
+use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\State as AppState;
-use Magento\Framework\Module\Manager as ModuleManager;
 use Magento\Framework\Session\Generic as Session;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class TestFieldStorageTest extends TestCase
 {
     #[DataProvider('getSaveValueScenarios')]
-    public function testSaveValue(string $mode, bool $functionalTestsEnabled, mixed $value, bool $expectSaved): void
+    public function testSaveValue(string $mode, mixed $allowProduction, mixed $value, bool $expectSaved): void
     {
         $session = $this->getMockBuilder(Session::class)
             ->disableOriginalConstructor()
@@ -26,18 +27,32 @@ class TestFieldStorageTest extends TestCase
         $appState = $this->createMock(AppState::class);
         $appState->method('getMode')->willReturn($mode);
 
-        $moduleManager = $this->createMock(ModuleManager::class);
-        $moduleManager->method('isEnabled')->with('Loki_FunctionalTests')->willReturn($functionalTestsEnabled);
+        $deploymentConfig = $this->createMock(DeploymentConfig::class);
+        if ($allowProduction instanceof RuntimeException) {
+            $deploymentConfig->method('get')->willThrowException($allowProduction);
+        } else {
+            $deploymentConfig->method('get')
+                ->with('loki_functional_tests/allow_production')
+                ->willReturn($allowProduction);
+        }
 
-        (new TestFieldStorage($session, $appState, $moduleManager))->saveValue('foo', $value);
+        (new TestFieldStorage($session, $appState, $deploymentConfig))->saveValue('foo', $value);
     }
 
     public static function getSaveValueScenarios(): array
     {
         return [
-            'developer mode' => [AppState::MODE_DEVELOPER, false, 'bar', true],
-            'production mode with functional tests' => [AppState::MODE_PRODUCTION, true, 'bar', true],
-            'production mode without functional tests' => [AppState::MODE_PRODUCTION, false, 'bar', false],
+            'developer mode' => [AppState::MODE_DEVELOPER, null, 'bar', true],
+            'production mode with allow_production' => [AppState::MODE_PRODUCTION, true, 'bar', true],
+            'production mode without allow_production' => [AppState::MODE_PRODUCTION, null, 'bar', false],
+            'production mode with truthy allow_production' => [AppState::MODE_PRODUCTION, '1', 'bar', false],
+            'production mode with failing deployment config' => [
+                AppState::MODE_PRODUCTION,
+                new RuntimeException('failure'),
+                'bar',
+                false,
+            ],
+            'invalid UTF-8 value' => [AppState::MODE_DEVELOPER, null, "\xB1\x31", false],
             'oversized value' => [AppState::MODE_DEVELOPER, true, str_repeat('a', 5000), false],
         ];
     }

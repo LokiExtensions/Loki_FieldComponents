@@ -2,12 +2,16 @@
 
 namespace Loki\Field\Component\Test;
 
+use JsonException;
+use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\State as AppState;
-use Magento\Framework\Module\Manager as ModuleManager;
 use Magento\Framework\Session\Generic as Session;
+use Throwable;
 
 /**
- * Session storage for the field components on the test page (layout handle `loki_field_components_index_test`)
+ * Session storage for the field components on the test page (layout handle `loki_field_components_index_test`).
+ * Writes are only allowed in developer mode, or in production mode when the deployment configuration
+ * `loki_functional_tests/allow_production` is set to true.
  */
 class TestFieldStorage
 {
@@ -17,7 +21,7 @@ class TestFieldStorage
     public function __construct(
         private readonly Session $session,
         private readonly AppState $appState,
-        private readonly ModuleManager $moduleManager,
+        private readonly DeploymentConfig $deploymentConfig,
     ) {
     }
 
@@ -54,12 +58,15 @@ class TestFieldStorage
 
     private function isAllowed(mixed $value): bool
     {
-        // The test page is only reachable in developer mode or via the token-protected Loki_FunctionalTests page
         if (false === $this->isTestEnvironment()) {
             return false;
         }
 
-        return strlen((string)json_encode($value)) <= self::MAX_VALUE_SIZE;
+        try {
+            return strlen(json_encode($value, JSON_THROW_ON_ERROR)) <= self::MAX_VALUE_SIZE;
+        } catch (JsonException) {
+            return false;
+        }
     }
 
     private function isTestEnvironment(): bool
@@ -68,6 +75,10 @@ class TestFieldStorage
             return true;
         }
 
-        return $this->moduleManager->isEnabled('Loki_FunctionalTests');
+        try {
+            return true === $this->deploymentConfig->get('loki_functional_tests/allow_production');
+        } catch (Throwable) {
+            return false;
+        }
     }
 }
