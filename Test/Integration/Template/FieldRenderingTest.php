@@ -181,6 +181,28 @@ class FieldRenderingTest extends TestCase
         $this->assertDoesNotMatchRegularExpression('/<input[^>]+ checked[ >]/', $html);
     }
 
+    public function testCheckboxLabelDoesNotAllowSpanTags(): void
+    {
+        $block = $this->getTestBlock('checkbox');
+        $block->setData('input_label', '<span style="position:fixed">Overlay</span> <b>Bold</b>');
+        $html = (string)$block->toHtml();
+
+        $this->assertStringNotContainsString('position:fixed', $html);
+        $this->assertStringNotContainsString('<span style', $html);
+        $this->assertStringContainsString('<b>Bold</b>', $html);
+    }
+
+    public function testInputPrefixDoesNotAllowSpanTags(): void
+    {
+        $block = $this->getTestBlock('input');
+        $block->setData('input_prefix', '<span style="position:fixed">Overlay</span> <b>+31</b>');
+        $html = (string)$block->toHtml();
+
+        $this->assertStringNotContainsString('position:fixed', $html);
+        $this->assertStringNotContainsString('<span style', $html);
+        $this->assertStringContainsString('<b>+31</b>', $html);
+    }
+
     public function testCheckedCheckbox(): void
     {
         $this->getTestStorage()->saveValue('loki-field-components.test.checkbox', true);

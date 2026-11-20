@@ -33,6 +33,6 @@ $viewModel = $block->getViewModel();
         ]) ?>
     >
     <span class="<?= /* @noEscape */ $css('cursor-pointer', 'label') ?>">
-        <?= $escaper->escapeHtml(__($viewModel->getInputLabel()), ['a', 'strong', 'em', 'b', 'i', 'span']) ?>
+        <?= $escaper->escapeHtml(__($viewModel->getInputLabel()), ['a', 'strong', 'em', 'b', 'i']) ?>
     </span>
 </label>

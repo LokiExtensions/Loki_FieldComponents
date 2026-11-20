@@ -29,6 +29,6 @@ if (!$inputPrefix) {
             alt=""
         >
     <?php else: ?>
-        <?= $escaper->escapeHtml($inputPrefix, ['span', 'strong', 'em', 'b', 'i']) ?>
+        <?= $escaper->escapeHtml($inputPrefix, ['strong', 'em', 'b', 'i']) ?>
     <?php endif; ?>
 </div>
