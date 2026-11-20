@@ -154,6 +154,22 @@ class FieldViewModelTest extends TestCase
         ];
     }
 
+    public function testSecretFieldDropsValueFromFieldAttributes(): void
+    {
+        $blockData = ['field_type' => 'password', 'field_attributes' => ['value' => 'secret', 'data-foo' => 'bar']];
+        $attributes = $this->getViewModel($blockData)->getFieldAttributesAsString();
+
+        $this->assertStringNotContainsString('secret', $attributes);
+        $this->assertStringContainsString('data-foo="bar"', $attributes);
+    }
+
+    public function testNonSecretFieldKeepsValueFromFieldAttributes(): void
+    {
+        $attributes = $this->getViewModel(['field_attributes' => ['value' => 'foo']])->getFieldAttributesAsString();
+
+        $this->assertStringContainsString('value="foo"', $attributes);
+    }
+
     public function testSecretFieldUsesNewPasswordAutocomplete(): void
     {
         $this->assertSame(

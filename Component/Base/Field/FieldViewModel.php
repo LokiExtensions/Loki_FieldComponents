@@ -107,6 +107,10 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
         }
 
         $fieldAttributesFromBlock = (array)$this->getBlock()->getFieldAttributes();
+        if ($this->isSecretField()) {
+            unset($fieldAttributesFromBlock['value']);
+        }
+
         return array_merge($fieldAttributes, $customAttributes, $fieldAttributesFromBlock);
     }
 
