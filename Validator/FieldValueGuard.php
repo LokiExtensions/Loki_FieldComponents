@@ -64,6 +64,10 @@ class FieldValueGuard
             return $this->isValidRangeValue($block, $value) ? null : __('Not a valid value');
         }
 
+        if (is_bool($value) && empty($block->getFieldType())) {
+            return null;
+        }
+
         if (in_array($fieldType, self::TEXT_FIELD_TYPES, true)) {
             return $this->getTextError($block, $fieldType, $value);
         }
