@@ -26,6 +26,8 @@ class FieldValueGuard
         'textarea',
     ];
 
+    private const MAX_RANGE_VALUE_LENGTH = 32;
+
     private const BOOLEAN_FIELD_TYPES = ['checkbox', 'switch'];
 
     private const TEXT_FIELD_TYPES = ['input', 'password', 'password_repeat', 'text', 'textarea'];
@@ -80,6 +82,14 @@ class FieldValueGuard
         }
 
         if (false === (is_string($value) || is_int($value) || is_float($value)) || false === is_numeric($value)) {
+            return false;
+        }
+
+        if (is_string($value) && strlen($value) > self::MAX_RANGE_VALUE_LENGTH) {
+            return false;
+        }
+
+        if (false === is_finite((float)$value)) {
             return false;
         }
 
