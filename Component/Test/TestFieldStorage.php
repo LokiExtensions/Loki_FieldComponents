@@ -17,6 +17,7 @@ class TestFieldStorage
 {
     private const SESSION_KEY = 'loki_field_components_test';
     private const MAX_VALUE_SIZE = 4096;
+    private const ALLOW_PRODUCTION_CONFIG_PATH = 'loki_functional_tests/allow_production';
 
     public function __construct(
         private readonly Session $session,
@@ -76,7 +77,7 @@ class TestFieldStorage
         }
 
         try {
-            return true === $this->deploymentConfig->get('loki_functional_tests/allow_production');
+            return true === $this->deploymentConfig->get(self::ALLOW_PRODUCTION_CONFIG_PATH);
         } catch (Throwable) {
             return false;
         }
