@@ -113,6 +113,18 @@ class FieldRenderingTest extends TestCase
         }
     }
 
+    public function testStoredValueOfPasswordInputIsNotRendered(): void
+    {
+        $this->getTestStorage()->saveValue(self::TEST_PREFIX . 'input', 'S3cr3t!!pass');
+        $block = $this->getTestBlock('input');
+        $block->setData('input_type', 'password');
+        $html = (string)$block->toHtml();
+
+        $this->assertMatchesRegularExpression('/<input[^>]+type="password"/', $html);
+        $this->assertStringNotContainsString('S3cr3t', $html);
+        $this->assertDoesNotMatchRegularExpression('/<input[^>]+ value="/', $html);
+    }
+
     public function testPasswordRepeatField(): void
     {
         $html = $this->renderTestBlock('password_repeat');
