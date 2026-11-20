@@ -47,7 +47,21 @@ class FieldValueGuardTest extends TestCase
             'long string with max_value_length' => [['max_value_length' => 300], $long, false],
             'max_value_length 0 disables check' => [['max_value_length' => 0], $long, false],
             'max_value_length is enforced' => [['max_value_length' => 2], 'foo', true],
-            'array without field type' => [[], ['a'], true],
+            'array without field type' => [[], ['a'], false],
+            'structured array without field type' => [
+                [],
+                [
+                    'deliveryType' => 'pickup',
+                    'isPickup' => true,
+                    'numberSuffix' => null,
+                    'pickupLocation' => ['locationCode' => '123', 'street' => 'Foo', 'number' => 1],
+                ],
+                false
+            ],
+            'structured array with too long nested string' => [[], ['location' => ['name' => $long]], true],
+            'structured array with nested object' => [[], ['location' => ['name' => new \stdClass()]], true],
+            'structured array within max depth' => [[], [[[[['a']]]]], false],
+            'structured array beyond max depth' => [[], [[[[[['a']]]]]], true],
             'array for text_select' => [['field_type' => 'text_select'], ['a'], true],
             'array for unknown field type' => [['field_type' => 'foobar'], ['a'], true],
             'array allowed by multiple block flag' => [['field_type' => 'select', 'multiple' => true], ['a', 'b'], false],

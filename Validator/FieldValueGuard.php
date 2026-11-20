@@ -28,6 +28,8 @@ class FieldValueGuard
 
     private const MAX_RANGE_VALUE_LENGTH = 32;
 
+    private const MAX_STRUCTURED_ARRAY_DEPTH = 5;
+
     private const BOOLEAN_FIELD_TYPES = ['checkbox', 'switch'];
 
     private const TEXT_FIELD_TYPES = ['input', 'password', 'password_repeat', 'text', 'textarea'];
@@ -49,6 +51,10 @@ class FieldValueGuard
         $fieldType = $this->fieldTypeManager->getFieldTypeFromViewModel($viewModel);
 
         if (is_array($value)) {
+            if (empty($block->getFieldType())) {
+                return $this->getStructuredArrayError($block, $fieldType, $value);
+            }
+
             if ($this->rejectArray($block, $fieldType)) {
                 return __('Not a valid value');
             }
@@ -143,6 +149,37 @@ class FieldValueGuard
             }
 
             $error = $this->getLengthError($block, $fieldType, (string)$value);
+            if ($error !== null) {
+                return $error;
+            }
+        }
+
+        return null;
+    }
+
+    private function getStructuredArrayError(
+        AbstractBlock $block,
+        string $fieldType,
+        array $values,
+        int $depth = 1
+    ): ?Phrase {
+        if ($depth > self::MAX_STRUCTURED_ARRAY_DEPTH) {
+            return __('Not a valid value');
+        }
+
+        foreach ($values as $value) {
+            if ($value === null || is_bool($value)) {
+                continue;
+            }
+
+            if (is_array($value)) {
+                $error = $this->getStructuredArrayError($block, $fieldType, $value, $depth + 1);
+            } elseif (is_string($value) || is_int($value) || is_float($value)) {
+                $error = $this->getLengthError($block, $fieldType, (string)$value);
+            } else {
+                $error = __('Not a valid value');
+            }
+
             if ($error !== null) {
                 return $error;
             }
