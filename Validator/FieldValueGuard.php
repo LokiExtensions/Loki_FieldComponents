@@ -115,7 +115,7 @@ class FieldValueGuard
         }
 
         if (is_int($value) || is_float($value)) {
-            return $this->getLengthError($block, $fieldType, (string)$value, true);
+            return $this->getLengthError($block, $fieldType, (string)$value);
         }
 
         return __('Not a valid value');
@@ -137,13 +137,9 @@ class FieldValueGuard
         return null;
     }
 
-    private function getLengthError(
-        AbstractBlock $block,
-        string $fieldType,
-        string $value,
-        bool $includeExplicitMaxLength = false
-    ): ?Phrase {
-        $maxLength = $this->getMaxLength($block, $fieldType, $includeExplicitMaxLength);
+    private function getLengthError(AbstractBlock $block, string $fieldType, string $value): ?Phrase
+    {
+        $maxLength = $this->getMaxLength($block, $fieldType);
         if ($maxLength > 0 && mb_strlen($value) > $maxLength) {
             return __('Value should have no more than %1 characters', $maxLength);
         }
@@ -171,7 +167,7 @@ class FieldValueGuard
         return in_array($value, [true, false, null, 0, 1, '0', '1', ''], true);
     }
 
-    private function getMaxLength(AbstractBlock $block, string $fieldType, bool $includeExplicitMaxLength): int
+    private function getMaxLength(AbstractBlock $block, string $fieldType): int
     {
         if ($block->hasData('max_value_length')) {
             return (int)$block->getData('max_value_length');
@@ -179,8 +175,7 @@ class FieldValueGuard
 
         $explicitMaxLength = $this->getExplicitMaxLength($block);
         if ($explicitMaxLength > 0) {
-            // Explicit maxlength of strings is handled by the length validator, which skips numbers
-            return $includeExplicitMaxLength ? $explicitMaxLength : 0;
+            return $explicitMaxLength;
         }
 
         if ($fieldType === 'textarea') {

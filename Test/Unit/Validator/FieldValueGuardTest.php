@@ -76,6 +76,15 @@ class FieldValueGuardTest extends TestCase
             'range above max attribute' => [['field_type' => 'range', 'field_attributes' => ['max' => 10]], 11, true],
             'range below zero min' => [['field_type' => 'range', 'min' => 0], -1, true],
             'long integer value with maxlength attribute' => [['field_attributes' => ['maxlength' => 3]], 12345, true],
+            'string above maxlength' => [['maxlength' => 3], 'abcd', true],
+            'string above maxlength attribute' => [['field_attributes' => ['maxlength' => 3]], 'abcd', true],
+            'string within maxlength attribute' => [['field_attributes' => ['maxlength' => 3]], 'abc', false],
+            'string above maxlength for select' => [['field_type' => 'select', 'maxlength' => 3], 'abcd', true],
+            'array element above maxlength' => [
+                ['field_type' => 'select', 'multiple' => true, 'maxlength' => 3],
+                ['a', 'abcd'],
+                true
+            ],
         ];
     }
 
