@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.51] - 20 November 2026
+### Fixed
+## [2.2.51] - 20 November 2026
+### Fixed
+- Do not render values of secret/password fields (input value and `value` attribute)
+- Reject unsafe field attributes (event handlers, `x-html`, `srcdoc`, `innerHTML`/`outerHTML`)
+- Escape attribute values with `escapeHtmlAttr` and mark static attribute echoes with `@noEscape`
+- Disallow `span` tags in checkbox labels and input prefixes
+- Only accept scalar text values and scalar array elements in `FieldValueGuard`
+- Resolve field type via `FieldTypeManager` in `FieldValueGuard`
+- Validate range values as finite numbers within bounds and of limited length
+- Add length validator for `minlength`/`maxlength` and always enforce explicit `maxlength`
+- Validate boolean option values and require `allow_zero_placeholder` for `'0'`
+- Enforce the required number of password character classes
+- Register validator plugin only in `frontend` and `adminhtml` areas
+
 ## [2.2.50] - 16 November 2026
 ### Fixed
 - Keep the ID of a textarea field when its container gets an ID
