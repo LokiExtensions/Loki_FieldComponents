@@ -37,10 +37,30 @@ class PasswordComplexityValidator implements ValidatorInterface
             $errors[] = (string)__('Your password needs to contain at least %1 non-alphanumeric characters.', $minOther);
         }
 
+        $requiredClasses = $this->passwordComplexity->getRequiredCharacterClasses();
+        if ($this->countCharacterClasses($value) < $requiredClasses) {
+            $errors[] = (string)__(
+                'Your password needs to contain at least %1 different classes of characters: lower case, upper case, digits, special characters.',
+                $requiredClasses
+            );
+        }
+
         if (!empty($errors)) {
             return $errors;
         }
 
         return true;
+    }
+
+    private function countCharacterClasses(string $value): int
+    {
+        $count = 0;
+        foreach (['/[a-z]/', '/[A-Z]/', '/[0-9]/', '/[^a-zA-Z0-9]/u'] as $pattern) {
+            if (preg_match($pattern, $value) === 1) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }

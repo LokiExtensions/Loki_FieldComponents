@@ -9,6 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 class PasswordComplexity implements ArgumentInterface
 {
     public const XML_PATH_MINIMUM_PASSWORD_LENGTH = 'customer/password/minimum_password_length';
+    public const XML_PATH_REQUIRED_CHARACTER_CLASSES = 'customer/password/required_character_classes_number';
 
     public function __construct(
         private int $minimum = 8,
@@ -40,5 +41,17 @@ class PasswordComplexity implements ArgumentInterface
     public function getMinimumOther(): int
     {
         return $this->minimumOther;
+    }
+
+    public function getRequiredCharacterClasses(): int
+    {
+        if (false === $this->scopeConfig instanceof ScopeConfigInterface) {
+            return 0;
+        }
+
+        return (int)$this->scopeConfig->getValue(
+            self::XML_PATH_REQUIRED_CHARACTER_CLASSES,
+            ScopeInterface::SCOPE_STORE
+        );
     }
 }

@@ -4,6 +4,7 @@ namespace Loki\Field\Test\Unit\Validator\Component;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Loki\Field\Validator\PasswordComplexityValidator;
 use Loki\Field\ViewModel\PasswordComplexity;
 
@@ -98,5 +99,45 @@ class PasswordComplexityValidatorTest extends TestCase
     {
         $validator = new PasswordComplexityValidator(new PasswordComplexity(1, 0, 2));
         $this->assertTrue($validator->validate('aé€'));
+    }
+
+    #[DataProvider('getCharacterClassValues')]
+    public function testRequiredCharacterClasses(int $requiredClasses, string $password, bool $expectValid): void
+    {
+        $scopeConfig = $this->createMock(ScopeConfigInterface::class);
+        $scopeConfig->method('getValue')->willReturnMap([
+            ['customer/password/minimum_password_length', 'store', null, '1'],
+            ['customer/password/required_character_classes_number', 'store', null, (string)$requiredClasses],
+        ]);
+
+        $validator = new PasswordComplexityValidator(new PasswordComplexity(1, 0, 0, $scopeConfig));
+        $result = $validator->validate($password);
+
+        if ($expectValid) {
+            $this->assertTrue($result, var_export($result, true));
+            return;
+        }
+
+        $this->assertIsArray($result);
+        $this->assertContains(
+            'Your password needs to contain at least ' . $requiredClasses
+            . ' different classes of characters: lower case, upper case, digits, special characters.',
+            $result
+        );
+    }
+
+    public static function getCharacterClassValues(): array
+    {
+        return [
+            'no classes required' => [0, 'abcdef', true],
+            'one class of two' => [2, 'abcdef', false],
+            'lower and digits' => [2, 'abc123', true],
+            'lower and digits of three' => [3, 'abc123', false],
+            'lower, upper and digits' => [3, 'abCD12', true],
+            'lower, digits and special' => [3, 'ab12!@', true],
+            'multibyte counts as special' => [3, 'ab12é', true],
+            'three of four' => [4, 'abCD12', false],
+            'all four classes' => [4, 'aB1!', true],
+        ];
     }
 }

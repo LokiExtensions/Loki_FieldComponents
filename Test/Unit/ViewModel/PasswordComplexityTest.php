@@ -41,4 +41,20 @@ class PasswordComplexityTest extends TestCase
 
         $this->assertSame(8, (new PasswordComplexity(8, 2, 2, $scopeConfig))->getMinimum());
     }
+
+    public function testRequiredCharacterClassesWithoutScopeConfig(): void
+    {
+        $this->assertSame(0, (new PasswordComplexity())->getRequiredCharacterClasses());
+    }
+
+    public function testRequiredCharacterClassesFromCustomerConfig(): void
+    {
+        $scopeConfig = $this->createMock(ScopeConfigInterface::class);
+        $scopeConfig->expects($this->once())
+            ->method('getValue')
+            ->with('customer/password/required_character_classes_number', 'store')
+            ->willReturn('3');
+
+        $this->assertSame(3, (new PasswordComplexity(8, 2, 2, $scopeConfig))->getRequiredCharacterClasses());
+    }
 }

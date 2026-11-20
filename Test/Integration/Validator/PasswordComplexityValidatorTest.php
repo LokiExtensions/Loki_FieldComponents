@@ -49,6 +49,7 @@ class PasswordComplexityValidatorTest extends TestCase
         $this->assertEmpty($component->getLocalMessageRegistry()->getMessages());
     }
 
+    #[ConfigFixture('customer/password/required_character_classes_number', 0, 'store', 'default')]
     public function testPasswordComplexityCanBeConfiguredViaDi(): void
     {
         $validator = $this->getValidatorWithMinimum(10);
@@ -58,12 +59,24 @@ class PasswordComplexityValidatorTest extends TestCase
     }
 
     #[ConfigFixture('customer/password/minimum_password_length', 6, 'store', 'default')]
+    #[ConfigFixture('customer/password/required_character_classes_number', 0, 'store', 'default')]
     public function testConfiguredMinimumPasswordLengthIsTheLowerLimit(): void
     {
         $validator = $this->getValidatorWithMinimum(4);
 
         $this->assertTrue($validator->validate('abcdef'));
         $this->assertIsArray($validator->validate('abcde'));
+    }
+
+    #[ConfigFixture('customer/password/required_character_classes_number', 4, 'store', 'default')]
+    public function testConfiguredRequiredCharacterClassesAreEnforced(): void
+    {
+        $validator = $this->getValidatorWithMinimum(4);
+
+        $this->assertTrue($validator->validate('aBcd12!x'));
+        $result = $validator->validate('abCd1234');
+        $this->assertIsArray($result);
+        $this->assertStringContainsString('at least 4 different classes of characters', implode(' ', $result));
     }
 
     private function getValidatorWithMinimum(int $minimum): PasswordComplexityValidator
