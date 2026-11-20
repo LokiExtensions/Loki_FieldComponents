@@ -11,8 +11,10 @@ use Loki\Field\Validator\PasswordComplexityValidator;
 use Loki\Field\ViewModel\ImageOutput;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Interception\PluginList\PluginList;
+use Magento\Framework\ObjectManager\Config\Reader\Dom as DiConfigReader;
 use Magento\Framework\View\Element\Template\File\Resolver as TemplateFileResolver;
 use Magento\TestFramework\Fixture\AppArea;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[AppArea('frontend')]
@@ -73,6 +75,24 @@ class DiConfigurationTest extends TestCase
 
         $this->assertArrayHasKey('Loki_FieldComponents::validator', $plugins);
         $this->assertSame(ValidatorPlugin::class, $plugins['Loki_FieldComponents::validator']['instance']);
+    }
+
+    #[DataProvider('getValidatorPluginScopes')]
+    public function testValidatorPluginScope(string $scope, bool $expectRegistered): void
+    {
+        $diConfig = ObjectManager::getInstance()->get(DiConfigReader::class)->read($scope);
+        $plugins = $diConfig[Validator::class]['plugins'] ?? [];
+
+        $this->assertSame($expectRegistered, array_key_exists('Loki_FieldComponents::validator', $plugins));
+    }
+
+    public static function getValidatorPluginScopes(): array
+    {
+        return [
+            'global' => ['global', false],
+            'frontend' => ['frontend', true],
+            'adminhtml' => ['adminhtml', true],
+        ];
     }
 
     public function testDeprecatedImageOutputIsImageRenderer(): void
