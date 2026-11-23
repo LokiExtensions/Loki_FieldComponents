@@ -26,7 +26,8 @@ $optionLabel = $optionValueUtil->getLabel($option);
 $optionValue = $optionValueUtil->getValue($option, $optionIndex);
 $disabled = $optionValueUtil->isDisabled($option) || $viewModel->isDisabled();
 $selected = $optionValueUtil->isSelected($option, $optionIndex, $viewModel->getValue());
-$optionId = $viewModel->getFieldId() . '-' . preg_replace('/[^a-z0-9_-]+/', '-', strtolower($optionValue));
+$optionId = $viewModel->getFieldId() . '-' . preg_replace('/[^a-z0-9_-]+/', '-', strtolower($optionValue))
+    . '-' . hash('crc32b', $optionValue);
 ?>
 <button
     class="<?= /* @noEscape */ $css('form-button-group-option', 'option') ?>"
@@ -35,7 +36,6 @@ $optionId = $viewModel->getFieldId() . '-' . preg_replace('/[^a-z0-9_-]+/', '-',
         'role' => 'radio',
         'id' => $optionId,
         'value' => $optionValue,
-        'data-value' => $optionValue,
         'aria-label' => false,
         'aria-errormessage' => false,
         'autocomplete' => false,

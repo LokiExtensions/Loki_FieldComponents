@@ -138,11 +138,7 @@ use Magento\Framework\View\Element\Template;
         },
         submitButtonValue(event) {
             const button = event.currentTarget;
-            if (!button || button.disabled) {
-                return;
-            }
-
-            if (this.value !== null && this.value !== undefined && String(this.value) === button.value) {
+            if (this.isValueOf(button)) {
                 return;
             }
 
@@ -171,7 +167,11 @@ use Magento\Framework\View\Element\Template;
             });
         },
         onButtonGroupFocusout(event) {
-            if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
+            if (event.relatedTarget && event.currentTarget.contains(event.relatedTarget)) {
+                return;
+            }
+
+            if (event.relatedTarget || event.target.isConnected) {
                 delete this.$root.lokiFocusedButtonId;
             }
         },
@@ -184,11 +184,11 @@ use Magento\Framework\View\Element\Template;
             return Array.from(group.querySelectorAll('button[role="radio"]'));
         },
         getButtonTabIndex() {
-            if (this.$el.disabled) {
+            if (this.$el.matches(':disabled')) {
                 return -1;
             }
 
-            const enabledButtons = this.getButtonGroupButtons(this.$el).filter(button => !button.disabled);
+            const enabledButtons = this.getButtonGroupButtons(this.$el).filter(button => !button.matches(':disabled'));
             const checkedButton = enabledButtons.find(button => this.isValueOf(button));
             if (checkedButton) {
                 return checkedButton === this.$el ? 0 : -1;
@@ -205,11 +205,11 @@ use Magento\Framework\View\Element\Template;
         },
         onButtonGroupKeydown(event) {
             const keys = ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'];
-            if (!keys.includes(event.key)) {
+            if (!keys.includes(event.key) || event.altKey || event.ctrlKey || event.metaKey) {
                 return;
             }
 
-            const buttons = this.getButtonGroupButtons(event.target).filter(button => !button.disabled);
+            const buttons = this.getButtonGroupButtons(event.target).filter(button => !button.matches(':disabled'));
             if (buttons.length === 0) {
                 return;
             }
