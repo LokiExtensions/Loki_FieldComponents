@@ -10,7 +10,7 @@ interface OptionModelInterface
     /**
      * @param ComponentViewModelInterface $viewModel
      *
-     * @return string[]|OptionInterface[]
+     * @return array<int|string, string|OptionInterface|OptionGroupInterface>
      */
     public function getOptions(ComponentViewModelInterface $viewModel): array;
 }
