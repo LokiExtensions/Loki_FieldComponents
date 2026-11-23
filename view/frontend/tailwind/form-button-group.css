@@ -1,6 +1,6 @@
 @layer components {
     .form-button-group-option {
-        @apply inline-flex items-center justify-center px-4 py-2 rounded border border-gray-400 bg-white text-gray-900;
+        @apply inline-flex items-center justify-center px-4 py-2 rounded border border-gray-500 bg-white text-gray-900;
         min-height: 2.5rem;
 
         &:not(:disabled) {
@@ -12,15 +12,23 @@
         }
 
         &:focus-visible {
-            @apply outline-none ring-2 ring-offset-2 ring-primary;
+            outline: 2px solid var(--color-primary, currentColor);
+            outline-offset: 2px;
         }
 
         &[aria-checked="true"] {
-            @apply bg-primary border-primary text-white;
+            @apply bg-primary border-primary text-white font-semibold;
         }
 
         &:disabled {
             @apply bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed;
+        }
+
+        @media (forced-colors: active) {
+            &[aria-checked="true"] {
+                outline: 3px solid Highlight;
+                outline-offset: 2px;
+            }
         }
     }
 }
