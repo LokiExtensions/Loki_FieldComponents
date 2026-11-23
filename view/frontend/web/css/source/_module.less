@@ -6,4 +6,61 @@
             }
         }
     }
+
+    .form-button-group {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 8px 0;
+
+        fieldset {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        button.form-button-group-option {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 8px 16px;
+            border: 1px solid #adadad;
+            border-radius: 3px;
+            background: #ffffff;
+            box-shadow: none;
+            color: #333333;
+            font-weight: 400;
+            cursor: pointer;
+
+            &:hover {
+                border-color: #1979c3;
+                background: #ffffff;
+                color: #333333;
+            }
+
+            &:focus-visible {
+                outline: 2px solid #1979c3;
+                outline-offset: 2px;
+            }
+
+            &[aria-checked="true"] {
+                border-color: #1979c3;
+                background: #1979c3;
+                color: #ffffff;
+            }
+
+            &:disabled {
+                border-color: #d1d1d1;
+                background: #f5f5f5;
+                color: #8f8f8f;
+                cursor: not-allowed;
+                opacity: 1;
+            }
+        }
+    }
 }
