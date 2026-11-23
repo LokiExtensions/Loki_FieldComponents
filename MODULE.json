@@ -23,6 +23,8 @@
         "Yireo_CspUtilities"
     ],
     "components": [
+        "loki-field-components.test.button_group",
+        "loki-field-components.test.button_group_grouped",
         "loki-field-components.test.checkbox",
         "loki-field-components.test.checkbox_required",
         "loki-field-components.test.combobox",
@@ -47,9 +49,9 @@
         }
     ],
     "tests": {
-        "unit": 133,
-        "integration": 66,
-        "functional": 28
+        "unit": 135,
+        "integration": 70,
+        "functional": 34
     },
     "phpcs_severity": "7",
     "phpstan_level": "5",
