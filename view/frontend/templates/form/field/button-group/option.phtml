@@ -1,0 +1,59 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Component\ComponentViewModelInterface;
+use Loki\Components\Factory\ViewModelFactory;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Field\Util\OptionValue;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @version 2.2.53 */
+/** @var ComponentViewModelInterface $viewModel */
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var FieldViewModel $viewModel */
+/** @var CssClass $css */
+/** @var ViewModelFactory $viewModelFactory */
+/** @var OptionValue $optionValueUtil */
+
+$optionValueUtil = $viewModelFactory->create(OptionValue::class);
+$viewModel = $block->getViewModel();
+$option = $block->getOption();
+$optionIndex = $block->getOptionIndex() ?? '';
+$optionLabel = $optionValueUtil->getLabel($option);
+$optionValue = $optionValueUtil->getValue($option, $optionIndex);
+$disabled = $optionValueUtil->isDisabled($option) || $viewModel->isDisabled();
+$selected = $optionValueUtil->isSelected($option, $optionIndex, $viewModel->getValue());
+$optionId = $viewModel->getFieldId() . '-' . preg_replace('/[^a-z0-9_-]+/', '-', strtolower($optionValue));
+?>
+<button
+    class="<?= /* @noEscape */ $css('form-button-group-option', 'option') ?>"
+    <?= /* @noEscape */ $viewModel->getFieldAttributesAsString([
+        'type' => 'button',
+        'role' => 'radio',
+        'id' => $optionId,
+        'value' => $optionValue,
+        'data-value' => $optionValue,
+        'aria-label' => false,
+        'aria-errormessage' => false,
+        'autocomplete' => false,
+        'placeholder' => false,
+        'required' => false,
+        'data-type' => false,
+        'x-ref' => false,
+        ':aria-invalid' => false,
+        ':data-valid' => false,
+        'aria-checked' => $selected ? 'true' : 'false',
+        ':aria-checked' => 'isChecked',
+        ':tabindex' => 'getButtonTabIndex',
+        'disabled' => $disabled,
+        ':disabled' => $optionValueUtil->isDisabled($option) ? 'true' : 'disabled',
+        '@click' => 'submitButtonValue',
+    ]) ?>
+>
+    <span class="<?= /* @noEscape */ $css('', 'label') ?>">
+        <?= $escaper->escapeHtml(__($optionLabel)) ?>
+    </span>
+</button>

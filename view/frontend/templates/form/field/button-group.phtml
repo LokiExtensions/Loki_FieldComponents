@@ -1,0 +1,75 @@
+<?php
+declare(strict_types=1);
+
+use Loki\Components\Util\Block\TemplateRenderer;
+use Loki\Field\Component\Base\Field\FieldViewModel;
+use Loki\Field\Util\OptionGroupInterface;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Loki\CssUtils\Util\CssClass;
+use Loki\Field\Util\OptionModelInterface;
+use Loki\Components\Component\ComponentViewModelInterface;
+
+/** @version 2.2.53 */
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ComponentViewModelInterface $viewModel */
+/** @var FieldViewModel $viewModel */
+/** @var TemplateRenderer $templateRenderer */
+/** @var CssClass $css */
+
+$viewModel = $block->getViewModel();
+$optionModel = $viewModel->getOptionModel();
+if (false === $optionModel instanceof OptionModelInterface) {
+    echo $escaper->escapeHtml(__('No options found'));
+    return;
+}
+
+?>
+<div
+    id="<?= $escaper->escapeHtmlAttr($viewModel->getFieldId()) ?>"
+    class="<?= /* @noEscape */ $css('form-button-group inline-flex flex-wrap gap-2 py-2', 'button-group') ?>"
+    role="radiogroup"
+    aria-label="<?= $escaper->escapeHtmlAttr(__($viewModel->getFieldLabel())) ?>"
+    aria-errormessage="<?= $escaper->escapeHtmlAttr($viewModel->getElementId() . '-messages') ?>"
+    <?= /* @noEscape */ $viewModel->isRequired() ? 'aria-required="true"' : '' ?>
+    <?= /* @noEscape */ $viewModel->isDisabled() ? 'aria-disabled="true"' : '' ?>
+    x-ref="field"
+    :aria-invalid="isAriaInvalid"
+    :data-valid="isValid"
+    data-type="field"
+    @keydown="onButtonGroupKeydown"
+    @focusout="onButtonGroupFocusout"
+>
+    <?php foreach ($optionModel->getOptions($viewModel) as $optionIndex => $option): ?>
+        <?php if ($option instanceof OptionGroupInterface): ?>
+        <fieldset
+            class="<?= /* @noEscape */ $css('inline-flex flex-wrap items-center gap-2', 'option-group') ?>"
+            <?= /* @noEscape */ $option->isDisabled() ? 'disabled' : '' ?>
+        >
+            <legend class="<?= /* @noEscape */ $css('', 'option-group-label') ?>">
+                <?= $escaper->escapeHtml(__($option->getLabel())) ?>
+            </legend>
+            <?php foreach ((array)(method_exists($option, 'getOptions') ? $option->getOptions() : []) as $subOptionIndex => $subOption): ?>
+                <?= /* @noEscape */ $templateRenderer->html(
+                    $block,
+                    'Loki_FieldComponents::form/field/button-group/option.phtml',
+                    [
+                        'option_index' => $subOptionIndex,
+                        'option' => $subOption,
+                    ]
+                ) ?>
+            <?php endforeach; ?>
+        </fieldset>
+        <?php else: ?>
+        <?= /* @noEscape */ $templateRenderer->html(
+            $block,
+            'Loki_FieldComponents::form/field/button-group/option.phtml',
+            [
+                'option' => $option,
+                'option_index' => $optionIndex,
+            ]
+        ) ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>

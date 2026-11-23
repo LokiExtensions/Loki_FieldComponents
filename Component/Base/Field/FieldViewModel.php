@@ -348,7 +348,7 @@ class FieldViewModel extends ComponentViewModel implements FieldViewModelInterfa
     public function useLabelTagForLabel(AbstractBlock $block): bool
     {
         $fieldTypeManager = ObjectManager::getInstance()->get(FieldTypeManager::class);
-        if (in_array($fieldTypeManager->getFieldTypeFromViewModel($this), ['radio'])) {
+        if (in_array($fieldTypeManager->getFieldTypeFromViewModel($this), ['button_group', 'radio'], true)) {
             return false;
         }
 

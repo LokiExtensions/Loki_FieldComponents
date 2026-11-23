@@ -13,6 +13,7 @@ class FieldValueGuard
     public const DEFAULT_TEXTAREA_MAX_LENGTH = 65535;
 
     private const SINGLE_VALUE_FIELD_TYPES = [
+        'button_group',
         'checkbox',
         'combobox',
         'input',

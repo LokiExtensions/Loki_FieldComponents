@@ -13,6 +13,7 @@
     <type name="Loki\Field\Field\FieldTypeManager">
         <arguments>
             <argument name="fieldTypes" xsi:type="array">
+                <item name="button_group" xsi:type="string">Loki_FieldComponents::form/field/button-group.phtml</item>
                 <item name="checkbox" xsi:type="string">Loki_FieldComponents::form/field/checkbox.phtml</item>
                 <item name="combobox" xsi:type="string">Loki_FieldComponents::form/field/combobox.phtml</item>
                 <item name="input" xsi:type="string">Loki_FieldComponents::form/field/input.phtml</item>
