@@ -23,6 +23,7 @@
     <component name="loki-field-components.test.switch" group="loki-field-components-test"/>
     <component name="loki-field-components.test.radio" group="loki-field-components-test"/>
     <component name="loki-field-components.test.button_group" group="loki-field-components-test"/>
+    <component name="loki-field-components.test.button_group_grouped" group="loki-field-components-test"/>
     <component name="loki-field-components.test.combobox" group="loki-field-components-test"/>
     <component name="loki-field-components.test.disabled" group="loki-field-components-test"/>
     <component name="loki-field-components.test.masked" group="loki-field-components-test"/>

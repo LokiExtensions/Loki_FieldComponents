@@ -68,6 +68,36 @@ for (const theme of THEMES) {
             await expect(radio('Green')).toHaveAttribute('tabindex', '-1');
         });
 
+        test('skips options of disabled option groups', async ({page}) => {
+            const field = new TestField(page, 'button_group_grouped');
+            const group = field.root().getByRole('radiogroup', {name: 'Test grouped button group'});
+            const radio = (name: string) => group.getByRole('radio', {name});
+
+            await expect(radio('Black')).toBeDisabled();
+            await expect(radio('Grey')).toBeDisabled();
+            await expect(radio('Yellow')).toHaveAttribute('aria-checked', 'true');
+            await expect(group.locator('[role="radio"][tabindex="0"]')).toHaveCount(1);
+            await expect(radio('Yellow')).toHaveAttribute('tabindex', '0');
+            await expect(radio('Black')).toHaveAttribute('tabindex', '-1');
+
+            await radio('Yellow').focus();
+
+            let requestPromise = field.waitForUpdate();
+            let responsePromise = page.waitForResponse(response => response.url().includes(HTML_ENDPOINT));
+            await page.keyboard.press('ArrowRight');
+            expect(await field.getPostedValue(await requestPromise)).toBe('white');
+            await responsePromise;
+            await expect(radio('White')).toBeFocused();
+
+            requestPromise = field.waitForUpdate();
+            responsePromise = page.waitForResponse(response => response.url().includes(HTML_ENDPOINT));
+            await page.keyboard.press('ArrowRight');
+            expect(await field.getPostedValue(await requestPromise)).toBe('yellow');
+            await responsePromise;
+            await expect(radio('Yellow')).toBeFocused();
+            await expect(group.locator('[role="radio"][tabindex="0"]')).toHaveCount(1);
+        });
+
         test('does not select a disabled option', async ({page}) => {
             const field = new TestField(page, 'button_group');
             const group = field.root().getByRole('radiogroup');

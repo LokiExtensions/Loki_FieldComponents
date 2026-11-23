@@ -126,6 +126,15 @@
                 </arguments>
             </block>
 
+            <block name="loki-field-components.test.button_group_grouped"
+                   template="Loki_FieldComponents::form/field.phtml" cacheable="false">
+                <arguments>
+                    <argument name="field_type" xsi:type="string">button_group</argument>
+                    <argument name="field_label" xsi:type="string">Test grouped button group</argument>
+                    <argument name="option_model" xsi:type="object">Loki\Field\Component\Test\TestOptionGroupModel</argument>
+                </arguments>
+            </block>
+
             <block name="loki-field-components.test.combobox"
                    template="Loki_FieldComponents::form/field.phtml" cacheable="false">
                 <arguments>

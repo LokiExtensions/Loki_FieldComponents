@@ -250,7 +250,7 @@ class FieldRenderingTest extends TestCase
         );
         $this->assertStringContainsString('@keydown="onButtonGroupKeydown"', $html);
         $this->assertSame(4, preg_match_all('/<button[^>]+type="button"[^>]+role="radio"/', $html));
-        $this->assertStringContainsString('id="loki-field-components-test-button-group-field-red"', $html);
+        $this->assertMatchesRegularExpression('/id="loki-field-components-test-button-group-field-red-[0-9a-f]{8}"/', $html);
         $this->assertMatchesRegularExpression('/<button[^>]+value="red"[^>]+aria-checked="true"/', $html);
         $this->assertMatchesRegularExpression('/<button[^>]+value="green"[^>]+aria-checked="false"/', $html);
         $this->assertMatchesRegularExpression('/<button[^>]+ disabled [^>]*value="black"/', $html);
@@ -275,6 +275,22 @@ class FieldRenderingTest extends TestCase
         $this->assertMatchesRegularExpression('/<button[^>]+value="black"/', $html);
     }
 
+    public function testButtonGroupOptionIdsAreUnique(): void
+    {
+        $block = $this->getTestBlock('button_group');
+        $block->setData('option_model', $this->getOptionModel([
+            new Option('Red', 'Red'),
+            new Option('red', 'red'),
+            new Option('a b', 'A B'),
+            new Option('a-b', 'A-B'),
+        ]));
+        $html = (string)$block->toHtml();
+
+        preg_match_all('/<button[^>]+id="([^"]+)"/', $html, $matches);
+        $this->assertCount(4, $matches[1]);
+        $this->assertCount(4, array_unique($matches[1]));
+    }
+
     public function testButtonGroupFieldEscapesOptions(): void
     {
         $maliciousValue = '"><img src=x onerror=alert(1)>\'';
@@ -294,6 +310,7 @@ class FieldRenderingTest extends TestCase
             $html
         );
         $this->assertMatchesRegularExpression('/id="loki-field-components-test-button-group-field-[a-z0-9_-]+"/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<button[^>]+aria-label=/', $html);
         $this->assertDoesNotMatchRegularExpression('/(@click|:aria-checked|:tabindex)="[^"]*alert/', $html);
     }
 
