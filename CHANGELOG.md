@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.54] - 23 November 2026
+### Fixed
+- Document option groups in OptionModelInterface::getOptions() return type
+- Cover button group option groups and unique option IDs
+- Improve button group contrast and forced-colors support
+- Skip options of disabled groups in button group keyboard navigation
+- Add Playwright tests for the button group
+- Cover button_group field type in unit and integration tests
+- Add button group styles for Hyva and Luma
+- Pending changes
+
+### Added
+- Add button group to the field components test page
+- Add button_group field type
+
 ## [2.2.53] - 20 November 2026
 ### Fixed
 - Validate structured array values of components without a field type recursively
