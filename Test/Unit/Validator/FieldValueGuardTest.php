@@ -14,6 +14,7 @@ class FieldValueGuardTest extends TestCase
     use BlockMock;
 
     private const FIELD_TYPES = [
+        'button_group',
         'checkbox',
         'combobox',
         'input',
@@ -68,6 +69,14 @@ class FieldValueGuardTest extends TestCase
             'array with too long element' => [['field_type' => 'select', 'multiple' => true], ['a', $long], true],
             'array for single select' => [['field_type' => 'select'], ['a'], true],
             'array for multiple select' => [['field_type' => 'select', 'field_attributes' => ['multiple' => true]], ['a'], false],
+            'array for button group' => [['field_type' => 'button_group'], ['red', 'green'], true],
+            'button group string' => [['field_type' => 'button_group'], 'red', false],
+            'button group long string' => [['field_type' => 'button_group'], $long, true],
+            'array for button group allowed by block' => [
+                ['field_type' => 'button_group', 'allow_array_value' => true],
+                ['red'],
+                false
+            ],
             'array allowed by block' => [['field_type' => 'input', 'allow_array_value' => true], ['a'], false],
             'checkbox true' => [['field_type' => 'checkbox'], true, false],
             'checkbox string 1' => [['field_type' => 'switch'], '1', false],

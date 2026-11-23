@@ -2,7 +2,11 @@
 
 namespace Loki\Field\Test\Integration\Template;
 
+use Loki\Components\Component\ComponentViewModelInterface;
 use Loki\Field\Test\Integration\Traits\TestPage;
+use Loki\Field\Util\Option;
+use Loki\Field\Util\OptionGroup;
+use Loki\Field\Util\OptionModelInterface;
 use Magento\TestFramework\Fixture\AppArea;
 use Magento\TestFramework\Fixture\AppIsolation;
 use Magento\TestFramework\Fixture\Config as ConfigFixture;
@@ -232,6 +236,67 @@ class FieldRenderingTest extends TestCase
         $this->assertMatchesRegularExpression('/<input[^>]+ disabled[^>]+value="black"/', $html);
     }
 
+    public function testButtonGroupField(): void
+    {
+        $html = $this->renderTestBlock('button_group');
+
+        $this->assertStringContainsString('field-type-button_group', $html);
+        $this->assertStringNotContainsString('for="loki-field-components-test-button-group-field"', $html);
+        $this->assertMatchesRegularExpression('/<span[^>]*>\s*Test button group/', $html);
+        $this->assertMatchesRegularExpression(
+            '/<div\s+id="loki-field-components-test-button-group-field"[^>]+role="radiogroup"'
+            . '[^>]+aria-label="Test&#x20;button&#x20;group"/',
+            $html
+        );
+        $this->assertStringContainsString('@keydown="onButtonGroupKeydown"', $html);
+        $this->assertSame(4, preg_match_all('/<button[^>]+type="button"[^>]+role="radio"/', $html));
+        $this->assertStringContainsString('id="loki-field-components-test-button-group-field-red"', $html);
+        $this->assertMatchesRegularExpression('/<button[^>]+value="red"[^>]+aria-checked="true"/', $html);
+        $this->assertMatchesRegularExpression('/<button[^>]+value="green"[^>]+aria-checked="false"/', $html);
+        $this->assertMatchesRegularExpression('/<button[^>]+ disabled [^>]*value="black"/', $html);
+        $this->assertStringContainsString(':aria-checked="isChecked"', $html);
+        $this->assertStringContainsString(':tabindex="getButtonTabIndex"', $html);
+        $this->assertStringContainsString('@click="submitButtonValue"', $html);
+        $this->assertDoesNotMatchRegularExpression('/<button[^>]+aria-label=/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<button[^>]+ required[ >]/', $html);
+        $this->assertSame('red', $this->getTestStorage()->getValue('loki-field-components.test.button_group'));
+    }
+
+    public function testButtonGroupFieldWithOptionGroup(): void
+    {
+        $block = $this->getTestBlock('button_group');
+        $block->setData('option_model', $this->getOptionModel([
+            new Option('red', 'Red'),
+            new OptionGroup('Dark colors', [new Option('black', 'Black')], true),
+        ]));
+        $html = (string)$block->toHtml();
+
+        $this->assertMatchesRegularExpression('/<fieldset[^>]+disabled\s*>\s*<legend[^>]*>\s*Dark colors/', $html);
+        $this->assertMatchesRegularExpression('/<button[^>]+value="black"/', $html);
+    }
+
+    public function testButtonGroupFieldEscapesOptions(): void
+    {
+        $maliciousValue = '"><img src=x onerror=alert(1)>\'';
+        $maliciousLabel = '<script>alert("label")</script>';
+        $block = $this->getTestBlock('button_group');
+        $block->setData('option_model', $this->getOptionModel([
+            new Option($maliciousValue, $maliciousLabel),
+        ]));
+        $this->getTestStorage()->saveValue('loki-field-components.test.button_group', $maliciousValue);
+        $html = (string)$block->toHtml();
+
+        $this->assertStringNotContainsString('<img', $html);
+        $this->assertStringNotContainsString('<script>alert', $html);
+        $this->assertStringContainsString('&lt;script&gt;alert(&quot;label&quot;)&lt;/script&gt;', $html);
+        $this->assertStringContainsString(
+            'value="&quot;&gt;&lt;img&#x20;src&#x3D;x&#x20;onerror&#x3D;alert&#x28;1&#x29;&gt;&#x27;"',
+            $html
+        );
+        $this->assertMatchesRegularExpression('/id="loki-field-components-test-button-group-field-[a-z0-9_-]+"/', $html);
+        $this->assertDoesNotMatchRegularExpression('/(@click|:aria-checked|:tabindex)="[^"]*alert/', $html);
+    }
+
     public function testComboboxField(): void
     {
         $html = $this->renderTestBlock('combobox');
@@ -258,5 +323,19 @@ class FieldRenderingTest extends TestCase
     public function testMaskedField(): void
     {
         $this->assertStringContainsString('x-mask="9999&#x20;aa"', $this->renderTestBlock('masked'));
+    }
+
+    private function getOptionModel(array $options): OptionModelInterface
+    {
+        return new class($options) implements OptionModelInterface {
+            public function __construct(private readonly array $options)
+            {
+            }
+
+            public function getOptions(ComponentViewModelInterface $viewModel): array
+            {
+                return $this->options;
+            }
+        };
     }
 }

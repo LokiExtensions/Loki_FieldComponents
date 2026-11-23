@@ -17,6 +17,7 @@ class FieldTypeManagerTest extends TestCase
         'text' => 'input.phtml',
         'select' => 'select.phtml',
         'radio' => 'radio.phtml',
+        'button_group' => 'button-group.phtml',
     ];
 
     public function testDefaultFieldType(): void
@@ -53,6 +54,15 @@ class FieldTypeManagerTest extends TestCase
     {
         $viewModel = $this->getViewModel(['field_type' => 'radio']);
         $this->assertSame('radio', $this->getFieldTypeManager()->getFieldTypeFromViewModel($viewModel));
+    }
+
+    public function testButtonGroupFieldType(): void
+    {
+        $viewModel = $this->getViewModel(['field_type' => 'button_group']);
+        $fieldTypeManager = $this->getFieldTypeManager();
+        $this->assertSame('button_group', $fieldTypeManager->getFieldTypeFromViewModel($viewModel));
+        $this->assertSame('button-group.phtml', $fieldTypeManager->getFieldTemplateFromViewModel($viewModel));
+        $this->assertTrue($fieldTypeManager->showLabel($viewModel));
     }
 
     public function testFieldTypeWithoutBlockIsInput(): void

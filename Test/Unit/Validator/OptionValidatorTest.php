@@ -91,6 +91,21 @@ class OptionValidatorTest extends TestCase
         return [['checkbox'], ['switch']];
     }
 
+    public function testButtonGroupOnlyAcceptsEnabledOptions(): void
+    {
+        $validator = new OptionValidator(new OptionValue());
+        $component = $this->getComponent(
+            [new Option('red', 'Red'), new Option('black', 'Black', true)],
+            ['field_type' => 'button_group']
+        );
+
+        $this->assertTrue($validator->validate('red', $component));
+        $this->assertNotTrue($validator->validate('black', $component));
+        $this->assertNotTrue($validator->validate('"><script>alert(1)</script>', $component));
+        $this->assertNotTrue($validator->validate(true, $component));
+        $this->assertNotTrue($validator->validate(['red'], $component));
+    }
+
     public function testScalarOptionsUseTheirIndexAsValue(): void
     {
         $validator = new OptionValidator(new OptionValue());
